@@ -1,0 +1,122 @@
+/* ===== LAYOUT ===== */
+.form-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding-top: 80px; /* space for top logo */
+}
+
+/* ===== LOGO TOP RIGHT ===== */
+.logo-container {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.logo {
+  font-size: 32px; /* same as register */
+  font-weight: 700;
+  color: #0b9444;
+}
+
+/* ===== CONTAINER ===== */
+.form-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 30px;
+}
+
+/* ===== TITLE ===== */
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ===== SUBTEXT ===== */
+.sub-text {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 25px;
+}
+
+/* ===== FULL WIDTH INPUT ===== */
+.form-group {
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+/* ===== PASSWORD ===== */
+.password-box {
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* ===== BUTTON ===== */
+.register-btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 8px;
+  background: #0b9444;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.register-btn:hover {
+  background: #087638;
+}
+
+/* ===== VALIDATION ===== */
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid.ng-touched {
+  border-color: #0b9444;
+}
+
+/* ================================= */
+/* 📱 MOBILE */
+/* ================================= */
+@media (max-width: 768px) {
+  .form-section {
+    padding-top: 70px;
+  }
+
+  .logo-container {
+    right: 20px;
+    top: 15px;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .sub-text {
+    font-size: 14px;
+  }
+}

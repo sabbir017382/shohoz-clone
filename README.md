@@ -25,3 +25,90 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## -------------Project Structure & setup --------------------##
+
+## Creating shohoz-clone project
+
+ng new shohoz-clone --routing
+
+## install and setup Bootstrap@4
+
+npm install --save boostrap@4
+
+## install and create a mode json server
+
+npm install -g json-server@0.17.3 its for istall
+json-server --watch db.json --port 8000 its for run
+
+## create core module
+
+ng g m core
+
+## create auth guard inside core module
+
+ng g g core/guards/auth
+
+## create auth interceptor inside code module
+
+ng interceptor core/interceptors/auth
+
+## create service inside the core module
+
+ng g s core/services
+
+## create auth service inside service
+
+ng g s core/services/auth
+
+## create user service inside service
+
+ng g s core/services/user
+
+## create features module
+
+ng g m features
+
+## create auth module for login and registration inside feature
+
+ng g m features/auth
+
+## create login component inside auth
+
+ng g c features/auth/login
+
+## create register component inside auth
+
+ng g c features/auth/register
+
+## create vehical module incide features
+
+ng g m features/vehicle
+
+## create bus component inside vehicle
+
+ng g c /features/vehicle/bus
+
+## create air component inside vehicle
+
+ng g c /features/vehicle/air
+
+## create shared module for share component header/footer/layout
+
+ng g m shared
+
+## create header component inside shared module
+
+ng g c shared/header
+
+## create footer component inside shared module
+
+ng g c shared/footer
+
+## create layout component inside shared module
+
+ng g c shared/layout
+
+## create a model interface for user
+
+ng g interface/models/user

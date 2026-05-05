@@ -1,0 +1,219 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero-section {
+  height: 340px;
+  background: url("/assets/images/bus-hero.jpg") no-repeat center;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* overlay for better readability */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+.search-box {
+  position: relative;
+  z-index: 2;
+  margin-top: 60px;
+  padding: 30px 25px;
+  background: #fff;
+  border-radius: 50px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.search-box:hover {
+  transform: translateY(-3px);
+}
+
+/* =========================
+   FORM LAYOUT
+========================= */
+.form-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* make columns flexible */
+.col-md-2,
+.col-md-3 {
+  flex: 1;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.custom-input {
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 0 14px;
+  font-size: 14px;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.custom-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.15);
+  outline: none;
+}
+
+/* =========================
+   LABEL
+========================= */
+.form-label {
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.btn-search {
+  height: 52px;
+  border-radius: 12px;
+  font-weight: 600;
+  background: #28a745;
+  border: none;
+  width: 100%;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.btn-search:hover {
+  background-color: #0a7e36;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(10, 126, 54, 0.35);
+}
+
+/* =========================
+   SWAP ICON
+========================= */
+.swap-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.swap-icon:hover {
+  color: #28a745;
+  transform: rotate(180deg);
+}
+
+/* =========================
+   RADIO BUTTONS
+========================= */
+.form-check-label {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+/* =========================
+   DATE RANGE BOX
+========================= */
+.date-range-box {
+  display: flex;
+  height: 52px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  transition: 0.25s;
+}
+
+.date-range-box:focus-within {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.15);
+}
+
+/* each side */
+.date-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px 10px;
+  transition: 0.2s;
+}
+
+.date-half:hover {
+  background: #f9f9f9;
+}
+
+/* label */
+.date-label {
+  font-size: 11px;
+  color: #777;
+}
+
+/* input */
+.date-input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* divider */
+.divider {
+  width: 1px;
+  background: #e0e0e0;
+}
+
+/* disabled state */
+.date-input:disabled {
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .form-row {
+    flex-wrap: wrap;
+  }
+
+  .swap-icon {
+    display: none;
+  }
+
+  .search-box {
+    padding: 20px;
+  }
+}

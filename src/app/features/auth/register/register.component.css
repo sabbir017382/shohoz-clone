@@ -1,0 +1,137 @@
+/* WRAPPER */
+.register-wrapper {
+  height: 100vh;
+}
+
+/* LEFT IMAGE */
+.image-section {
+  position: relative;
+}
+
+.bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 40px 40px 0;
+}
+
+/* TEXT OVER IMAGE */
+.overlay-text {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: white;
+}
+
+.overlay-text h2 {
+  font-weight: 600;
+}
+
+.form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f6f8;
+  padding: 20px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* LOGO */
+.form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f6f8;
+  padding: 20px;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  color: #2e7d32;
+  letter-spacing: 1px;
+}
+
+/* TITLE */
+.title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* SUB TEXT */
+.sub-text {
+  color: #6c757d;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* LABEL */
+label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.req {
+  color: #0a7e36;
+}
+
+/* INPUT */
+.form-control {
+  height: 45px;
+  border-radius: 8px;
+}
+
+/* GENDER BUTTON */
+.gender-btn {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 20px;
+  background: white;
+}
+
+.active-btn {
+  background: #0a7e36;
+  color: white;
+  border-color: #0a7e36;
+}
+
+/* PASSWORD */
+.password-box {
+  position: relative;
+}
+
+.password-box .eye {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.register-btn {
+  height: 45px;
+  border-radius: 8px;
+  margin-top: 10px;
+  background: #0a7e36;
+  color: white;
+  border-color: #0a7e36;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 100%;
+  }
+}

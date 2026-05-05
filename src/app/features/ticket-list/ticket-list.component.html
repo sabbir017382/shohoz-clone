@@ -1,0 +1,335 @@
+<div class="ticket-page">
+  <!-- Hero / Search Section -->
+  <section class="hero-section d-flex align-items-center">
+    <div class="container">
+      <div class="search-box shadow-lg bg-white rounded p-4">
+        <!-- Trip Type -->
+        <div class="d-flex mb-3">
+          <div class="form-check mr-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="tripType"
+              id="oneWay"
+              [(ngModel)]="tripType"
+              (ngModelChange)="onTripTypeChange($event)"
+              value="oneWay"
+            />
+            <label class="form-check-label">One Way</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="tripType"
+              id="roundWay"
+              [(ngModel)]="tripType"
+              (ngModelChange)="onTripTypeChange($event)"
+              value="roundWay"
+            />
+            <label class="form-check-label">Round Way</label>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form>
+          <div class="form-row align-items-center">
+            <!-- From -->
+            <div class="col-md-3 mb-2">
+              <label class="form-label">From</label>
+              <input
+                type="text"
+                class="form-control custom-input"
+                placeholder="From"
+              />
+            </div>
+
+            <!-- Swap Icon -->
+            <div class="swap-icon text-center">⇄</div>
+
+            <!-- To -->
+            <div class="col-md-3 mb-2">
+              <label class="form-label">To</label>
+              <input
+                type="text"
+                class="form-control custom-input"
+                placeholder="To"
+              />
+            </div>
+
+            <!-- Date Range (Combined Field) -->
+            <!-- Journey -->
+            <div class="date-half">
+              <span class="date-label">Journey</span>
+              <input
+                #journeyDateInput
+                type="date"
+                class="date-input"
+                (click)="openJourneyPicker()"
+              />
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Return -->
+            <div class="date-half">
+              <span class="date-label">Return</span>
+              <input
+                #returnDateInput
+                type="date"
+                class="date-input"
+                [disabled]="tripType === 'oneWay'"
+                (click)="openReturnPicker($event)"
+              />
+            </div>
+            <!-- Search -->
+            <div class="col-md-2 mb-2">
+              <button
+                class="btn btn-success btn-block btn-search"
+                (click)="searchTickets()"
+              >
+                SEARCH
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      Choose Departing Ticket > Passenger Details > Review & Pay
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="ticket-container mt-6">
+    <!-- Sidebar Filters -->
+    <aside class="filters-sidebar">
+      <div class="filters-header">
+        <h3 class="filters-title">Filters</h3>
+        <button class="btn-reset" (click)="resetFilters()">RESET</button>
+      </div>
+
+      <!-- Bus Type Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">BUS TYPE</h4>
+        <label class="filter-checkbox">
+          <input
+            type="checkbox"
+            [(ngModel)]="filters.ac"
+            (change)="applyFilters()"
+          />
+          <span>AC</span>
+        </label>
+        <label class="filter-checkbox">
+          <input
+            type="checkbox"
+            [(ngModel)]="filters.nonAc"
+            (change)="applyFilters()"
+          />
+          <span>Non AC</span>
+        </label>
+      </div>
+
+      <!-- Operator Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">OPERATOR</h4>
+        <select
+          class="filter-dropdown"
+          [(ngModel)]="filters.operator"
+          (change)="applyFilters()"
+        >
+          <option value="">Search Operator</option>
+          <option *ngFor="let operator of operators" [value]="operator">
+            {{ operator }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Boarding Point Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">BOARDING POINT</h4>
+        <select
+          class="filter-dropdown"
+          [(ngModel)]="filters.boarding"
+          (change)="applyFilters()"
+        >
+          <option value="">Search Boarding</option>
+          <option *ngFor="let point of boardingPoints" [value]="point">
+            {{ point }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Dropping Point Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">DROPPING POINT</h4>
+        <select
+          class="filter-dropdown"
+          [(ngModel)]="filters.dropping"
+          (change)="applyFilters()"
+        >
+          <option value="">Search Dropping</option>
+          <option *ngFor="let point of droppingPoints" [value]="point">
+            {{ point }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Departure Time Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">DEPARTURE TIME</h4>
+        <button
+          class="time-btn"
+          [class.active]="filters.departureTime === 'afternoon'"
+          (click)="setDepartureTime('afternoon')"
+        >
+          <span class="time-icon">🌤</span>
+          <div class="time-text">
+            <strong>Afternoon</strong>
+            <small>12:00 PM - 06:00 PM</small>
+          </div>
+        </button>
+        <button
+          class="time-btn"
+          [class.active]="filters.departureTime === 'evening'"
+          (click)="setDepartureTime('evening')"
+        >
+          <span class="time-icon">🌙</span>
+          <div class="time-text">
+            <strong>Evening</strong>
+            <small>After 06:00 PM</small>
+          </div>
+        </button>
+      </div>
+
+      <!-- Arrival Time Filter -->
+      <div class="filter-group">
+        <h4 class="filter-group-title">ARRIVAL TIME</h4>
+        <button
+          class="time-btn"
+          [class.active]="filters.arrivalTime === 'earlyMorning'"
+          (click)="setArrivalTime('earlyMorning')"
+        >
+          <span class="time-icon">🌅</span>
+          <div class="time-text">
+            <strong>Early Morning</strong>
+            <small>Before 06:00 AM</small>
+          </div>
+        </button>
+        <button
+          class="time-btn"
+          [class.active]="filters.arrivalTime === 'morning'"
+          (click)="setArrivalTime('morning')"
+        >
+          <span class="time-icon">☀️</span>
+          <div class="time-text">
+            <strong>Morning</strong>
+            <small>06:00 AM - 12:00 PM</small>
+          </div>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Tickets Area -->
+    <main class="tickets-main mt-6">
+      <!-- Sort Buttons -->
+      <div class="sort-section">
+        <button
+          class="sort-btn"
+          [class.active]="sortBy === 'low'"
+          (click)="setSort('low')"
+        >
+          LOW TO HIGH
+        </button>
+        <button
+          class="sort-btn"
+          [class.active]="sortBy === 'high'"
+          (click)="setSort('high')"
+        >
+          HIGH TO LOW
+        </button>
+      </div>
+
+      <!-- Tickets List -->
+      <div
+        *ngIf="filteredTickets.length > 0; else noTickets"
+        class="tickets-list"
+      >
+        <div class="ticket-item" *ngFor="let ticket of filteredTickets">
+          <!-- Top Section: Company Info + Price -->
+          <div class="ticket-top">
+            <div class="company-block">
+              <div class="company-logo">
+                {{ getOperatorInitials(ticket.busName) }}
+              </div>
+              <div class="company-details">
+                <h5 class="company-name">{{ ticket.busName }}</h5>
+                <p class="company-route">Route: {{ ticket.boardingPoint }} ➜</p>
+                <p class="company-route">{{ ticket.droppingPoint }}</p>
+              </div>
+            </div>
+            <!-- Middle Section: Time Timeline -->
+
+            <div class="timeline-block">
+              <div class="time-display">{{ ticket.departureTime }}</div>
+              <div class="date-display">
+                {{ ticket.departureDate | date: "EEE, MMM d" }}
+              </div>
+              <div class="location">{{ ticket.from }}</div>
+            </div>
+
+            <div class="timeline-connector">
+              <div class="connector-line" 🚍></div>
+              <span class="duration"> {{ getRouteDuration(ticket) }}</span>
+            </div>
+
+            <div class="timeline-block">
+              <div class="time-display">{{ ticket.arrivalTime }}</div>
+              <div class="date-display">
+                {{ ticket.arrivalDate | date: "EEE, MMM d" }}
+              </div>
+              <div class="location">{{ ticket.to }}</div>
+            </div>
+            <div class="price-amount">৳{{ ticket.price }}</div>
+            <!-- ////// -->
+            <div class="price-info">
+              <button class="btn-book-ticket" (click)="bookTicket(ticket)">
+                BOOK TICKET
+              </button>
+              <div class="seats-info">
+                {{ getAvailableSeats(ticket) }} Seat(s) Available
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Section: Info Pills + Details -->
+          <div class="ticket-footer">
+            <div class="info-pills">
+              <span class="pill">Cancellation Policy</span>
+              <span class="pill">Boarding Point</span>
+              <span class="pill">Dropping Point</span>
+              <span class="pill">Amenities</span>
+              <div class="info-banner">
+                <span class="info-badge">Info</span>
+                <span class="info-text"
+                  >Departs from {{ ticket.from }} on
+                  {{ ticket.departureDate | date: "dd MMM" }} at
+                  {{ ticket.departureTime }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noTickets>
+        <div class="no-tickets">No tickets found</div>
+      </ng-template>
+    </main>
+  </div>
+</div>

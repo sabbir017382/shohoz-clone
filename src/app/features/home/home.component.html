@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Bus Booking UI</title>
+  </head>
+  <body>
+    <!-- Hero / Search Section -->
+    <section class="hero-section d-flex align-items-center">
+      <div class="container">
+        <div class="search-box shadow-lg bg-white rounded p-4">
+          <!-- Trip Type -->
+          <div class="d-flex mb-3">
+            <div class="form-check mr-4">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="tripType"
+                id="oneWay"
+                [(ngModel)]="tripType"
+                (ngModelChange)="onTripTypeChange($event)"
+                value="oneWay"
+              />
+              <label class="form-check-label">One Way</label>
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="tripType"
+                id="roundWay"
+                [(ngModel)]="tripType"
+                (ngModelChange)="onTripTypeChange($event)"
+                value="roundWay"
+              />
+              <label class="form-check-label">Round Way</label>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form>
+            <div class="form-row align-items-center">
+              <!-- From -->
+              <div class="col-md-3 mb-2">
+                <label class="form-label">From</label>
+                <input
+                  type="text"
+                  class="form-control custom-input"
+                  placeholder="From"
+                />
+              </div>
+
+              <!-- Swap Icon -->
+              <div class="swap-icon text-center">⇄</div>
+
+              <!-- To -->
+              <div class="col-md-3 mb-2">
+                <label class="form-label">To</label>
+                <input
+                  type="text"
+                  class="form-control custom-input"
+                  placeholder="To"
+                />
+              </div>
+
+              <!-- Date Range (Combined Field) -->
+              <!-- Journey -->
+              <div class="date-half">
+                <span class="date-label">Journey</span>
+                <input
+                  #journeyDateInput
+                  type="date"
+                  class="date-input"
+                  (click)="openJourneyPicker()"
+                />
+              </div>
+
+              <!-- Divider -->
+              <div class="divider"></div>
+
+              <!-- Return -->
+              <div class="date-half">
+                <span class="date-label">Return</span>
+                <input
+                  #returnDateInput
+                  type="date"
+                  class="date-input"
+                  [disabled]="tripType === 'oneWay'"
+                  (click)="openReturnPicker($event)"
+                />
+              </div>
+              <!-- Search -->
+              <div class="col-md-2 mb-2">
+                <button class="btn btn-success btn-block btn-search">
+                  SEARCH
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    Services Section
+    <section class="container my-5 py-5">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="card border-0">
+            <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+            <h5>Safe Payment</h5>
+            <p class="text-muted">
+              Secure transactions via SSLCommerz or Cards.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0">
+            <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+            <h5>24/7 Support</h5>
+            <p class="text-muted">Dedicated team to help you anytime.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0">
+            <i class="fas fa-ticket-alt fa-3x text-primary mb-3"></i>
+            <h5>Easy Booking</h5>
+            <p class="text-muted">Get your tickets in less than 2 minutes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Routes Section -->
+    <section class="bg-light py-5">
+      <div class="container">
+        <h3 class="text-center mb-5">Top Popular Routes</h3>
+        <div class="row">
+          <!-- Route Card 1 -->
+          <div class="col-md-4 mb-4">
+            <div
+              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <span class="font-weight-bold">Dhaka - Chittagong</span><br />
+                <small class="text-muted">Daily 50+ Buses</small>
+              </div>
+              <i class="fas fa-chevron-right text-primary"></i>
+            </div>
+          </div>
+          <!-- Route Card 2 -->
+          <div class="col-md-4 mb-4">
+            <div
+              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <span class="font-weight-bold">Dhaka - Sylhet</span><br />
+                <small class="text-muted">Daily 30+ Buses</small>
+              </div>
+              <i class="fas fa-chevron-right text-primary"></i>
+            </div>
+          </div>
+          <!-- Route Card 3 -->
+          <div class="col-md-4 mb-4">
+            <div
+              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <span class="font-weight-bold">Dhaka - Rajshahi</span><br />
+                <small class="text-muted">Daily 20+ Buses</small>
+              </div>
+              <i class="fas fa-chevron-right text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,247 @@
+<div class="container-fluid" style="height: 100vh">
+  <div class="row h-100">
+    <!-- LEFT SIDE IMAGE -->
+    <div class="col-md-7 d-none d-md-block p-0" style="position: relative">
+      <img
+        [src]="images[currentImageIndex]"
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0 40px 40px 0;
+        "
+      />
+
+      <div style="position: absolute; bottom: 30px; left: 30px; color: white">
+        <h2 style="font-weight: 600">Think Tickets, Think Shohoz</h2>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE FORM -->
+    <div class="col-md-5 col-12 form-section">
+      <div class="form-container">
+        <!-- LOGO -->
+        <div class="logo-container text-right mb-3">
+          <div class="logo">Shohoz</div>
+        </div>
+
+        <!-- TITLE -->
+        <h3 class="title">Create an account</h3>
+
+        <p class="sub-text">
+          Create your account once and enjoy a seamless journey across all
+          Shohoz services.
+        </p>
+
+        <!-- FORM -->
+        <form
+          #registrationForm="ngForm"
+          (ngSubmit)="onSubmit(registrationForm)"
+          novalidate
+        >
+          <!-- NAME -->
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>First Name <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                [(ngModel)]="user.firstName"
+                #firstName="ngModel"
+                required
+                minlength="2"
+              />
+              <small class="text-danger" *ngIf="firstName.touched">
+                <div *ngIf="firstName.errors?.['required']">
+                  First name is required
+                </div>
+                <div *ngIf="firstName.errors?.['minlength']">
+                  Min 2 characters
+                </div>
+              </small>
+            </div>
+
+            <div class="form-group col-6">
+              <label>Last Name <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                [(ngModel)]="user.lastName"
+                #lastName="ngModel"
+                required
+                minlength="2"
+              />
+              <small class="text-danger" *ngIf="lastName.touched">
+                <div *ngIf="lastName.errors?.['required']">
+                  Last name is required
+                </div>
+                <div *ngIf="lastName.errors?.['minlength']">
+                  Min 2 characters
+                </div>
+              </small>
+            </div>
+          </div>
+
+          <!-- MOBILE + EMAIL -->
+          <div class="form-row">
+            <!-- MOBILE -->
+            <div class="form-group col-6">
+              <label>Mobile Number <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                name="mobile"
+                [(ngModel)]="user.mobile"
+                #mobile="ngModel"
+                required
+                pattern="^[0-9]{10,11}$"
+              />
+              <small class="text-danger" *ngIf="mobile.touched">
+                <div
+                  *ngIf="
+                    mobile.errors?.['required'] || registrationForm.submitted
+                  "
+                >
+                  Number is required
+                </div>
+                <div *ngIf="mobile.errors?.['pattern']">11 digits only</div>
+              </small>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group col-6">
+              <label>Email <span class="req">*</span></label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                [(ngModel)]="user.email"
+                #email="ngModel"
+                required
+                email
+              />
+              <small class="text-danger" *ngIf="email.touched">
+                <div *ngIf="email.errors?.['required']">Email is required</div>
+                <div *ngIf="email.errors?.['email']">Invalid email</div>
+              </small>
+            </div>
+          </div>
+
+          <!-- GENDER -->
+          <div class="form-group">
+            <label>Gender <span class="req">*</span></label
+            ><br />
+
+            <button
+              type="button"
+              class="btn gender-btn mr-2"
+              [ngClass]="{ 'active-btn': user.gender === 'Male' }"
+              (click)="user.gender = 'Male'"
+            >
+              Male
+            </button>
+
+            <button
+              type="button"
+              class="btn gender-btn"
+              [ngClass]="{ 'active-btn': user.gender === 'Female' }"
+              (click)="user.gender = 'Female'"
+            >
+              Female
+            </button>
+
+            <div
+              class="text-danger mt-1"
+              *ngIf="registrationForm.submitted && !user.gender"
+            >
+              Gender is required
+            </div>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="form-group">
+            <label>Password <span class="req">*</span></label>
+            <div class="password-box">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-control"
+                name="password"
+                [(ngModel)]="user.password"
+                #password="ngModel"
+                required
+                minlength="6"
+              />
+              <span class="eye" (click)="togglePassword()">👁</span>
+            </div>
+
+            <small class="text-danger" *ngIf="password.touched">
+              <div *ngIf="password.errors?.['required']">
+                Password is required
+              </div>
+              <div *ngIf="password.errors?.['minlength']">Min 6 characters</div>
+            </small>
+          </div>
+
+          <!-- CONFIRM PASSWORD -->
+          <div class="form-group">
+            <label>Confirm Password <span class="req">*</span></label>
+            <div class="password-box">
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                class="form-control"
+                name="confirmPassword"
+                [(ngModel)]="user.confirmPassword"
+                #confirmPassword="ngModel"
+                required
+              />
+              <span class="eye" (click)="toggleConfirmPassword()">👁</span>
+            </div>
+
+            <small class="text-danger">
+              <div
+                *ngIf="
+                  confirmPassword.touched &&
+                  confirmPassword.errors?.['required']
+                "
+              >
+                Confirm password is required
+              </div>
+
+              <div
+                *ngIf="
+                  user.password !== user.confirmPassword &&
+                  confirmPassword.touched
+                "
+              >
+                Password does not match
+              </div>
+            </small>
+          </div>
+
+          <!-- SUBMIT -->
+          <button
+            type="submit"
+            class="btn btn-danger btn-block register-btn"
+            [disabled]="
+              registrationForm.invalid ||
+              user.password !== user.confirmPassword ||
+              !user.gender
+            "
+          >
+            Register
+          </button>
+        </form>
+        <div class="text-center mt-3">
+          <small>
+            Already have an account?
+            <a routerLink="/login" class="register-link"
+              ><strong>Login</strong></a
+            >
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

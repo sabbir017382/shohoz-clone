@@ -1,0 +1,202 @@
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-4 text-center">
+      {{ editMode ? "Edit Ticket" : "Create Ticket" }}
+    </h4>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Bus Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="busName"
+            [(ngModel)]="currentTicket.busName"
+            required
+          />
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Coach No</label>
+          <input
+            type="text"
+            class="form-control"
+            name="coachNo"
+            [(ngModel)]="currentTicket.coachNo"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>From</label>
+          <input
+            type="text"
+            class="form-control"
+            name="from"
+            [(ngModel)]="currentTicket.from"
+            required
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label>To</label>
+          <input
+            type="text"
+            class="form-control"
+            name="to"
+            [(ngModel)]="currentTicket.to"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Seat Selection Section -->
+      <div class="form-group mt-4">
+        <label class="mb-3">Seat Allocation</label>
+        <button
+          type="button"
+          class="alocationBtn btn btn-primary mb-3 px-4"
+          (click)="seatPlanOpen = true"
+        >
+          Open Seat Allocation
+        </button>
+
+        <div class="seat-dialog" *ngIf="seatPlanOpen">
+          <div class="seat-dialog-header">
+            <div>Select Available Seats</div>
+            <button
+              type="button"
+              class="close-dialog"
+              (click)="seatPlanOpen = false"
+            >
+              ×
+            </button>
+          </div>
+          <div class="seat-controls mb-3">
+            <button
+              type="button"
+              class="btn btn-success mr-2"
+              (click)="markAllAvailable()"
+            >
+              Mark All Available
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="markAllUnavailable()"
+            >
+              Mark All Unavailable
+            </button>
+          </div>
+          <div class="seat-map">
+            <div class="seat-row" *ngFor="let row of rows">
+              <div class="row-label">{{ row }}</div>
+              <button
+                type="button"
+                *ngFor="let seat of getSeatsForRow(row)"
+                class="seat-btn"
+                [class.available]="isSeatAvailable(seat)"
+                [class.unavailable]="!isSeatAvailable(seat)"
+                (click)="toggleSeat(seat)"
+                title="{{ seat }}: {{
+                  isSeatAvailable(seat) ? 'Available' : 'Unavailable'
+                }}"
+              >
+                {{ seat }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Boarding Points (comma separated)</label>
+        <input
+          type="text"
+          class="form-control"
+          name="boardingPoints"
+          [(ngModel)]="boardingPointsInput"
+          placeholder="Dhaka, Chittagong, Sylhet"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Dropping Points (comma separated)</label>
+        <input
+          type="text"
+          class="form-control"
+          name="droppingPoints"
+          [(ngModel)]="droppingPointsInput"
+          placeholder="Cox's Bazar, Teknaf"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Departure Date</label>
+          <input
+            type="date"
+            class="form-control"
+            name="departureDate"
+            [(ngModel)]="currentTicket.departureDate"
+            required
+          />
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Departure Time</label>
+          <input
+            type="time"
+            class="form-control"
+            name="departureTime"
+            [(ngModel)]="currentTicket.departureTime"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Arrival Date</label>
+          <input
+            type="date"
+            class="form-control"
+            name="arrivalDate"
+            [(ngModel)]="currentTicket.arrivalDate"
+            required
+          />
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Arrival Time</label>
+          <input
+            type="time"
+            class="form-control"
+            name="arrivalTime"
+            [(ngModel)]="currentTicket.arrivalTime"
+            required
+          />
+        </div>
+      </div>
+      <!-- Price -->
+      <div class="form-group">
+        <label>Price</label>
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          [(ngModel)]="currentTicket.price"
+          required
+        />
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-green px-4" [disabled]="f.invalid">
+          {{ editMode ? "Update Ticket" : "Create Ticket" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="container-fluid" style="height: 100vh">
+  <div class="row h-100">
+    <!-- LEFT SIDE IMAGE -->
+    <div class="col-md-7 d-none d-md-block p-0" style="position: relative">
+      <img
+        [src]="images[currentImageIndex]"
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0 40px 40px 0;
+        "
+      />
+
+      <div style="position: absolute; bottom: 30px; left: 30px; color: white">
+        <h2 style="font-weight: 600">Think Tickets, Think Shohoz</h2>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE FORM -->
+    <div class="col-md-5 col-12 form-section">
+      <div class="form-container">
+        <!-- LOGO -->
+        <div class="logo-container text-right mb-3">
+          <div class="logo">Shohoz</div>
+        </div>
+
+        <!-- TITLE -->
+        <h4 class="title">Welcome</h4>
+
+        <p class="sub-text">
+          Login with your <strong class="text-success">Shohoz</strong> account
+          and enjoy a seamless journey across all services
+        </p>
+
+        <!-- FORM -->
+        <form
+          #registrationForm="ngForm"
+          (ngSubmit)="login(registrationForm)"
+          novalidate
+        >
+          <!-- MOBILE + EMAIL -->
+          <div class="form-row">
+            <!-- MOBILE -->
+            <div class="form-group">
+              <label>Mobile Number <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                name="mobile"
+                [(ngModel)]="user.mobile"
+                #mobile="ngModel"
+                required
+                pattern="^[0-9]{10,11}$"
+              />
+              <small class="text-danger" *ngIf="mobile.touched">
+                <div
+                  *ngIf="
+                    mobile.errors?.['required'] || registrationForm.submitted
+                  "
+                >
+                  Number is required
+                </div>
+                <div *ngIf="mobile.errors?.['pattern']">11 digits only</div>
+              </small>
+            </div>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="form-group">
+            <label>Password <span class="req">*</span></label>
+            <div class="password-box">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-control"
+                name="password"
+                [(ngModel)]="user.password"
+                #password="ngModel"
+                required
+                minlength="6"
+              />
+              <span class="eye" (click)="togglePassword()">👁</span>
+            </div>
+
+            <small class="text-danger" *ngIf="password.touched">
+              <div *ngIf="password.errors?.['required']">
+                Password is required
+              </div>
+              <div *ngIf="password.errors?.['minlength']">Min 6 characters</div>
+            </small>
+          </div>
+
+          <!-- SUBMIT -->
+          <button
+            type="submit"
+            class="btn btn-danger btn-block register-btn"
+            [disabled]="registrationForm.invalid"
+          >
+            LogIn
+          </button>
+        </form>
+        <div class="text-center mt-3">
+          <small>
+            Don't have an account?
+            <a routerLink="/register" class="register-link"
+              ><strong>Create Account</strong></a
+            >
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

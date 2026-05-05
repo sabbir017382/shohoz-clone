@@ -1,0 +1,84 @@
+/* Footer Main Styles */
+.sh-footer {
+  background-color: #2e7d5a; /* Shohoz Green Color */
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-logo {
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+
+.footer-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  max-width: 320px;
+}
+
+.footer-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links li a:hover {
+  opacity: 0.8;
+}
+
+/* Horizontal Line */
+.footer-hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
+  margin-bottom: 25px;
+}
+
+/* Bottom Area */
+.copyright-text {
+  font-size: 14px;
+  color: #e0e0e0;
+  margin-bottom: 0;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 20px;
+  margin-left: 25px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .social-icons {
+    text-align: left;
+    margin-top: 15px;
+  }
+  .social-icons a {
+    margin-left: 0;
+    margin-right: 25px;
+  }
+}
