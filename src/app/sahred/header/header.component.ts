@@ -45,6 +45,18 @@ export class HeaderComponent implements OnInit {
 
   setActive(key: string): void {
     this.activeNav = key;
+    if (key === 'bus') {
+      this.router.navigate(['/home']);
+    }
+    if (key === 'plane') {
+      this.router.navigate(['/air']);
+    }
+    if (key === 'train') {
+      this.router.navigate(['/train']);
+    }
+    if (key === 'ship') {
+      this.router.navigate(['/ship']);
+    }
   }
 
   toggleDropdown(event: Event): void {

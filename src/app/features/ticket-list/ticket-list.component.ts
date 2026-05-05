@@ -1,19 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
   styleUrls: ['./ticket-list.component.css'],
 })
-export class TicketListComponent {
+export class TicketListComponent implements OnInit {
   ticketList: Ticket[] = [];
   filteredTickets: Ticket[] = [];
   sortBy: string = '';
+  hasSearched: boolean = false;
+
+  // Booking panel
+  showBookingPanel: boolean = false;
+  selectedTicket: Ticket | null = null;
+
+  // search inputs
+  searchFrom: string = '';
+  searchTo: string = '';
+  journeyDate: string = '';
+
+  // intermediate search results (before applying sidebar filters)
+  searchFilteredTickets: Ticket[] = [];
 
   filters = {
     ac: false,
@@ -36,29 +48,102 @@ export class TicketListComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loadNavigationState();
+
+    // load available tickets into memory but don't show anything until searched
     this.fetchTickets();
-    this.extractFilterOptions();
+
+    // if search params were passed from home, auto-search
+    if (this.searchFrom || this.searchTo || this.journeyDate) {
+      setTimeout(() => {
+        this.searchTickets();
+      }, 100);
+    }
+  }
+
+  private loadNavigationState(): void {
+    const state =
+      this.router.getCurrentNavigation()?.extras?.state ?? window.history.state;
+
+    if (state && typeof state === 'object') {
+      this.searchFrom = state.searchFrom || '';
+      this.searchTo = state.searchTo || '';
+      this.journeyDate = state.journeyDate || '';
+      this.tripType = (state.tripType as string) || 'oneWay';
+    }
   }
 
   fetchTickets() {
     this.service.getTickets().subscribe((res: Ticket[]) => {
       this.ticketList = res;
-      this.filteredTickets = res;
+      // update filter option lists based on full dataset
       this.extractFilterOptions();
     });
   }
 
+  // called when SEARCH button is clicked
   searchTickets() {
+    // if no search criteria provided, show nothing
+    if (!this.searchFrom && !this.searchTo && !this.journeyDate) {
+      this.hasSearched = false;
+      this.searchFilteredTickets = [];
+      this.filteredTickets = [];
+      return;
+    }
+
+    if (this.ticketList.length === 0) {
+      // ensure tickets are loaded first
+      this.service.getTickets().subscribe((res: Ticket[]) => {
+        this.ticketList = res;
+        this.extractFilterOptions();
+        this.performSearchAndFilter();
+      });
+    } else {
+      this.performSearchAndFilter();
+    }
+  }
+
+  performSearchAndFilter() {
+    const from = this.searchFrom?.trim().toLowerCase();
+    const to = this.searchTo?.trim().toLowerCase();
+    const date = this.journeyDate?.trim();
+
+    this.searchFilteredTickets = this.ticketList.filter((ticket) => {
+      const tFrom = (ticket.from || '').toString().toLowerCase();
+      const tTo = (ticket.to || '').toString().toLowerCase();
+      const matchesFrom = !from || tFrom.includes(from);
+      const matchesTo = !to || tTo.includes(to);
+
+      let matchesDate = true;
+      if (date) {
+        const ticketDate = ticket.departureDate
+          ? new Date(ticket.departureDate).toISOString().slice(0, 10)
+          : '';
+        matchesDate = ticketDate === date;
+      }
+
+      return matchesFrom && matchesTo && matchesDate;
+    });
+
+    this.hasSearched = true;
+    // update filter options based on current search results
+    this.extractFilterOptions();
+    // apply sidebar filters on top of search results
     this.applyFilters();
   }
 
   extractFilterOptions() {
+    const source =
+      this.hasSearched && this.searchFilteredTickets.length
+        ? this.searchFilteredTickets
+        : this.ticketList;
+
     const uniqueOperators = new Set<string>();
     const uniqueBoardingPoints = new Set<string>();
     const uniqueDroppingPoints = new Set<string>();
 
-    this.ticketList.forEach((ticket) => {
-      uniqueOperators.add(ticket.busName);
+    source.forEach((ticket) => {
+      if (ticket.busName) uniqueOperators.add(ticket.busName);
       ticket.boardingPoint?.forEach((point) => uniqueBoardingPoints.add(point));
       ticket.droppingPoint?.forEach((point) => uniqueDroppingPoints.add(point));
     });
@@ -69,7 +154,17 @@ export class TicketListComponent {
   }
 
   applyFilters() {
-    this.filteredTickets = this.ticketList.filter((ticket) => {
+    // if user hasn't searched, show nothing
+    if (!this.hasSearched) {
+      this.filteredTickets = [];
+      return;
+    }
+
+    const base = this.searchFilteredTickets.length
+      ? this.searchFilteredTickets
+      : this.ticketList;
+
+    this.filteredTickets = base.filter((ticket) => {
       const matchesOperator =
         !this.filters.operator || ticket.busName === this.filters.operator;
       const matchesBoarding =
@@ -78,8 +173,6 @@ export class TicketListComponent {
       const matchesDropping =
         !this.filters.dropping ||
         ticket.droppingPoint?.includes(this.filters.dropping);
-      const boardingPoints = ticket.boardingPoint || [];
-      const droppingPoints = ticket.droppingPoint || [];
       const matchesDepartureTime =
         !this.filters.departureTime ||
         (ticket.departureTime &&
@@ -88,6 +181,14 @@ export class TicketListComponent {
         !this.filters.arrivalTime ||
         (ticket.arrivalTime &&
           ticket.arrivalTime.startsWith(this.filters.arrivalTime));
+
+      // // Bus type filter (AC / Non AC) if present on ticket
+      // let matchesBusType = true;
+      // if (this.filters.ac && !this.filters.nonAc) {
+      //   matchesBusType = ticket.busType?.toLowerCase() === 'ac';
+      // } else if (!this.filters.ac && this.filters.nonAc) {
+      //   matchesBusType = ticket.busType?.toLowerCase() === 'non ac' || ticket.busType?.toLowerCase() === 'non-ac';
+      // }
 
       return (
         matchesOperator &&
@@ -112,7 +213,10 @@ export class TicketListComponent {
       arrivalTime: '',
     };
     this.sortBy = '';
-    this.filteredTickets = this.ticketList;
+    // reset to search results if a search is active, otherwise empty
+    this.filteredTickets = this.hasSearched
+      ? this.searchFilteredTickets.slice()
+      : [];
   }
 
   setSort(type: string) {
@@ -131,10 +235,12 @@ export class TicketListComponent {
   setDepartureTime(time: string) {
     this.filters.departureTime =
       this.filters.departureTime === time ? '' : time;
+    this.applyFilters();
   }
 
   setArrivalTime(time: string) {
     this.filters.arrivalTime = this.filters.arrivalTime === time ? '' : time;
+    this.applyFilters();
   }
 
   getOperatorInitials(busName: string): string {
@@ -167,10 +273,18 @@ export class TicketListComponent {
   }
 
   bookTicket(ticket: Ticket) {
-    this.router.navigate(['/book'], { state: { ticket } });
+    this.selectedTicket = ticket;
+    this.showBookingPanel = true;
   }
 
-  //for search box control
+  closeBookingPanel() {
+    this.showBookingPanel = false;
+    this.selectedTicket = null;
+    // Refresh tickets to show updated availableSeats
+    this.fetchTickets();
+  }
+
+  // for search box control
   tripType: string = 'oneWay';
 
   @ViewChild('journeyDateInput')

@@ -1,180 +1,444 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Bus Booking UI</title>
-  </head>
-  <body>
-    <!-- Hero / Search Section -->
-    <section class="hero-section d-flex align-items-center">
-      <div class="container">
-        <div class="search-box shadow-lg bg-white rounded p-4">
-          <!-- Trip Type -->
-          <div class="d-flex mb-3">
-            <div class="form-check mr-4">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="tripType"
-                id="oneWay"
-                [(ngModel)]="tripType"
-                (ngModelChange)="onTripTypeChange($event)"
-                value="oneWay"
-              />
-              <label class="form-check-label">One Way</label>
-            </div>
+<!-- Hero / Search Section -->
+<section class="hero-section d-flex align-items-center">
+  <div class="container">
+    <div class="search-box shadow-lg bg-white">
+      <!-- Trip Type -->
+      <div class="d-flex mb-3">
+        <div class="form-check mr-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="tripType"
+            id="oneWay"
+            [(ngModel)]="tripType"
+            (ngModelChange)="onTripTypeChange($event)"
+            value="oneWay"
+          />
+          <label class="form-check-label">One Way</label>
+        </div>
 
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="tripType"
-                id="roundWay"
-                [(ngModel)]="tripType"
-                (ngModelChange)="onTripTypeChange($event)"
-                value="roundWay"
-              />
-              <label class="form-check-label">Round Way</label>
-            </div>
-          </div>
-
-          <!-- Form -->
-          <form>
-            <div class="form-row align-items-center">
-              <!-- From -->
-              <div class="col-md-3 mb-2">
-                <label class="form-label">From</label>
-                <input
-                  type="text"
-                  class="form-control custom-input"
-                  placeholder="From"
-                />
-              </div>
-
-              <!-- Swap Icon -->
-              <div class="swap-icon text-center">⇄</div>
-
-              <!-- To -->
-              <div class="col-md-3 mb-2">
-                <label class="form-label">To</label>
-                <input
-                  type="text"
-                  class="form-control custom-input"
-                  placeholder="To"
-                />
-              </div>
-
-              <!-- Date Range (Combined Field) -->
-              <!-- Journey -->
-              <div class="date-half">
-                <span class="date-label">Journey</span>
-                <input
-                  #journeyDateInput
-                  type="date"
-                  class="date-input"
-                  (click)="openJourneyPicker()"
-                />
-              </div>
-
-              <!-- Divider -->
-              <div class="divider"></div>
-
-              <!-- Return -->
-              <div class="date-half">
-                <span class="date-label">Return</span>
-                <input
-                  #returnDateInput
-                  type="date"
-                  class="date-input"
-                  [disabled]="tripType === 'oneWay'"
-                  (click)="openReturnPicker($event)"
-                />
-              </div>
-              <!-- Search -->
-              <div class="col-md-2 mb-2">
-                <button class="btn btn-success btn-block btn-search">
-                  SEARCH
-                </button>
-              </div>
-            </div>
-          </form>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="tripType"
+            id="roundWay"
+            [(ngModel)]="tripType"
+            (ngModelChange)="onTripTypeChange($event)"
+            value="roundWay"
+          />
+          <label class="form-check-label">Round Way</label>
         </div>
       </div>
-    </section>
+      <!-- Form -->
+      <form>
+        <div class="form-row align-items-center">
+          <!-- From -->
+          <div class="col-md-3 mb-2">
+            <label class="form-label">From</label>
+            <input
+              type="text"
+              class="form-control custom-input"
+              placeholder="From"
+              [(ngModel)]="searchFrom"
+              name="searchFrom"
+            />
+          </div>
+          <!-- Swap Icon -->
+          <div class="swap-icon text-center">⇄</div>
 
-    Services Section
-    <section class="container my-5 py-5">
-      <div class="row text-center">
-        <div class="col-md-4">
-          <div class="card border-0">
-            <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
-            <h5>Safe Payment</h5>
-            <p class="text-muted">
-              Secure transactions via SSLCommerz or Cards.
-            </p>
+          <!-- To -->
+          <div class="col-md-3 mb-2">
+            <label class="form-label">To</label>
+            <input
+              type="text"
+              class="form-control custom-input"
+              placeholder="To"
+              [(ngModel)]="searchTo"
+              name="searchTo"
+            />
+          </div>
+
+          <!-- Date Range (Combined Field) -->
+          <!-- Journey -->
+          <div class="date-half">
+            <span class="date-label">Journey</span>
+            <input
+              #journeyDateInput
+              type="date"
+              class="date-input"
+              (click)="openJourneyPicker()"
+              [(ngModel)]="journeyDate"
+              name="journeyDate"
+            />
+          </div>
+
+          <!-- Divider -->
+          <div class="divider"></div>
+
+          <!-- Return -->
+          <div class="date-half">
+            <span class="date-label">Return</span>
+            <input
+              #returnDateInput
+              type="date"
+              class="date-input"
+              [disabled]="tripType === 'oneWay'"
+              (click)="openReturnPicker($event)"
+              [(ngModel)]="returnDate"
+              name="returnDate"
+            />
+          </div>
+          <!-- Search -->
+          <div class="col-md-2 mb-2">
+            <button
+              type="button"
+              class="btn btn-success btn-block btn-search"
+              (click)="searchTickets()"
+            >
+              SEARCH
+            </button>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card border-0">
-            <i class="fas fa-headset fa-3x text-primary mb-3"></i>
-            <h5>24/7 Support</h5>
-            <p class="text-muted">Dedicated team to help you anytime.</p>
-          </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Discover Trending Destinations -->
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+
+<section class="dest-section py-5">
+  <div class="container">
+    <h2 class="text-center dest-title mb-4">Discover Trending Destinations</h2>
+
+    <div class="row">
+      <!-- Chittagong -->
+      <div class="col-md-6 mb-4">
+        <a href="/bus-tickets/destinations/chittagong" class="dest-card">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/destinations/Chittagong-1440x600.jpg"
+          />
+          <h3>Chittagong</h3>
+        </a>
+      </div>
+
+      <!-- Dhaka -->
+      <div class="col-md-6 mb-4">
+        <a href="/bus-tickets/destinations/dhaka" class="dest-card">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/destinations/Dhaka-1440x600.jpg"
+          />
+          <h3>Dhaka</h3>
+        </a>
+      </div>
+
+      <!-- Rajshahi -->
+      <div class="col-md-4 mb-4">
+        <a href="/bus-tickets/destinations/rajshahi" class="dest-card">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/destinations/Rajshahi-1440x600.webp"
+          />
+          <h3>Rajshahi</h3>
+        </a>
+      </div>
+
+      <!-- Rangpur -->
+      <div class="col-md-4 mb-4">
+        <a href="/bus-tickets/destinations/rangpur" class="dest-card">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/destinations/Rangpur-1440x600.webp"
+          />
+          <h3>Rangpur</h3>
+        </a>
+      </div>
+
+      <!-- Sylhet -->
+      <div class="col-md-4 mb-4">
+        <a href="/bus-tickets/destinations/sylhet" class="dest-card">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/destinations/Sylhet-1440x600.jpg"
+          />
+          <h3>Sylhet</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ///////////// -->
+<section class="operator-section py-5">
+  <div class="container-fluid px-0">
+    <!-- HEADER -->
+    <div
+      class="container d-flex justify-content-between align-items-center mb-4"
+    >
+      <h2 class="operator-title">
+        More Than <span class="text-success">100+</span> Trusted Bus Operators
+      </h2>
+    </div>
+
+    <!-- ROW 1 -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <!-- SET 1 -->
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/royalcoach.webp"
+          /><span>Royal</span>
         </div>
-        <div class="col-md-4">
-          <div class="card border-0">
-            <i class="fas fa-ticket-alt fa-3x text-primary mb-3"></i>
-            <h5>Easy Booking</h5>
-            <p class="text-muted">Get your tickets in less than 2 minutes.</p>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/evergreen.webp"
+          /><span>Evergreen</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/emad.webp"
+          /><span>Emad</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/pabna-express.webp"
+          /><span>Pabna</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/arafat-paribahan.webp"
+          /><span>Arafat</span>
+        </div>
+
+        <!-- DUPLICATE SET (IMPORTANT FOR NO JUMP) -->
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/royalcoach.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/evergreen.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/emad.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/pabna-express.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/arafat-paribahan.webp"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="marquee mt-3">
+      <div class="marquee-track slow">
+        <!-- SET 1 -->
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/hanif.webp"
+          /><span>Hanif</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/greenline.webp"
+          /><span>Green</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/soudianac.webp"
+          /><span>Soudia</span>
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/robi-express.webp"
+          /><span>Robi</span>
+        </div>
+
+        <!-- DUPLICATE SET -->
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/hanif.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/greenline.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/soudianac.webp"
+          />
+        </div>
+        <div class="item">
+          <img
+            src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/operator-logos/robi-express.webp"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //////////////////// -->
+
+<section class="custom-section py-5">
+  <div class="container">
+    <!-- Heading -->
+    <div class="text-center mb-5">
+      <h2 class="title">
+        <span class="text-success">10+ Million</span> Travellers Trusted Shohoz
+      </h2>
+    </div>
+
+    <div class="row text-center">
+      <!-- Card 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <div class="icon-box mb-4">
+            <!-- ICON -->
+            <svg width="30" height="30" fill="currentColor">
+              <path d="🚍" />
+            </svg>
+          </div>
+
+          <h5 class="font-weight-bold mb-3">Largest Ticketing Platform</h5>
+
+          <div class="stats row">
+            <div class="col-6 col-md-3 mb-3">
+              <div class="number">250M+</div>
+              <small>tickets</small>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="number">10M+</div>
+              <small>happy users</small>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="number">3000+</div>
+              <small>routes</small>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="number">1000+</div>
+              <small>trusted partners</small>
+            </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Popular Routes Section -->
-    <section class="bg-light py-5">
-      <div class="container">
-        <h3 class="text-center mb-5">Top Popular Routes</h3>
+      <!-- Card 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <div class="icon-box mb-4">
+            <svg width="30" height="30" fill="none" stroke="currentColor">
+              <path stroke-width="2" d="M12 8v4l3 3"></path>
+            </svg>
+          </div>
+
+          <h5 class="font-weight-bold mb-3">Quick & Easy Booking</h5>
+
+          <p class="text-muted small">
+            Skip the queues with Shohoz! Book bus tickets online with access to
+            100+ operators nationwide.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <div class="icon-box mb-4">
+            <svg width="30" height="30" fill="none" stroke="currentColor">
+              <path stroke-width="2" d="M12 2l6 6M12 22l-6-6"></path>
+            </svg>
+          </div>
+
+          <h5 class="font-weight-bold mb-3">Fast Customer Support</h5>
+
+          <p class="text-muted small">
+            Quick and responsive assistance to resolve your issues without
+            delay—because your time matters.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ////////////////////////// -->
+<section class="app-section py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Image -->
+      <div class="col-lg-6 text-center mb-4 mb-lg-0">
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/app-illustration-v2.webp?v=1.0.4"
+          class="img-fluid app-image"
+          alt="app"
+        />
+      </div>
+
+      <!-- Right Content -->
+      <div class="col-lg-6">
+        <h2 class="app-title mb-4">
+          Get More Out of Shohoz with our
+          <span class="text-success">mobile app</span>
+        </h2>
+
+        <!-- Features -->
         <div class="row">
-          <!-- Route Card 1 -->
-          <div class="col-md-4 mb-4">
-            <div
-              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <span class="font-weight-bold">Dhaka - Chittagong</span><br />
-                <small class="text-muted">Daily 50+ Buses</small>
-              </div>
-              <i class="fas fa-chevron-right text-primary"></i>
-            </div>
+          <div class="col-6 mb-3 d-flex">
+            <span class="check-icon">✔</span>
+            <p class="ml-2 mb-0">Faster and easier booking</p>
           </div>
-          <!-- Route Card 2 -->
-          <div class="col-md-4 mb-4">
-            <div
-              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <span class="font-weight-bold">Dhaka - Sylhet</span><br />
-                <small class="text-muted">Daily 30+ Buses</small>
-              </div>
-              <i class="fas fa-chevron-right text-primary"></i>
-            </div>
+
+          <div class="col-6 mb-3 d-flex">
+            <span class="check-icon">✔</span>
+            <p class="ml-2 mb-0">Get alerts before every departure</p>
           </div>
-          <!-- Route Card 3 -->
-          <div class="col-md-4 mb-4">
-            <div
-              class="route-card bg-white p-3 shadow-sm rounded d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <span class="font-weight-bold">Dhaka - Rajshahi</span><br />
-                <small class="text-muted">Daily 20+ Buses</small>
-              </div>
-              <i class="fas fa-chevron-right text-primary"></i>
-            </div>
+
+          <div class="col-6 mb-3 d-flex">
+            <span class="check-icon">✔</span>
+            <p class="ml-2 mb-0">Easy access to your tickets</p>
+          </div>
+
+          <div class="col-6 mb-3 d-flex">
+            <span class="check-icon">✔</span>
+            <p class="ml-2 mb-0">Onboard with digital tickets</p>
           </div>
         </div>
+
+        <!-- Store Buttons -->
+        <div class="mt-4 d-flex flex-wrap">
+          <a href="#" class="mr-3 mb-2">
+            <img
+              src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/google-play-store.png"
+              class="store-btn"
+            />
+          </a>
+
+          <a href="#" class="mr-3 mb-2">
+            <img
+              src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/apple-app-store.png"
+              class="store-btn"
+            />
+          </a>
+
+          <a href="#" class="mb-2">
+            <img
+              src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/book-on-whatsapp.webp"
+              class="store-btn"
+            />
+          </a>
+        </div>
       </div>
-    </section>
-  </body>
-</html>
+    </div>
+  </div>
+</section>

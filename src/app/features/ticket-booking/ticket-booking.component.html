@@ -1,0 +1,320 @@
+<div class="booking-container">
+  <div class="booking-title">
+    <h5 *ngIf="step === 1"><strong>Select Seats</strong></h5>
+    <h5 *ngIf="step === 2"><strong>Boarding Points</strong></h5>
+    <h5 *ngIf="step === 3"><strong>Confirm Booking</strong></h5>
+  </div>
+  <div class="trip-tabs" *ngIf="step === 1">
+    <ul>
+      <li [class.active]="activeTab === 'seats'" (click)="setTab('seats')">
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/seat.svg"
+          class="icon default"
+        />
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/seat-green.svg"
+          class="icon active-icon"
+        />
+        <span>Seats</span>
+      </li>
+
+      <li
+        [class.active]="activeTab === 'amenities'"
+        (click)="setTab('amenities')"
+      >
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/amenities.svg"
+          class="icon default"
+        />
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/amenities-green.svg"
+          class="icon active-icon"
+        />
+        <span>Amenities</span>
+      </li>
+
+      <li
+        [class.active]="activeTab === 'policies'"
+        (click)="setTab('policies')"
+      >
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/policies.svg"
+          class="icon default"
+        />
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/policies-green.svg"
+          class="icon active-icon"
+        />
+        <span>Policies</span>
+      </li>
+
+      <li [class.active]="activeTab === 'details'" (click)="setTab('details')">
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/trip-details.svg"
+          class="icon default"
+        />
+        <img
+          src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/trip-details-green.svg"
+          class="icon active-icon"
+        />
+        <span>Trip Details</span>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="activeTab === 'seats'">
+    <!-- Step 1: Ticket Info and Seat Selection -->
+    <div *ngIf="step === 1" class="step-content">
+      <div class="ticket-info" *ngIf="ticket">
+        <div class="bus-card">
+          <!-- Logo -->
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3448/3448339.png"
+            alt="bus logo"
+            class="bus-logo"
+          />
+
+          <!-- Info -->
+          <div class="bus-details">
+            <h2 class="bus-name-text">{{ ticket.busName }}</h2>
+            <p class="coach-text">Coach No. {{ ticket.coachNo }}</p>
+          </div>
+        </div>
+
+        <div class="route-info">
+          <!-- Departure -->
+          <div class="route-box">
+            <p class="label">Departure</p>
+            <p>{{ ticket.from }}</p>
+            <p class="time">{{ ticket.departureTime }}</p>
+            <p class="date">{{ ticket.departureDate }}</p>
+          </div>
+
+          <div class="route-line"></div>
+
+          <!-- Arrival -->
+          <div class="route-box">
+            <p class="label">Arrival</p>
+            <p>{{ ticket.to }}</p>
+            <p class="time">{{ ticket.arrivalTime }}</p>
+            <p class="date">{{ ticket.arrivalDate }}</p>
+          </div>
+        </div>
+
+        <p>
+          <strong class="text-secondary"
+            >Trip time may delay due to traffic</strong
+          >
+        </p>
+        <div class="info-banner">
+          <span class="info-badge">Info</span>
+          <span class="info-text"
+            >Departs from {{ ticket.from }} on
+            {{ ticket.departureDate | date: "dd MMM" }} at
+            {{ ticket.departureTime }}</span
+          >
+        </div>
+      </div>
+      <div class="seatlimit"><p>Maximum 4 seats can be selected.</p></div>
+      <!-- seat status  -->
+      <div class="d-flex justify-content-between flex-wrap legend-container">
+        <div class="d-flex align-items-center legend-item">
+          <span class="legend-box available"></span>
+          <span class="ml-2">Available</span>
+        </div>
+
+        <div class="d-flex align-items-center legend-item">
+          <span class="legend-box sold"></span>
+          <span class="ml-2">Sold</span>
+        </div>
+
+        <div class="d-flex align-items-center legend-item">
+          <span class="legend-box selected"></span>
+          <span class="ml-2">Selected</span>
+        </div>
+        <!-- ////// -->
+      </div>
+      <div class="seat-selection">
+        <div class="seat-map">
+          <div class="seat-row" *ngFor="let row of rows">
+            <button
+              type="button"
+              *ngFor="let seat of getSeatsForRow(row)"
+              class="seat-btn"
+              [class.available]="isSeatAvailable(seat)"
+              [class.booked]="isSeatBooked(seat)"
+              [class.selected]="isSeatSelected(seat)"
+              (click)="toggleSeat(seat)"
+              [disabled]="!isSeatAvailable(seat)"
+              [title]="
+                isSeatBooked(seat)
+                  ? 'Booked'
+                  : isSeatAvailable(seat)
+                    ? 'Available'
+                    : 'Unavailable'
+              "
+            >
+              {{ seat }}
+            </button>
+          </div>
+        </div>
+        <div class="total-amount">
+          <strong>Total Amount: ৳{{ totalAmount }}</strong>
+        </div>
+        <button
+          class="btn btn-primary"
+          (click)="continueToBoarding()"
+          [disabled]="selectedSeats.length === 0"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Boarding Points -->
+    <div *ngIf="step === 2" class="step-content boarding-wrapper">
+      <h4 class="mb-3">Select Boarding Point</h4>
+
+      <div class="boarding-list">
+        <div
+          class="boarding-item d-flex align-items-center justify-content-between"
+          *ngFor="let point of boardingPoints"
+          [class.selected]="selectedBoardingPoint === point.name"
+          (click)="selectBoardingPoint(point.name)"
+        >
+          <!-- Left Radio + Info -->
+          <div class="d-flex align-items-start">
+            <!-- Radio -->
+            <div class="radio mr-3 mt-1">
+              <div [class.active]="selectedBoardingPoint === point.name"></div>
+            </div>
+
+            <!-- Info -->
+            <div class="info">
+              <h5 class="mb-1">{{ point.name }}</h5>
+              <small class="text-muted d-block">
+                📍 {{ point.location }}
+              </small>
+
+              <div class="btn-group mt-2">
+                <!-- Direction (Google Maps Link) -->
+                <a
+                  class="btn btn-sm btn-light"
+                  target="_blank"
+                  [href]="
+                    'https://www.google.com/maps/search/?api=1&query=' +
+                    point.location
+                  "
+                >
+                  📍 Direction
+                </a>
+
+                <!-- Landmarks -->
+                <button class="btn btn-sm btn-light">🗺 Landmarks</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Time -->
+          <div class="time font-weight-bold">
+            {{ point.time }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <div>
+        <h5 class="text-success">Total Amount: ৳{{ totalAmount }}</h5>
+      </div>
+
+      <button
+        class="btn btn-success continue-btn"
+        (click)="continueToConfirmation()"
+        [disabled]="!selectedBoardingPoint"
+      >
+        CONTINUE
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3: Confirmation -->
+  <div *ngIf="step === 3" class="step-content">
+    <h4>Booking Confirmation</h4>
+    <div *ngIf="ticket">
+      <p><strong>Bus:</strong> {{ ticket.busName }}</p>
+      <p><strong>Seats:</strong> {{ selectedSeats.join(", ") }}</p>
+      <p><strong>Boarding Point:</strong> {{ selectedBoardingPoint }}</p>
+      <p><strong>Total Amount:</strong> ৳{{ totalAmount }}</p>
+    </div>
+    <div class="button-group">
+      <button class="btn btn-success" (click)="confirmBooking()">
+        Confirm Booking
+      </button>
+      <button class="btn btn-outline-danger" (click)="goBack()">Cancel</button>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'policies'">
+    <div class="policy-box">
+      <h3>Policies</h3>
+
+      <p>
+        This ticket has been issued by Shohoz.com on behalf of the bus operator
+        as per Shohoz.com's Terms of Use. Shohoz.com is only a ticketing agent
+        and does not operate bus services.
+      </p>
+
+      <h4>Shohoz.com's Responsibilities:</h4>
+      <ul>
+        <li>Issuing a valid ticket for its network of bus operators</li>
+        <li>Providing refund and support in case of cancellation</li>
+      </ul>
+
+      <h4>Shohoz.com's Limitations:</h4>
+      <ul>
+        <li>Bus not departing or arriving on time</li>
+        <li>Behavior of bus operator’s staff</li>
+        <li>Seat quality not meeting expectations</li>
+        <li>Trip cancellation or changes by the operator</li>
+        <li>Lost, stolen, or damaged baggage</li>
+        <li>Passenger waiting at the wrong boarding point</li>
+        <li>Changes in boarding point or use of pickup vehicles</li>
+      </ul>
+
+      <h4>Important Instructions:</h4>
+      <ul>
+        <li>
+          Passengers must arrive at the boarding point at least 20 minutes
+          before departure
+        </li>
+        <li>Passengers may not be allowed to board without a printed ticket</li>
+        <li>
+          The operator may cancel, delay, or change buses/seats due to
+          unavoidable reasons
+        </li>
+      </ul>
+
+      <h4>Luggage Policy:</h4>
+      <ul>
+        <li>Each passenger can carry up to 10 kg of luggage</li>
+        <li>Excess luggage will be charged at 10 BDT per kg</li>
+        <li>Luggage worth more than 5000 BDT must be declared</li>
+        <li>The operator is not responsible for illegal goods</li>
+      </ul>
+
+      <h4>Cancellation & Refund:</h4>
+      <ul>
+        <li>
+          Cancellation must be requested at least 12 hours before departure
+          (excluding 11 PM – 6 AM)
+        </li>
+        <li>
+          Late cancellation requests must be made within 24 hours of departure
+          time
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

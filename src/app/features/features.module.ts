@@ -9,6 +9,7 @@ import { AirComponent } from './vehicle/air/air.component';
 import { HomeComponent } from './home/home.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { TicketBookingComponent } from './ticket-booking/ticket-booking.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
     HomeComponent,
     CreateTicketComponent,
     TicketListComponent,
+    TicketBookingComponent,
   ],
   imports: [CommonModule, FormsModule, RouterModule],
 })

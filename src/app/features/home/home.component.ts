@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,16 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class HomeComponent {
   tripType: string = 'oneWay';
+  searchFrom: string = '';
+  searchTo: string = '';
+  journeyDate: string = '';
+  returnDate: string = '';
 
   @ViewChild('journeyDateInput')
   journeyDateInput!: ElementRef<HTMLInputElement>;
   @ViewChild('returnDateInput') returnDateInput!: ElementRef<HTMLInputElement>;
+
+  constructor(private router: Router) {}
 
   onTripTypeChange(value: string) {
     this.tripType = value;
@@ -44,5 +51,17 @@ export class HomeComponent {
     if (input && typeof input.showPicker === 'function') {
       input.showPicker();
     }
+  }
+
+  searchTickets() {
+    this.router.navigate(['/ticket-list'], {
+      state: {
+        searchFrom: this.searchFrom,
+        searchTo: this.searchTo,
+        journeyDate: this.journeyDate,
+        returnDate: this.returnDate,
+        tripType: this.tripType,
+      },
+    });
   }
 }
