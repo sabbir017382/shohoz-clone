@@ -8,7 +8,8 @@ import { HomeComponent } from './features/home/home.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { CreateTicketComponent } from './features/create-ticket/create-ticket.component';
 import { TicketListComponent } from './features/ticket-list/ticket-list.component';
-
+import { TripInfoComponent } from './features/trip-info/trip-info.component';
+import { PaymentProcessComponent } from './features/payment-process/payment-process.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -22,6 +23,16 @@ const routes: Routes = [
   { path: 'air', component: AirComponent },
   { path: 'create-ticket', component: CreateTicketComponent },
   { path: 'ticket-list', component: TicketListComponent },
+  {
+    path: 'trip-info',
+    component: TripInfoComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'payment',
+    component: PaymentProcessComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

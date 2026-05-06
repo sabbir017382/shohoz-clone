@@ -47,15 +47,11 @@
       "seatNo": "",
       "price": 1500,
       "availableSeats": [
-        "A1",
-        "A3",
         "A4",
         "B1",
         "B2",
         "B3",
         "B4",
-        "C1",
-        "C2",
         "C3",
         "C4",
         "D1",
@@ -116,15 +112,7 @@
       "price": 800,
       "availableSeats": [
         "A4",
-        "B2",
-        "B3",
-        "B4",
-        "C2",
         "C4",
-        "D1",
-        "D2",
-        "D3",
-        "D4",
         "E1",
         "E2",
         "E3",
@@ -142,9 +130,7 @@
         "I3",
         "I4",
         "J1",
-        "J2",
-        "J3",
-        "J4"
+        "J2"
       ],
       "id": 2,
       "ticketId": 2
@@ -214,77 +200,49 @@
       "id": 3
     },
     {
-      "busName": "jonaki",
-      "coachNo": "jp a1",
-      "from": "Noakhali",
-      "to": "Dhaka",
-      "boardingPoint": [
-        "Chatkhi",
-        "laksham",
-        "chandina",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "New market",
-        "jatrabari",
-        "Firmgate",
-        "Tejgaon",
-        "Gazipur"
-      ],
-      "departureDate": "2026-05-04",
-      "departureTime": "09:30",
-      "arrivalDate": "2026-05-05",
-      "arrivalTime": "08:30",
-      "seatNo": "",
-      "price": 999,
-      "availableSeats": [
-        "A1",
-        "A2",
-        "A3",
-        "B4",
-        "B3",
-        "B2",
-        "B1",
-        "A4",
-        "C1"
-      ],
-      "id": 4
-    },
-    {
-      "busName": "Lal Sobuj",
-      "coachNo": "HinoBj1",
+      "busName": "hanif",
+      "coachNo": "japan j2",
       "from": "Dhaka",
       "to": "Noakhali",
       "boardingPoint": [
         "Dhaka",
         "jhigatola",
-        "New market"
+        "New market",
+        "shahbag",
+        "Badda"
       ],
       "droppingPoint": [
         "Sunaimury",
+        "Chowmuhuny",
+        "Gabua",
         "Mijdee"
       ],
-      "departureDate": "2026-05-06",
-      "departureTime": "10:14",
-      "arrivalDate": "2026-05-06",
-      "arrivalTime": "13:14",
-      "seatNo": "",
-      "price": 1800,
+      "departureDate": "2026-05-07",
+      "departureTime": "14:59",
+      "arrivalDate": "2026-05-08",
+      "arrivalTime": "01:00",
+      "seatNo": "B3",
+      "price": 1200,
       "availableSeats": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D1",
+        "D3",
         "D4",
+        "E1",
         "E2",
         "E3",
         "E4",
+        "F1",
         "F2",
         "F3",
         "F4",
+        "G1",
         "G2",
         "G3",
         "G4",
-        "H1",
-        "H2",
         "H3",
         "H4",
         "I1",
@@ -296,61 +254,13 @@
         "J3",
         "J4"
       ],
-      "id": 5,
-      "ticketId": 5
-    }
-  ],
-  "bookings": [
-    {
-      "ticketId": 5,
-      "busName": "Lal Sobuj",
-      "bookedSeats": [
-        "C2",
-        "C3",
-        "C4"
-      ],
-      "boardingPoint": "Dhaka",
-      "totalAmount": 5400,
-      "bookingDate": "2026-05-05T07:31:12.598Z",
-      "id": 1
-    },
-    {
-      "ticketId": 5,
-      "busName": "Lal Sobuj",
-      "bookedSeats": [
-        "E1",
-        "D1",
-        "F1",
-        "G1"
-      ],
-      "boardingPoint": "New market",
-      "totalAmount": 7200,
-      "bookingDate": "2026-05-05T07:36:08.827Z",
-      "id": 2
-    },
-    {
-      "ticketId": 5,
-      "busName": "Lal Sobuj",
-      "bookedSeats": [
-        "B1",
-        "B2",
+      "id": 4,
+      "ticketId": 4,
+      "selectedSeats": [
+        "B3",
         "B4"
       ],
-      "boardingPoint": "New market",
-      "totalAmount": 5400,
-      "bookingDate": "2026-05-05T07:37:43.479Z",
-      "id": 3
-    },
-    {
-      "ticketId": 1,
-      "busName": "Himaloy",
-      "bookedSeats": [
-        "A2"
-      ],
-      "boardingPoint": "Chatkhi",
-      "totalAmount": 1500,
-      "bookingDate": "2026-05-05T09:38:20.322Z",
-      "id": 4
+      "totalAmount": 2400
     }
   ]
 }

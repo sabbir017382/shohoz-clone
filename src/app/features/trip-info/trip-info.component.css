@@ -1,0 +1,54 @@
+.custom-card {
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+}
+
+.card-header {
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+}
+
+.icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-input input,
+.custom-input {
+  background: #f4f4f4 !important;
+  border: none;
+  border-radius: 10px;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+.btn-gender {
+  border: 1px solid #28a745;
+  color: #28a745;
+  margin-right: 10px;
+  border-radius: 8px;
+  padding: 5px 20px;
+}
+
+.btn-gender.active {
+  background: #28a745;
+  color: #fff;
+}
+
+.bus-logo {
+  width: 70px;
+  height: auto;
+}
+
+.line-divider {
+  width: 40%;
+  border-top: 2px dotted #ddd;
+  margin-top: 20px;
+}

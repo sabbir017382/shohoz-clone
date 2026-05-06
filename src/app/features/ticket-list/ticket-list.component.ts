@@ -160,11 +160,7 @@ export class TicketListComponent implements OnInit {
       return;
     }
 
-    const base = this.searchFilteredTickets.length
-      ? this.searchFilteredTickets
-      : this.ticketList;
-
-    this.filteredTickets = base.filter((ticket) => {
+    this.filteredTickets = this.searchFilteredTickets.filter((ticket) => {
       const matchesOperator =
         !this.filters.operator || ticket.busName === this.filters.operator;
       const matchesBoarding =

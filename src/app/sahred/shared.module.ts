@@ -4,10 +4,16 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout/layout.component';
+import { AmPmTimePipe } from './am-pm-time.pipe';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, LayoutComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    LayoutComponent,
+    AmPmTimePipe,
+  ],
   imports: [CommonModule, RouterModule],
-  exports: [LayoutComponent, HeaderComponent, FooterComponent],
+  exports: [LayoutComponent, HeaderComponent, FooterComponent, AmPmTimePipe],
 })
 export class SahredModule {}

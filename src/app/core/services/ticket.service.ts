@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ticket } from 'src/app/models/ticket';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -115,6 +115,42 @@ export class TicketService {
     );
   }
 
+  confirmBooking(
+    ticket: Ticket & { selectedSeats?: string[] },
+    boardingPoint: string,
+    totalAmount: number,
+  ): Observable<any> {
+    const selectedSeats = ticket.selectedSeats || [];
+    const updatedAvailableSeats =
+      ticket.availableSeats?.filter((seat) => !selectedSeats.includes(seat)) ||
+      [];
+
+    const updatedTicket: Ticket = {
+      ...ticket,
+      availableSeats: updatedAvailableSeats,
+    };
+
+    return this.updateTicket(ticket.ticketId!, updatedTicket).pipe(
+      switchMap(() => {
+        const bookingData = {
+          ticketId: ticket.ticketId,
+          busName: ticket.busName,
+          bookedSeats: selectedSeats,
+          boardingPoint,
+          totalAmount,
+          bookingDate: new Date().toISOString(),
+        };
+        return this.createBooking(bookingData);
+      }),
+      tap(() => {
+        this.setSelectedTicket({
+          ...updatedTicket,
+          selectedSeats,
+        } as Ticket & { selectedSeats: string[] });
+      }),
+    );
+  }
+
   // Cancel a booking and restore seats
   cancelBooking(
     bookingId: number,
@@ -130,5 +166,14 @@ export class TicketService {
         return of(null);
       }),
     );
+  }
+
+  setSelectedTicket(ticket: Ticket): void {
+    localStorage.setItem('selectedTicket', JSON.stringify(ticket));
+  }
+
+  getSelectedTicket(): Ticket | null {
+    const ticket = localStorage.getItem('selectedTicket');
+    return ticket ? JSON.parse(ticket) : null;
   }
 }

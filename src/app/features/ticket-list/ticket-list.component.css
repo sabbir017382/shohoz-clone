@@ -247,13 +247,16 @@
   height: 40px;
   border-radius: 4px;
   background: #f0dcd5;
-  color: #d4651f;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .company-details {
@@ -420,7 +423,34 @@
   font-size: 18px;
   color: #1a6a2b;
 }
+/* No ticket page  */
 
+.search-result-wrapper {
+  padding: 0;
+}
+
+.trips-area-placeholder {
+  min-height: 300px;
+}
+
+.no-trip-img {
+  max-width: 100%;
+}
+
+.no-trip-text {
+  color: #4f4f4f;
+  font-size: 14px;
+}
+
+.support-number {
+  color: #28a745; /* Bootstrap success green */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.support-number:hover {
+  text-decoration: underline;
+}
 /* Empty State */
 .no-tickets {
   text-align: center;

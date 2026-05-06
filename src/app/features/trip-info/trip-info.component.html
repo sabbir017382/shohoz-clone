@@ -1,0 +1,188 @@
+<div class="container py-5 min-vh-100" *ngIf="user && ticket">
+  <div class="row">
+    <!-- LEFT SIDE -->
+    <div class="col-md-8">
+      <!-- Contact Card -->
+      <div class="card custom-card mb-4">
+        <div class="card-header d-flex align-items-center">
+          <div class="icon-circle bg-success mr-3">📞</div>
+          <div>
+            <h6 class="mb-0 font-weight-bold">Contact Details</h6>
+            <small class="text-muted"
+              >To receive your E-tickets & updates</small
+            >
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="form-row">
+            <!-- Mobile -->
+            <div class="col-md-6 mb-3">
+              <label>Mobile No *</label>
+              <div class="input-group custom-input">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">+88</span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="XXXXXXXXXX"
+                  [(ngModel)]="user!.mobile"
+                  name="mobile"
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+              <label>Email *</label>
+              <input
+                type="email"
+                class="form-control custom-input"
+                placeholder="Enter email"
+                [(ngModel)]="user!.email"
+                name="email"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passenger Title -->
+      <h6 class="font-weight-bold">Passenger Details</h6>
+      <small class="text-muted">Please provide the details of passenger</small>
+
+      <!-- Passenger Card -->
+      <div class="card custom-card mt-3">
+        <div class="card-header d-flex align-items-center">
+          <div class="icon-circle bg-warning mr-3">👤</div>
+          <h6 class="mb-0 font-weight-bold">Passenger 1</h6>
+        </div>
+
+        <div class="card-body">
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label>First Name *</label>
+              <input
+                type="text"
+                class="form-control custom-input"
+                placeholder="Enter name"
+                [(ngModel)]="user!.firstName"
+                name="firstName"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Last Name *</label>
+              <input
+                type="text"
+                class="form-control custom-input"
+                placeholder="Enter name"
+                [(ngModel)]="user!.lastName"
+                name="lastName"
+              />
+            </div>
+          </div>
+
+          <!-- Gender -->
+          <div class="d-flex align-items-center mt-3">
+            <span class="mr-3">Gender *</span>
+
+            <button
+              class="btn btn-gender"
+              [class.active]="user!.gender === 'Male'"
+              (click)="user!.gender = 'Male'"
+            >
+              Male
+            </button>
+            <button
+              class="btn btn-gender"
+              [class.active]="user!.gender === 'Female'"
+              (click)="user!.gender = 'Female'"
+            >
+              Female
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-md-4">
+      <!-- Trip Card -->
+      <div class="card custom-card mb-4">
+        <div class="card-body">
+          <!-- Bus Info -->
+          <div class="d-flex mb-3">
+            <img
+              src="https://bus-promotion-bucket.s3-ap-southeast-1.amazonaws.com/production/busowners-logo/BUS_OWNER_LOGO_5147439f2400512e73c6956154b72c07.jpg"
+              class="bus-logo mr-3"
+            />
+
+            <div>
+              <h6 class="mb-1 font-weight-bold">{{ ticket!.busName }}</h6>
+              <small class="text-muted">{{ ticket!.coachNo }}</small>
+            </div>
+          </div>
+
+          <!-- Fare & Seat -->
+          <div
+            class="d-flex justify-content-between py-3 border-top border-bottom"
+          >
+            <div>
+              <small class="text-muted">FARE</small>
+              <p class="mb-1">
+                <strong>Seat Price:</strong> ৳{{ ticket!.price }}
+              </p>
+              <p><strong>Total Amount:</strong> ৳{{ totalAmount }}</p>
+            </div>
+
+            <div>
+              <small class="text-muted">SEATS</small>
+              <h6 class="text-success">{{ selectedSeats.join(", ") }}</h6>
+            </div>
+          </div>
+
+          <!-- Route -->
+          <div class="d-flex justify-content-between py-3">
+            <div>
+              <small class="text-muted">DEPARTURE</small>
+              <p class="mb-0">{{ ticket!.from }}</p>
+              <strong>{{ ticket!.departureTime | amPmTime }}</strong>
+            </div>
+
+            <div class="line-divider"></div>
+
+            <div class="text-right">
+              <small class="text-muted">ARRIVAL</small>
+              <p class="mb-0">{{ ticket!.to }}</p>
+              <strong>{{ ticket!.arrivalTime | amPmTime }}</strong>
+            </div>
+          </div>
+
+          <!-- Boarding -->
+          <div>
+            <small class="text-muted">BOARDING POINT</small>
+            <p class="mb-0 font-weight-bold">
+              {{ ticket!.boardingPoint[0] }}
+              <span class="text-success small ml-2">{{
+                ticket!.departureTime | amPmTime
+              }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <button
+        class="btn btn-success btn-block btn-lg"
+        (click)="proceedToPayment()"
+      >
+        Continue to Payment
+      </button>
+      <p class="text-muted small mt-2 text-center">
+        Fill required details to proceed
+      </p>
+    </div>
+  </div>
+</div>

@@ -86,7 +86,7 @@
           <div class="route-box">
             <p class="label">Departure</p>
             <p>{{ ticket.from }}</p>
-            <p class="time">{{ ticket.departureTime }}</p>
+            <p class="time">{{ ticket.departureTime | amPmTime }}</p>
             <p class="date">{{ ticket.departureDate }}</p>
           </div>
 
@@ -96,7 +96,7 @@
           <div class="route-box">
             <p class="label">Arrival</p>
             <p>{{ ticket.to }}</p>
-            <p class="time">{{ ticket.arrivalTime }}</p>
+            <p class="time">{{ ticket.arrivalTime | amPmTime }}</p>
             <p class="date">{{ ticket.arrivalDate }}</p>
           </div>
         </div>
@@ -111,7 +111,7 @@
           <span class="info-text"
             >Departs from {{ ticket.from }} on
             {{ ticket.departureDate | date: "dd MMM" }} at
-            {{ ticket.departureTime }}</span
+            {{ ticket.departureTime | amPmTime }}</span
           >
         </div>
       </div>
@@ -221,40 +221,41 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Bottom bar -->
-    <div class="bottom-bar">
-      <div>
-        <h5 class="text-success">Total Amount: ৳{{ totalAmount }}</h5>
+      <div class="text-right mt-3">
+        <button
+          class="btn btn-success"
+          (click)="goToTripInfo()"
+          [disabled]="!selectedBoardingPoint"
+        >
+          CONTINUE
+        </button>
       </div>
-
-      <button
-        class="btn btn-success continue-btn"
-        (click)="continueToConfirmation()"
-        [disabled]="!selectedBoardingPoint"
-      >
-        CONTINUE
-      </button>
     </div>
   </div>
 
-  <!-- Step 3: Confirmation -->
+  <!-- Step 3: Confirmation
   <div *ngIf="step === 3" class="step-content">
     <h4>Booking Confirmation</h4>
     <div *ngIf="ticket">
       <p><strong>Bus:</strong> {{ ticket.busName }}</p>
       <p><strong>Seats:</strong> {{ selectedSeats.join(", ") }}</p>
       <p><strong>Boarding Point:</strong> {{ selectedBoardingPoint }}</p>
-      <p><strong>Total Amount:</strong> ৳{{ totalAmount }}</p>
+      <p>
+        <strong>Total Amount:</strong> ৳{{ totalAmount * selectedSeats.length }}
+      </p>
     </div>
     <div class="button-group">
-      <button class="btn btn-success" (click)="confirmBooking()">
+      <button
+        class="btn btn-success"
+        (click)="confirmBooking()"
+        routerLink="/trip-info"
+      >
         Confirm Booking
       </button>
       <button class="btn btn-outline-danger" (click)="goBack()">Cancel</button>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="activeTab === 'policies'">
     <div class="policy-box">

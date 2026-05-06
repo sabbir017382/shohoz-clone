@@ -30,4 +30,8 @@ export class AuthService {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
+
+  updateUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 }

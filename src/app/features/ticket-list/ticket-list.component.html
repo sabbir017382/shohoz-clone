@@ -275,8 +275,11 @@
             <div class="ticket-top">
               <div class="company-block">
                 <div class="company-logo">
-                  {{ getOperatorInitials(ticket.busName) }}
-                </div>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Bus_icon.svg"
+    alt="Bus"
+  />
+</div>
                 <div class="company-details">
                   <h5 class="company-name">{{ ticket.busName }}</h5>
                   <p class="company-route">
@@ -288,7 +291,9 @@
               <!-- Middle Section: Time Timeline -->
 
               <div class="timeline-block">
-                <div class="time-display">{{ ticket.departureTime }}</div>
+                <div class="time-display">
+                  {{ ticket.departureTime | amPmTime }}
+                </div>
                 <div class="date-display">
                   {{ ticket.departureDate | date: "EEE, MMM d" }}
                 </div>
@@ -301,7 +306,9 @@
               </div>
 
               <div class="timeline-block">
-                <div class="time-display">{{ ticket.arrivalTime }}</div>
+                <div class="time-display">
+                  {{ ticket.arrivalTime | amPmTime }}
+                </div>
                 <div class="date-display">
                   {{ ticket.arrivalDate | date: "EEE, MMM d" }}
                 </div>
@@ -340,17 +347,13 @@
                   <span class="info-text"
                     >Departs from {{ ticket.from }} on
                     {{ ticket.departureDate | date: "dd MMM" }} at
-                    {{ ticket.departureTime }}</span
+                    {{ ticket.departureTime | amPmTime }}</span
                   >
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <ng-template #noTickets>
-          <div class="no-tickets">No tickets found</div>
-        </ng-template>
       </main>
     </div>
   </ng-container>
@@ -364,7 +367,37 @@
     </div>
   </ng-template>
 </div>
+<ng-template #noTickets>
+  <div class="no-tickets">
+    <div class="container search-result-wrapper">
+      <div
+        class="result-container d-flex justify-content-between align-items-start pt-5 pb-5 trips-area-placeholder"
+      >
+        <div class="col-md-12 col-lg-8 mx-auto text-center">
+          <!-- Image -->
+          <div class="w-100 d-flex justify-content-center">
+            <img
+              src="https://s3-ap-south-1.amazonaws.com/shohoz-bus/prod/no_trips.svg?v=1.0.4"
+              alt="trip festival"
+              class="img-fluid my-4 no-trip-img"
+              width="319"
+              height="171"
+            />
+          </div>
 
+          <!-- Text -->
+          <div class="w-100">
+            <p class="no-trip-text">
+              No bus found for selected dates or cities. Please try different
+              dates or cities. For support call our call centre @
+              <a href="tel:16374" class="support-number">16374</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 <!-- Booking Panel -->
 <div
   class="booking-overlay"

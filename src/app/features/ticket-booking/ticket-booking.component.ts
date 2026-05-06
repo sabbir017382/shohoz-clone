@@ -7,6 +7,7 @@ import {
   EventEmitter,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Ticket, SeatNo } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/core/services/ticket.service';
 
@@ -40,7 +41,10 @@ export class TicketBookingComponent implements OnInit, OnChanges {
     this.activeTab = tab;
   }
 
-  constructor(private ticketService: TicketService) {}
+  constructor(
+    private ticketService: TicketService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     if (this.ticket) {
@@ -162,6 +166,26 @@ export class TicketBookingComponent implements OnInit, OnChanges {
     }
   }
 
+  saveSelectedTicket(): void {
+    if (!this.ticket) {
+      return;
+    }
+
+    const ticketWithSeats = {
+      ...this.ticket,
+      seatNo: this.selectedSeats[0] as SeatNo,
+      selectedSeats: [...this.selectedSeats],
+      totalAmount: this.totalAmount,
+    } as Ticket & { selectedSeats: string[]; totalAmount: number };
+
+    this.ticketService.setSelectedTicket(ticketWithSeats);
+  }
+
+  goToTripInfo(): void {
+    this.saveSelectedTicket();
+    this.router.navigate(['/trip-info']);
+  }
+
   // Confirm booking
   confirmBooking(): void {
     console.log('Confirm booking clicked');
@@ -217,18 +241,26 @@ export class TicketBookingComponent implements OnInit, OnChanges {
                 this.bookingId = bookingResponse.id;
               }
               console.log('Booking confirmed:', bookingResponse);
-              alert(
-                `Booking confirmed! Booked seats: ${this.selectedSeats.join(', ')}`,
-              );
-              this.closePanel.emit();
+              // Set selected ticket with booked seat info
+              const ticketWithSeats = {
+                ...updatedTicket,
+                seatNo: this.selectedSeats[0] as SeatNo,
+                selectedSeats: [...this.selectedSeats],
+              } as Ticket & { selectedSeats: string[] };
+              this.ticketService.setSelectedTicket(ticketWithSeats);
+              // Navigate to trip-info
+              this.router.navigate(['/trip-info']);
             },
             (error) => {
               console.error('Failed to create booking record:', error);
-              // Booking was confirmed but record creation failed
-              alert(
-                `Booking seats confirmed! Booked seats: ${this.selectedSeats.join(', ')}`,
-              );
-              this.closePanel.emit();
+              // Still navigate even if booking record creation failed
+              const ticketWithSeats = {
+                ...updatedTicket,
+                seatNo: this.selectedSeats[0] as SeatNo,
+                selectedSeats: [...this.selectedSeats],
+              } as Ticket & { selectedSeats: string[] };
+              this.ticketService.setSelectedTicket(ticketWithSeats);
+              this.router.navigate(['/trip-info']);
             },
           );
         },

@@ -1,0 +1,46 @@
+.text-orange {
+  color: #f88922;
+}
+
+.payment-item {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.payment-item.active {
+  border: 1px solid #28a745;
+}
+
+.payment-img {
+  width: 35px;
+}
+
+.tick-icon {
+  font-size: 14px;
+  opacity: 0;
+}
+
+.tick-icon.active {
+  opacity: 1;
+  color: #28a745;
+}
+
+.insurance-benefit-wrap {
+  display: none;
+}
+
+.payment-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  z-index: 9999;
+  font-size: 14px;
+}
