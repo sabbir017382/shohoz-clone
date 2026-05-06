@@ -1,0 +1,89 @@
+body {
+  background: #f5f8f7;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  border-radius: 12px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-bottom: 5px;
+  transition: 0.2s;
+}
+
+.profile-link:hover {
+  background: #f1f4f3;
+  text-decoration: none;
+}
+
+.profile-link.active {
+  background: #e6f4ea;
+  color: #079d49;
+  font-weight: 600;
+}
+
+.profile-link .icon {
+  margin-right: 8px;
+}
+
+/* Card */
+.card {
+  border-radius: 12px;
+  border: none;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* Label */
+.label {
+  font-size: 12px;
+  color: #f88922;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Value */
+.value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Change Password Styles */
+.change-password-wrapper {
+  max-width: 520px;
+}
+
+.change-password-card {
+  border-radius: 12px;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 35px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.eye-btn:hover {
+  color: #000;
+}
+
+.form-control {
+  border-radius: 8px;
+}

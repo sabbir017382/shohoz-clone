@@ -28,10 +28,6 @@
   color: #28a745;
 }
 
-.insurance-benefit-wrap {
-  display: none;
-}
-
 .payment-toast {
   position: fixed;
   bottom: 20px;

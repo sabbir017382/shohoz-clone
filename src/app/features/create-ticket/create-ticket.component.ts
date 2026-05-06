@@ -17,6 +17,7 @@ export class CreateTicketComponent implements OnInit {
   seatOptions: SeatNo[] = [];
   availableSeats: Set<SeatNo> = new Set();
   seatPlanOpen = false;
+  isSubmitting = false;
 
   // Seat map rows and columns
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -127,6 +128,14 @@ export class CreateTicketComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Check if form is valid
+    if (!this.isFormValid()) {
+      alert('Please fill in all required fields correctly before submitting.');
+      return;
+    }
+
+    this.isSubmitting = true;
+
     this.currentTicket.boardingPoint = this.boardingPointsInput
       .split(',')
       .map((point: string) => point.trim())
@@ -152,6 +161,7 @@ export class CreateTicketComponent implements OnInit {
             ? 'Ticket updated successfully'
             : 'Ticket added successfully',
         );
+        this.isSubmitting = false;
       },
       error: (err) => {
         console.error('Ticket save error:', err);
@@ -161,8 +171,70 @@ export class CreateTicketComponent implements OnInit {
           err?.message ||
           'Unable to save ticket';
         alert(`Ticket save failed: ${message}`);
+        this.isSubmitting = false;
       },
     });
+  }
+
+  isFormValid(): boolean {
+    // Basic required field validation
+    if (
+      !this.currentTicket.busName?.trim() ||
+      this.currentTicket.busName.length < 2
+    ) {
+      return false;
+    }
+    if (!this.currentTicket.coachNo?.trim()) {
+      return false;
+    }
+    if (
+      !this.currentTicket.from?.trim() ||
+      this.currentTicket.from.length < 2
+    ) {
+      return false;
+    }
+    if (!this.currentTicket.to?.trim() || this.currentTicket.to.length < 2) {
+      return false;
+    }
+    if (!this.currentTicket.departureDate) {
+      return false;
+    }
+    if (!this.currentTicket.departureTime) {
+      return false;
+    }
+    if (!this.currentTicket.arrivalDate) {
+      return false;
+    }
+    if (!this.currentTicket.arrivalTime) {
+      return false;
+    }
+    if (!this.currentTicket.price || this.currentTicket.price <= 0) {
+      return false;
+    }
+
+    // Validate that 'from' and 'to' are different
+    if (
+      this.currentTicket.from.toLowerCase() ===
+      this.currentTicket.to.toLowerCase()
+    ) {
+      alert('Departure and destination cities cannot be the same.');
+      return false;
+    }
+
+    // Validate date logic
+    const departureDateTime = new Date(
+      `${this.currentTicket.departureDate}T${this.currentTicket.departureTime}`,
+    );
+    const arrivalDateTime = new Date(
+      `${this.currentTicket.arrivalDate}T${this.currentTicket.arrivalTime}`,
+    );
+
+    if (arrivalDateTime <= departureDateTime) {
+      alert('Arrival date and time must be after departure date and time.');
+      return false;
+    }
+
+    return true;
   }
 
   resetForm(): void {

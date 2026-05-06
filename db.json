@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "firstName": "MD.",
-      "lastName": "HOSSAIN",
+      "firstName": "MD. Sabbir",
+      "lastName": "HOSSAINN",
       "mobile": "01322421573",
       "email": "sabbir421573@gmail.com",
       "gender": "Male",
@@ -19,6 +19,16 @@
       "password": "111111",
       "confirmPassword": "111111",
       "id": 3
+    },
+    {
+      "firstName": "Shohag",
+      "lastName": "Mia",
+      "mobile": "01322421570",
+      "email": "shohag@gmail.com",
+      "gender": "Male",
+      "password": "1111111",
+      "confirmPassword": "111111",
+      "id": 4
     }
   ],
   "tickets": [
@@ -221,13 +231,9 @@
       "departureTime": "14:59",
       "arrivalDate": "2026-05-08",
       "arrivalTime": "01:00",
-      "seatNo": "B3",
+      "seatNo": "C3",
       "price": 1200,
       "availableSeats": [
-        "C1",
-        "C2",
-        "C3",
-        "C4",
         "D1",
         "D3",
         "D4",
@@ -257,8 +263,8 @@
       "id": 4,
       "ticketId": 4,
       "selectedSeats": [
-        "B3",
-        "B4"
+        "C3",
+        "C4"
       ],
       "totalAmount": 2400
     }

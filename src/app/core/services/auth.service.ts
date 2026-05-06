@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { User } from 'src/app/models/user';
 
 @Injectable({
@@ -31,7 +32,44 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 
+  getUserByMobile(mobile: string) {
+    return this.http.get<User[]>(`${this.baseUrl}users?mobile=${mobile}`);
+  }
+
   updateUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  updateUserProfile(user: User) {
+    if (!user.id) {
+      throw new Error('User ID is required for profile update');
+    }
+    return this.http.put<User>(`${this.baseUrl}users/${user.id}`, user).pipe(
+      tap((updatedUser) => {
+        this.updateUser(updatedUser);
+      }),
+    );
+  }
+
+  changePassword(
+    mobile: string,
+    oldPassword: string,
+    newPassword: string,
+  ): Observable<any> {
+    return this.http
+      .get<
+        User[]
+      >(`${this.baseUrl}users?mobile=${mobile}&password=${oldPassword}`)
+      .pipe(
+        switchMap((users) => {
+          if (users.length === 0) {
+            return throwError(() => new Error('Current password is incorrect'));
+          }
+          const user = users[0];
+          return this.http.patch<User>(`${this.baseUrl}users/${user.id}`, {
+            password: newPassword,
+          });
+        }),
+      );
   }
 }

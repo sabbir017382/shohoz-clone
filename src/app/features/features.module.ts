@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SahredModule } from '../sahred/shared.module';
 import { LoginComponent } from './auth/login/login.component';
@@ -13,6 +13,8 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { TicketBookingComponent } from './ticket-booking/ticket-booking.component';
 import { TripInfoComponent } from './trip-info/trip-info.component';
 import { PaymentProcessComponent } from './payment-process/payment-process.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,15 @@ import { PaymentProcessComponent } from './payment-process/payment-process.compo
     TicketBookingComponent,
     TripInfoComponent,
     PaymentProcessComponent,
+    ProfileComponent,
+    TermsConditionsComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterModule, SahredModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SahredModule,
+  ],
 })
 export class FeaturesModule {}

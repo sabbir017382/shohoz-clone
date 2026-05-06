@@ -203,3 +203,35 @@ h5 {
     margin-bottom: 10px;
   }
 }
+
+/* Validation Styles */
+.text-danger {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+.form-control.ng-valid.ng-touched {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Alert styles for validation messages */
+.alert-validation {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+}

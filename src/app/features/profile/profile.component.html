@@ -1,0 +1,308 @@
+<div class="container mt-4" *ngIf="user; else noUser">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 d-none d-lg-block">
+      <div class="profile-sidebar p-2 bg-white rounded">
+        <a
+          href="javascript:void(0)"
+          class="profile-link"
+          [class.active]="currentView === 'profile'"
+          (click)="showProfile()"
+        >
+          <span class="icon">👤</span>
+          My Profile
+        </a>
+
+        <a
+          href="javascript:void(0)"
+          class="profile-link"
+          [class.active]="currentView === 'changePassword'"
+          (click)="showChangePassword()"
+        >
+          <span class="icon">🔒</span>
+          Change Password
+        </a>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-lg-9">
+      <!-- Profile View -->
+      <div *ngIf="currentView === 'profile'">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="font-weight-bold">Profile Details</h5>
+          <button
+            class="btn btn-success"
+            *ngIf="!isEditing"
+            (click)="startEdit()"
+          >
+            <i class="fa fa-edit"></i> Update Profile
+          </button>
+        </div>
+
+        <div *ngIf="isEditing && editUser; else profileView">
+          <div class="card mb-3">
+            <div class="card-body">
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>First Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="editUser.firstName"
+                      name="firstName"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="editUser.lastName"
+                      name="lastName"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      [(ngModel)]="editUser.email"
+                      name="email"
+                    />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Mobile</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="editUser.mobile"
+                      name="mobile"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row align-items-center">
+                  <div class="form-group col-md-12">
+                    <label>Gender</label>
+                    <div>
+                      <button
+                        type="button"
+                        class="btn btn-gender mr-2"
+                        [class.active]="editUser.gender === 'Male'"
+                        (click)="editUser.gender = 'Male'"
+                      >
+                        Male
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-gender"
+                        [class.active]="editUser.gender === 'Female'"
+                        (click)="editUser.gender = 'Female'"
+                      >
+                        Female
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                  <button
+                    type="button"
+                    class="btn btn-secondary mr-2"
+                    (click)="cancelEdit()"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    [disabled]="saving"
+                    (click)="saveProfile()"
+                  >
+                    {{ saving ? "Saving..." : "Save Changes" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #profileView>
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">NAME</p>
+              <p class="value">{{ user.firstName }} {{ user.lastName }}</p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">EMAIL</p>
+              <p class="value">{{ user.email }}</p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">PHONE</p>
+              <p class="value">{{ user.mobile }}</p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">GENDER</p>
+              <p class="value">{{ user.gender || "Not set yet" }}</p>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">ADDRESS</p>
+              <span class="text-muted">Not set yet</span>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">NATIONAL IDENTITY</p>
+              <span class="text-muted">Not set yet</span>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">PASSPORT</p>
+              <span class="text-muted">Not set yet</span>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="label">VISA</p>
+              <span class="text-muted">Not set yet</span>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Change Password View -->
+      <div
+        *ngIf="currentView === 'changePassword'"
+        class="change-password-wrapper"
+      >
+        <div class="mb-3">
+          <h4 class="font-weight-bold">Change Password</h4>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="card p-4 shadow-sm change-password-card">
+            <!-- Current Password -->
+            <div class="form-group position-relative mb-3">
+              <label class="font-weight-bold">Current Password</label>
+              <input
+                [type]="showOldPassword ? 'text' : 'password'"
+                class="form-control pr-5"
+                formControlName="old_password"
+                placeholder="••••••••"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="btn eye-btn"
+                (click)="toggleOldPassword()"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="!showOldPassword"
+                  [class.fa-eye-slash]="showOldPassword"
+                ></i>
+              </button>
+            </div>
+
+            <!-- New Password -->
+            <div class="form-group position-relative mb-3">
+              <label class="font-weight-bold">New Password</label>
+              <input
+                [type]="showNewPassword ? 'text' : 'password'"
+                class="form-control pr-5"
+                formControlName="new_password"
+                placeholder="••••••••"
+                maxlength="15"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="btn eye-btn"
+                (click)="toggleNewPassword()"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="!showNewPassword"
+                  [class.fa-eye-slash]="showNewPassword"
+                ></i>
+              </button>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group position-relative mb-3">
+              <label class="font-weight-bold">Confirm Password</label>
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                class="form-control pr-5"
+                formControlName="new_password_confirmation"
+                placeholder="••••••••"
+                maxlength="15"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="btn eye-btn"
+                (click)="toggleConfirmPassword()"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="!showConfirmPassword"
+                  [class.fa-eye-slash]="showConfirmPassword"
+                ></i>
+              </button>
+              <div
+                *ngIf="
+                  form.get('new_password_confirmation')?.errors?.[
+                    'passwordMismatch'
+                  ]
+                "
+                class="text-danger mt-1"
+              >
+                Passwords do not match
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn btn-success btn-block mt-3"
+              [disabled]="form.invalid"
+            >
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUser>
+  <div class="container mt-4 text-center">
+    <div class="alert alert-warning">
+      No user is logged in. Please login to see your profile.
+    </div>
+  </div>
+</ng-template>

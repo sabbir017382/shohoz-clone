@@ -1,0 +1,41 @@
+.terms-wrapper {
+  max-width: 991px;
+}
+
+.terms-box {
+  background: #f3f4f6; /* light gray like original */
+  border-radius: 6px;
+}
+
+.terms-title {
+  font-size: 28px;
+  text-decoration: underline;
+}
+
+.terms-subtitle {
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+.terms-content p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.terms-content ul {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.terms-content li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.section-title {
+  font-size: 18px;
+  text-decoration: underline;
+  margin-top: 15px;
+}

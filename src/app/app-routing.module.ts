@@ -10,19 +10,23 @@ import { CreateTicketComponent } from './features/create-ticket/create-ticket.co
 import { TicketListComponent } from './features/ticket-list/ticket-list.component';
 import { TripInfoComponent } from './features/trip-info/trip-info.component';
 import { PaymentProcessComponent } from './features/payment-process/payment-process.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  },
-
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'bus', component: BusComponent },
-  { path: 'air', component: AirComponent },
-  { path: 'create-ticket', component: CreateTicketComponent },
-  { path: 'ticket-list', component: TicketListComponent },
+  { path: 'bus', component: BusComponent, canActivate: [AuthGuard] },
+  { path: 'air', component: AirComponent, canActivate: [AuthGuard] },
+  {
+    path: 'create-ticket',
+    component: CreateTicketComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'ticket-list',
+    component: TicketListComponent,
+  },
   {
     path: 'trip-info',
     component: TripInfoComponent,
@@ -33,7 +37,13 @@ const routes: Routes = [
     component: PaymentProcessComponent,
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

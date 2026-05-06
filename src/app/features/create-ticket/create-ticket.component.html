@@ -14,7 +14,18 @@
             name="busName"
             [(ngModel)]="currentTicket.busName"
             required
+            #busName="ngModel"
+            minlength="2"
           />
+          <div
+            *ngIf="busName.invalid && (busName.dirty || busName.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="busName.errors?.['required']">Bus name is required</div>
+            <div *ngIf="busName.errors?.['minlength']">
+              Bus name must be at least 2 characters
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-6">
@@ -25,7 +36,20 @@
             name="coachNo"
             [(ngModel)]="currentTicket.coachNo"
             required
+            #coachNo="ngModel"
+            minlength="1"
           />
+          <div
+            *ngIf="coachNo.invalid && (coachNo.dirty || coachNo.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="coachNo.errors?.['required']">
+              Coach number is required
+            </div>
+            <div *ngIf="coachNo.errors?.['minlength']">
+              Coach number is required
+            </div>
+          </div>
         </div>
       </div>
 
@@ -38,7 +62,20 @@
             name="from"
             [(ngModel)]="currentTicket.from"
             required
+            #from="ngModel"
+            minlength="2"
           />
+          <div
+            *ngIf="from.invalid && (from.dirty || from.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="from.errors?.['required']">
+              Departure city is required
+            </div>
+            <div *ngIf="from.errors?.['minlength']">
+              Departure city must be at least 2 characters
+            </div>
+          </div>
         </div>
         <div class="form-group col-md-6">
           <label>To</label>
@@ -48,7 +85,20 @@
             name="to"
             [(ngModel)]="currentTicket.to"
             required
+            #to="ngModel"
+            minlength="2"
           />
+          <div
+            *ngIf="to.invalid && (to.dirty || to.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="to.errors?.['required']">
+              Destination city is required
+            </div>
+            <div *ngIf="to.errors?.['minlength']">
+              Destination city must be at least 2 characters
+            </div>
+          </div>
         </div>
       </div>
 
@@ -119,7 +169,19 @@
           name="boardingPoints"
           [(ngModel)]="boardingPointsInput"
           placeholder="Dhaka, Chittagong, Sylhet"
+          #boardingPoints="ngModel"
         />
+        <div
+          *ngIf="
+            boardingPoints.invalid &&
+            (boardingPoints.dirty || boardingPoints.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="boardingPoints.errors?.['pattern']">
+            Please enter valid boarding points separated by commas
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
@@ -130,7 +192,19 @@
           name="droppingPoints"
           [(ngModel)]="droppingPointsInput"
           placeholder="Cox's Bazar, Teknaf"
+          #droppingPoints="ngModel"
         />
+        <div
+          *ngIf="
+            droppingPoints.invalid &&
+            (droppingPoints.dirty || droppingPoints.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="droppingPoints.errors?.['pattern']">
+            Please enter valid dropping points separated by commas
+          </div>
+        </div>
       </div>
 
       <div class="form-row">
@@ -142,7 +216,19 @@
             name="departureDate"
             [(ngModel)]="currentTicket.departureDate"
             required
+            #departureDate="ngModel"
           />
+          <div
+            *ngIf="
+              departureDate.invalid &&
+              (departureDate.dirty || departureDate.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="departureDate.errors?.['required']">
+              Departure date is required
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-6">
@@ -153,7 +239,19 @@
             name="departureTime"
             [(ngModel)]="currentTicket.departureTime"
             required
+            #departureTime="ngModel"
           />
+          <div
+            *ngIf="
+              departureTime.invalid &&
+              (departureTime.dirty || departureTime.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="departureTime.errors?.['required']">
+              Departure time is required
+            </div>
+          </div>
         </div>
       </div>
 
@@ -166,7 +264,18 @@
             name="arrivalDate"
             [(ngModel)]="currentTicket.arrivalDate"
             required
+            #arrivalDate="ngModel"
           />
+          <div
+            *ngIf="
+              arrivalDate.invalid && (arrivalDate.dirty || arrivalDate.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="arrivalDate.errors?.['required']">
+              Arrival date is required
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-6">
@@ -177,7 +286,18 @@
             name="arrivalTime"
             [(ngModel)]="currentTicket.arrivalTime"
             required
+            #arrivalTime="ngModel"
           />
+          <div
+            *ngIf="
+              arrivalTime.invalid && (arrivalTime.dirty || arrivalTime.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="arrivalTime.errors?.['required']">
+              Arrival time is required
+            </div>
+          </div>
         </div>
       </div>
       <!-- Price -->
@@ -189,13 +309,35 @@
           name="price"
           [(ngModel)]="currentTicket.price"
           required
+          #price="ngModel"
+          min="1"
         />
+        <div
+          *ngIf="price.invalid && (price.dirty || price.touched)"
+          class="text-danger"
+        >
+          <div *ngIf="price.errors?.['required']">Price is required</div>
+          <div *ngIf="price.errors?.['min']">Price must be greater than 0</div>
+        </div>
       </div>
 
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-green px-4" [disabled]="f.invalid">
-          {{ editMode ? "Update Ticket" : "Create Ticket" }}
+        <button
+          type="submit"
+          class="btn btn-green px-4"
+          [disabled]="f.invalid || isSubmitting"
+        >
+          {{
+            isSubmitting
+              ? "Saving..."
+              : editMode
+                ? "Update Ticket"
+                : "Create Ticket"
+          }}
         </button>
+        <div *ngIf="f.invalid && f.submitted" class="text-danger mt-2">
+          Please fill in all required fields correctly before submitting.
+        </div>
       </div>
     </form>
   </div>

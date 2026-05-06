@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink,Router } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { TicketService } from 'src/app/core/services/ticket.service';
 import { Ticket } from 'src/app/models/ticket';
 
@@ -39,6 +39,7 @@ export class PaymentProcessComponent implements OnInit {
   selectedPayment: string = ''; // default none selected
   insuranceAccepted: boolean = false;
   termsAccepted: boolean = false;
+  showBenefits: boolean = false;
 
   selectedTicket: Ticket | null = null;
   selectedSeats: string[] = [];
@@ -65,7 +66,14 @@ export class PaymentProcessComponent implements OnInit {
     );
   }
 
-  constructor(private ticketService: TicketService, private router: Router) {}
+  constructor(
+    private ticketService: TicketService,
+    private router: Router,
+  ) {}
+
+  toggleBenefits(): void {
+    this.showBenefits = !this.showBenefits;
+  }
 
   ngOnInit(): void {
     this.selectedTicket = this.ticketService.getSelectedTicket();
