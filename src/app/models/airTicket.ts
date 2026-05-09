@@ -11,7 +11,7 @@ export interface AirTicket {
   departureTime: string;
   arrivalDate: string;
   arrivalTime: string;
-  seatType: ['EconomyClass' | 'BusinessClass' | 'FirstClass'];
+  seatType: SeatType;
   baggageAllowance: string;
   priceForAdult: number;
   priceForChild: number;
@@ -19,9 +19,9 @@ export interface AirTicket {
   economySeat: EconomySeat;
   businessSeat: BusinessSeat;
   firstClassSeat: FirstClassSeat;
-  availableEcSeats: EconomySeat[];
-  availableBcSeats: BusinessSeat[];
-  availableFcSeats: FirstClassSeat[];
+  availableEcSeats?: EconomySeat[];
+  availableBcSeats?: BusinessSeat[];
+  availableFcSeats?: FirstClassSeat[];
   Tax: number;
   OtherCharges: number;
   cuponCode?: string;
@@ -29,6 +29,7 @@ export interface AirTicket {
   processingFee: number;
   airImageUrl: string;
 }
+export type SeatType = 'EconomyClass' | 'BusinessClass' | 'FirstClass';
 export type EconomySeat =
   | 'A1'
   | 'A2'

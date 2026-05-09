@@ -1,0 +1,109 @@
+.air-ticket-card {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.row-section {
+  margin-bottom: 18px;
+  padding: 15px;
+  border-radius: 14px;
+  background: #f8fbff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-control {
+  border-radius: 10px;
+  height: 45px;
+}
+.plane-wrapper {
+  background: #f4f6f9;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+/* airplane container */
+.plane-body {
+  max-width: 420px;
+  margin: auto;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* each row */
+.seat-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* left/right seat group */
+.seat-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* aisle gap */
+.aisle {
+  width: 25px;
+}
+
+/* seat button */
+.seat-btn {
+  width: 34px;
+  height: 34px;
+  font-size: 11px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* hover effect */
+.seat-btn:hover {
+  transform: scale(1.05);
+}
+
+/* available seat */
+.available {
+  background: #28a745;
+  color: white;
+}
+
+/* unavailable seat */
+.unavailable {
+  background: #cfd4da;
+  color: #666;
+}
+
+/* class buttons spacing fix */
+.btn-group .btn {
+  font-size: 13px;
+  padding: 6px 10px;
+}
+
+.toast-notification {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  color: #fff;
+  box-shadow: 0 24px 50px rgba(10, 35, 85, 0.18);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.toast-notification.success {
+  background: #1d7d3d;
+}
+
+.toast-notification.error {
+  background: #ce2f3f;
+}

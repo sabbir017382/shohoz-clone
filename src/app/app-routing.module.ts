@@ -11,11 +11,13 @@ import { TripInfoComponent } from './features/trip-info/trip-info.component';
 import { PaymentProcessComponent } from './features/payment-process/payment-process.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
+import { AirTicketCreateComponent } from './features/air-ticket-create/air-ticket-create.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'air', component: AirComponent },
+  { path: 'air-ticket-create', component: AirTicketCreateComponent },
   {
     path: 'create-ticket',
     component: CreateTicketComponent,
