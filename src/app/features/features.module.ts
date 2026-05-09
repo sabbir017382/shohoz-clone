@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
 import { SahredModule } from '../sahred/shared.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { BusComponent } from './vehicle/bus/bus.component';
-import { AirComponent } from './vehicle/air/air.component';
 import { HomeComponent } from './home/home.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
@@ -15,13 +13,15 @@ import { TripInfoComponent } from './trip-info/trip-info.component';
 import { PaymentProcessComponent } from './payment-process/payment-process.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { AirComponent } from './air/air.component';
+import { AirTicketCreateComponent } from './air-ticket-create/air-ticket-create.component';
+import { AirTicketListComponent } from './air-ticket-list/air-ticket-list.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    BusComponent,
-    AirComponent,
+
     HomeComponent,
     CreateTicketComponent,
     TicketListComponent,
@@ -30,6 +30,9 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
     PaymentProcessComponent,
     ProfileComponent,
     TermsConditionsComponent,
+    AirComponent,
+    AirTicketCreateComponent,
+    AirTicketListComponent,
   ],
   imports: [
     CommonModule,

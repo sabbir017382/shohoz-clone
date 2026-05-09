@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     private service: AuthService,
   ) {}
 
-  // ✅ USER FIXED
+  // USER
   user: User | null = null;
 
   // NAV ITEMS
@@ -29,11 +29,18 @@ export class HeaderComponent implements OnInit {
     { label: 'Bus', key: 'bus', icon: '🚌' },
     { label: 'Air', key: 'plane', icon: '✈️' },
     { label: 'Train', key: 'train', icon: '🚆' },
-    { label: 'Ship', key: 'ship', icon: '🚢' },
+    { label: 'Launch', key: 'launch', icon: '🚢' },
+    { label: 'Event', key: 'event', icon: '🎫' },
+    { label: 'Park', key: 'park', icon: '🌳', beta: true },
   ];
 
   activeNav: string = 'bus';
+
+  // PROFILE DROPDOWN
   isDropdownOpen: boolean = false;
+
+  // MOBILE MENU
+  isMobileMenuOpen: boolean = false;
 
   ngOnInit(): void {
     this.fetchUser();
@@ -43,24 +50,44 @@ export class HeaderComponent implements OnInit {
     this.user = this.service.getUser();
   }
 
+  // NAVIGATION
   setActive(key: string): void {
     this.activeNav = key;
-    if (key === 'bus') {
-      this.router.navigate(['/home']);
-    }
-    if (key === 'plane') {
-      this.router.navigate(['/air']);
-    }
-    if (key === 'train') {
-      this.router.navigate(['/train']);
-    }
-    if (key === 'ship') {
-      this.router.navigate(['/ship']);
+
+    // CLOSE MOBILE MENU
+    this.isMobileMenuOpen = false;
+
+    switch (key) {
+      case 'bus':
+        this.router.navigate(['/home']);
+        break;
+
+      case 'plane':
+        this.router.navigate(['/air']);
+        break;
+
+      case 'train':
+        this.router.navigate(['/train']);
+        break;
+
+      case 'launch':
+        this.router.navigate(['/launch']);
+        break;
+
+      case 'event':
+        this.router.navigate(['/event']);
+        break;
+
+      case 'park':
+        this.router.navigate(['/park']);
+        break;
     }
   }
 
+  // DROPDOWN
   toggleDropdown(event: Event): void {
     event.stopPropagation();
+
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
@@ -68,13 +95,27 @@ export class HeaderComponent implements OnInit {
     this.isDropdownOpen = false;
   }
 
+  // MOBILE MENU
+  toggleMobileMenu(event: Event): void {
+    event.stopPropagation();
+
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  // PROFILE ACTIONS
   onMyProfile(): void {
     this.isDropdownOpen = false;
+
     this.router.navigate(['/profile']);
   }
 
   onChangePassword(): void {
     this.isDropdownOpen = false;
+
     this.router.navigate(['/change-password']);
   }
 

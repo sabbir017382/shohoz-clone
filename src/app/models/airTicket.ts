@@ -1,0 +1,74 @@
+export interface AirTicket {
+  ticketId?: number;
+  bimanName: string;
+  bimanserialNo: string;
+  airlineCode: string;
+  from: string;
+  to: string;
+  boardingAirport: string;
+  droppingAirport: string;
+  travelDate: string;
+  departureTime: string;
+  arrivalDate: string;
+  arrivalTime: string;
+  seatType: ['EconomyClass' | 'BusinessClass' | 'FirstClass'];
+  baggageAllowance: string;
+  priceForAdult: number;
+  priceForChild: number;
+  priceForInfant: number;
+  economySeat: EconomySeat;
+  businessSeat: BusinessSeat;
+  firstClassSeat: FirstClassSeat;
+  availableEcSeats: EconomySeat[];
+  availableBcSeats: BusinessSeat[];
+  availableFcSeats: FirstClassSeat[];
+  Tax: number;
+  OtherCharges: number;
+  cuponCode?: string;
+  insurance: boolean;
+  processingFee: number;
+  airImageUrl: string;
+}
+export type EconomySeat =
+  | 'A1'
+  | 'A2'
+  | 'A3'
+  | 'A4'
+  | 'B1'
+  | 'B2'
+  | 'B3'
+  | 'B4'
+  | 'C1'
+  | 'C2'
+  | 'C3'
+  | 'C4'
+  | 'D1'
+  | 'D2'
+  | 'D3'
+  | 'D4';
+export type BusinessSeat =
+  | 'E1'
+  | 'E2'
+  | 'E3'
+  | 'E4'
+  | 'F1'
+  | 'F2'
+  | 'F3'
+  | 'F4'
+  | 'G1'
+  | 'G2'
+  | 'G3'
+  | 'G4';
+export type FirstClassSeat =
+  | 'H1'
+  | 'H2'
+  | 'H3'
+  | 'H4'
+  | 'I1'
+  | 'I2'
+  | 'I3'
+  | 'I4'
+  | 'J1'
+  | 'J2'
+  | 'J3'
+  | 'J4';

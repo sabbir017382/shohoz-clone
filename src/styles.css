@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global responsive support */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-responsive table {
+  width: 100%;
+  min-width: 100%;
+}
+
+/* Keep cards and forms fluid */
+.card,
+.card-body,
+.form-control,
+.btn,
+.table {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .container,
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

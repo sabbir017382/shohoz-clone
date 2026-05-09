@@ -1,13 +1,20 @@
-<header class="shohoz-header" (click)="closeDropdown()">
+<header class="shohoz-header" (click)="closeDropdown(); closeMobileMenu()">
+  <!-- LEFT -->
   <div class="header-left">
-    <!-- Logo -->
+    <!-- MOBILE MENU BUTTON -->
+    <button class="mobile-toggle d-lg-none" (click)="toggleMobileMenu($event)">
+      ☰
+    </button>
+
+    <!-- LOGO -->
     <img
       src="./assets/images/shohoz_logo_new.png"
-      alt=" Shohoz Logo"
+      alt="Shohoz Logo"
       class="logo"
     />
-    <!-- Nav -->
-    <nav class="nav-menu">
+
+    <!-- DESKTOP NAV -->
+    <nav class="nav-menu d-none d-lg-flex">
       <button
         *ngFor="let item of navItems"
         class="nav-btn"
@@ -15,51 +22,88 @@
         (click)="setActive(item.key); $event.stopPropagation()"
       >
         <span class="icon">{{ item.icon }}</span>
+
         {{ item.label }}
-        <span *ngIf="item.beta" class="beta-badge">BETA</span>
+
+        <span *ngIf="item.beta" class="beta-badge"> BETA </span>
       </button>
     </nav>
   </div>
 
-  <!-- Right -->
+  <!-- RIGHT -->
   <div class="header-right">
-    <button class="phone-btn" (click)="$event.stopPropagation()">
+    <!-- PHONE -->
+    <button
+      class="phone-btn d-none d-md-flex"
+      (click)="$event.stopPropagation()"
+    >
       <span class="icon">📞</span>
       16374
     </button>
 
+    <!-- PROFILE -->
     <div class="profile-wrapper" (click)="$event.stopPropagation()">
       <button class="profile-btn" (click)="toggleDropdown($event)">
         <div class="avatar-circle">
           <span class="icon">👤</span>
         </div>
 
-        <span class="status"> {{ user?.firstName }} {{ user?.lastName }} </span>
+        <span class="status d-none d-md-block">
+          {{ user?.firstName }} {{ user?.lastName }}
+        </span>
 
-        <span class="icon chevron" [class.rotate]="isDropdownOpen">▼</span>
+        <span class="icon chevron" [class.rotate]="isDropdownOpen"> ▼ </span>
       </button>
+
+      <!-- DROPDOWN -->
       <div class="profile-dropdown" [class.open]="isDropdownOpen">
         <div class="dropdown-user-info">
           <div class="dropdown-username">
             {{ user?.firstName }} {{ user?.lastName }}
           </div>
-          <div class="dropdown-email">{{ user?.email }}</div>
+
+          <div class="dropdown-email">
+            {{ user?.email }}
+          </div>
         </div>
 
         <button class="dropdown-item-btn" (click)="onMyProfile()">
-          <span class="icon">👤</span> My Profile
+          <span class="icon">👤</span>
+          My Profile
         </button>
 
         <button class="dropdown-item-btn" (click)="onChangePassword()">
-          <span class="icon">🔒</span> Change Password
+          <span class="icon">🔒</span>
+          Change Password
         </button>
 
         <hr />
 
         <button class="dropdown-item-btn logout" (click)="onLogout()">
-          <span class="icon">🚪</span> Logout
+          <span class="icon">🚪</span>
+          Logout
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div
+    class="mobile-menu"
+    [class.open]="isMobileMenuOpen"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      *ngFor="let item of navItems"
+      class="mobile-nav-btn"
+      [class.active]="activeNav === item.key"
+      (click)="setActive(item.key)"
+    >
+      <span class="icon">{{ item.icon }}</span>
+
+      {{ item.label }}
+
+      <span *ngIf="item.beta" class="beta-badge"> BETA </span>
+    </button>
   </div>
 </header>

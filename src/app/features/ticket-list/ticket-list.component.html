@@ -2,9 +2,9 @@
   <!-- Hero / Search Section -->
   <section class="hero-section d-flex align-items-center">
     <div class="container">
-      <div class="search-box shadow-lg bg-white rounded p-4">
+      <div class="search-box">
         <!-- Trip Type -->
-        <div class="d-flex mb-3">
+        <div class="trip-types d-flex mb-4">
           <div class="form-check mr-4">
             <input
               class="form-check-input"
@@ -15,7 +15,7 @@
               (ngModelChange)="onTripTypeChange($event)"
               value="oneWay"
             />
-            <label class="form-check-label">One Way</label>
+            <label class="form-check-label" for="oneWay"> One Way </label>
           </div>
 
           <div class="form-check">
@@ -28,15 +28,15 @@
               (ngModelChange)="onTripTypeChange($event)"
               value="roundWay"
             />
-            <label class="form-check-label">Round Way</label>
+            <label class="form-check-label" for="roundWay"> Round Way </label>
           </div>
         </div>
 
         <!-- Form -->
         <form>
-          <div class="form-row align-items-center">
+          <div class="form-row align-items-end">
             <!-- From -->
-            <div class="col-md-3 mb-2">
+            <div class="col-lg-3 col-md-6 mb-3">
               <label class="form-label">From</label>
               <input
                 type="text"
@@ -47,11 +47,11 @@
               />
             </div>
 
-            <!-- Swap Icon -->
-            <div class="swap-icon text-center">⇄</div>
+            <!-- Swap -->
+            <div class="swap-icon">⇄</div>
 
             <!-- To -->
-            <div class="col-md-3 mb-2">
+            <div class="col-lg-3 col-md-6 mb-3">
               <label class="form-label">To</label>
               <input
                 type="text"
@@ -62,38 +62,41 @@
               />
             </div>
 
-            <!-- Date Range (Combined Field) -->
-            <!-- Journey -->
-            <div class="date-half">
-              <span class="date-label">Journey</span>
-              <input
-                #journeyDateInput
-                type="date"
-                class="date-input"
-                (click)="openJourneyPicker()"
-                [(ngModel)]="journeyDate"
-                name="journeyDate"
-              />
+            <!-- Date -->
+            <div class="col-lg-3 col-md-6 mb-3">
+              <label class="form-label">Journey & Return</label>
+
+              <div class="date-wrapper">
+                <div class="date-half">
+                  <span class="date-label">Journey</span>
+
+                  <input
+                    type="date"
+                    class="date-input"
+                    [(ngModel)]="journeyDate"
+                    name="journeyDate"
+                  />
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="date-half">
+                  <span class="date-label">Return</span>
+
+                  <input
+                    type="date"
+                    class="date-input"
+                    [disabled]="tripType === 'oneWay'"
+                    name="returnDate"
+                  />
+                </div>
+              </div>
             </div>
 
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Return -->
-            <div class="date-half">
-              <span class="date-label">Return</span>
-              <input
-                #returnDateInput
-                type="date"
-                class="date-input"
-                [disabled]="tripType === 'oneWay'"
-                (click)="openReturnPicker($event)"
-              />
-            </div>
             <!-- Search -->
-            <div class="col-md-2 mb-2">
+            <div class="col-lg-2 col-md-6 mb-3">
               <button
-                class="btn btn-success btn-block btn-search"
+                class="btn btn-search btn-block"
                 (click)="searchTickets()"
                 type="button"
               >
@@ -105,7 +108,6 @@
       </div>
     </div>
   </section>
-
   <!-- Show nothing until search is clicked -->
   <ng-container *ngIf="hasSearched; else beforeSearch">
     <!-- Header -->
@@ -274,12 +276,7 @@
             <!-- Top Section: Company Info + Price -->
             <div class="ticket-top">
               <div class="company-block">
-                <div class="company-logo">
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Bus_icon.svg"
-    alt="Bus"
-  />
-</div>
+                <div class="company-logo"></div>
                 <div class="company-details">
                   <h5 class="company-name">{{ ticket.busName }}</h5>
                   <p class="company-route">

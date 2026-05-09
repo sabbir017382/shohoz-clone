@@ -1,15 +1,32 @@
 .booking-container {
-  width: 445px;
+  width: 100%;
+  max-width: 445px;
   height: 100vh;
   background: #fff;
   position: fixed;
   top: 0;
   right: 0;
+  left: auto;
   z-index: 1050;
   overflow-y: auto;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
   padding: 20px;
   padding-bottom: 100px;
+}
+
+@media (max-width: 992px) {
+  .info-banner {
+    width: auto;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-container {
+    width: 100vw;
+    max-width: none;
+    left: 0;
+  }
 }
 .booking-title {
   border-bottom: 1px solid #dee2e6;
