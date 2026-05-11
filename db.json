@@ -37,19 +37,8 @@
       "coachNo": "Hino aj1",
       "from": "Noakhali",
       "to": "Dhaka",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "10:22",
       "arrivalDate": "2026-05-05",
@@ -101,19 +90,8 @@
       "coachNo": "hino bj1",
       "from": "Noakhali",
       "to": "Dhaka",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "10:22",
       "arrivalDate": "2026-05-05",
@@ -150,19 +128,8 @@
       "coachNo": "ja j1",
       "from": "joyag",
       "to": "mijdee",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "15:11",
       "arrivalDate": "2026-05-05",
@@ -214,19 +181,8 @@
       "coachNo": "japan j2",
       "from": "Dhaka",
       "to": "Noakhali",
-      "boardingPoint": [
-        "Dhaka",
-        "jhigatola",
-        "New market",
-        "shahbag",
-        "Badda"
-      ],
-      "droppingPoint": [
-        "Sunaimury",
-        "Chowmuhuny",
-        "Gabua",
-        "Mijdee"
-      ],
+      "boardingPoint": ["Dhaka", "jhigatola", "New market", "shahbag", "Badda"],
+      "droppingPoint": ["Sunaimury", "Chowmuhuny", "Gabua", "Mijdee"],
       "departureDate": "2026-05-07",
       "departureTime": "14:59",
       "arrivalDate": "2026-05-08",
@@ -262,10 +218,7 @@
       ],
       "id": 4,
       "ticketId": 4,
-      "selectedSeats": [
-        "C3",
-        "C4"
-      ],
+      "selectedSeats": ["C3", "C4"],
       "totalAmount": 2400
     }
   ],
@@ -282,7 +235,7 @@
       "departureTime": "06:00",
       "arrivalDate": "2026-05-11",
       "arrivalTime": "08:00",
-      "seatType": "FirstClass",
+      "seatType": "EconomyClass' | 'BusinessClass' | 'FirstClass",
       "baggageAllowance": "23Kg",
       "priceForAdult": 5100,
       "priceForChild": 3200,
@@ -314,16 +267,7 @@
         "D3",
         "D4"
       ],
-      "availableBcSeats": [
-        "E1",
-        "E2",
-        "E3",
-        "E4",
-        "F1",
-        "F2",
-        "F3",
-        "F4"
-      ],
+      "availableBcSeats": ["E1", "E2", "E3", "E4", "F1", "F2", "F3", "F4"],
       "availableFcSeats": [
         "H1",
         "H2",
@@ -337,6 +281,80 @@
         "J4"
       ],
       "id": 1
+    },
+    {
+      "bimanName": "Emitates",
+      "bimanserialNo": "Em102",
+      "airlineCode": "EM",
+      "from": "Dhaka",
+      "to": "Cox's Bazar",
+      "boardingAirport": "Dhaka Airport",
+      "droppingAirport": "Cox's Bazar AirPort",
+      "travelDate": "2026-05-11",
+      "departureTime": "03:42",
+      "arrivalDate": "2026-05-11",
+      "arrivalTime": "05:42",
+      "seatType": "EconomyClass' | 'BusinessClass' | 'FirstClass",
+      "baggageAllowance": "23 kg",
+      "priceForAdult": 5200,
+      "priceForChild": 3100,
+      "priceForInfant": 4200,
+      "economySeat": "A1",
+      "businessSeat": "E1",
+      "firstClassSeat": "H1",
+      "Tax": 250,
+      "OtherCharges": 500,
+      "insurance": true,
+      "processingFee": 1198,
+      "airImageUrl": "data:image/png;base64,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",
+      "cuponCode": "DHCX",
+      "availableEcSeats": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "availableBcSeats": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "availableFcSeats": [
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "I1",
+        "I2",
+        "I3",
+        "I4",
+        "J1",
+        "J2",
+        "J3",
+        "J4"
+      ],
+      "id": 2
     }
   ]
 }

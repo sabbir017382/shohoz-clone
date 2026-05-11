@@ -1,0 +1,359 @@
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section {
+  min-height: 10vh;
+  background: url("/assets/images/air-web-top-new.png") no-repeat center;
+  background-size: cover;
+  position: relative;
+  padding: 80px 0;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+
+.search-box {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  margin-top: 180px;
+}
+
+/* =========================
+   TRIP TYPE
+========================= */
+
+.trip-types {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.trip-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #222;
+}
+
+.trip-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: #16a34a;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.flight-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  align-items: flex-end;
+}
+
+/* =========================
+   FIELD
+========================= */
+
+.flight-field {
+  position: relative;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.custom-input {
+  width: 100%;
+  height: 58px;
+  border: 1px solid #dcdcdc;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+  background: #fff;
+}
+
+.custom-input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+/* =========================
+   TRAVELER BUTTON
+========================= */
+
+.traveler-trigger {
+  width: 100%;
+  height: 58px;
+  border-radius: 14px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  padding: 0 18px;
+  transition: 0.3s;
+}
+
+.traveler-trigger:hover {
+  border-color: #16a34a;
+}
+
+.traveler-trigger-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.traveler-count {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+.traveler-class {
+  font-size: 12px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  color: #777;
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.traveler-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -107px;
+  width: 225%;
+  background: #fff;
+  border-radius: 20px;
+  margin-top: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.dropdown-top {
+  padding: 20px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+}
+
+.dropdown-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.dropdown-section {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+/* =========================
+   CLASS GRID
+========================= */
+
+.class-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.class-btn {
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.class-btn:hover {
+  border-color: #16a34a;
+}
+
+.active-class {
+  background: #16a34a;
+  color: #fff;
+  border-color: #16a34a;
+}
+
+/* =========================
+   TRAVELER ROW
+========================= */
+
+.traveler-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.traveler-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.traveler-age {
+  font-size: 12px;
+  color: #888;
+  margin-top: 3px;
+}
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.count-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.count-btn:hover {
+  background: #16a34a;
+  color: #fff;
+  border-color: #16a34a;
+}
+
+.count-value {
+  min-width: 18px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* =========================
+   DONE BUTTON
+========================= */
+
+.done-area {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.done-btn {
+  height: 44px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 12px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.done-btn:hover {
+  background: #0d7a33;
+}
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+.search-btn {
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 14px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.search-btn:hover {
+  background: #0d7a33;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+  .flight-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .flight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-box {
+    padding: 20px;
+    margin-top: 100px;
+  }
+
+  .flight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .traveler-dropdown {
+    width: 100%;
+  }
+}

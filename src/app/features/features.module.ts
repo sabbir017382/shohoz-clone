@@ -16,6 +16,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { AirComponent } from './air/air.component';
 import { AirTicketCreateComponent } from './air-ticket-create/air-ticket-create.component';
 import { AirTicketListComponent } from './air-ticket-list/air-ticket-list.component';
+import { FareReviewOffcanvasComponent } from './fare-review-offcanvas/fare-review-offcanvas.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AirTicketListComponent } from './air-ticket-list/air-ticket-list.compon
     AirComponent,
     AirTicketCreateComponent,
     AirTicketListComponent,
+    FareReviewOffcanvasComponent,
   ],
   imports: [
     CommonModule,

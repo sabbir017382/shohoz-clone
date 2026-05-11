@@ -12,12 +12,14 @@ import { PaymentProcessComponent } from './features/payment-process/payment-proc
 import { ProfileComponent } from './features/profile/profile.component';
 import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
 import { AirTicketCreateComponent } from './features/air-ticket-create/air-ticket-create.component';
+import { AirTicketListComponent } from './features/air-ticket-list/air-ticket-list.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'air', component: AirComponent },
   { path: 'air-ticket-create', component: AirTicketCreateComponent },
+  { path: 'air-ticket-list', component: AirTicketListComponent },
   {
     path: 'create-ticket',
     component: CreateTicketComponent,

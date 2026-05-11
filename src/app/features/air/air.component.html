@@ -1,3 +1,288 @@
 <div>
-  <img src="/assets/images/air-web-top-new.png" alt="Air" class="air-image" />
+  <section class="hero-section">
+    <div class="container">
+      <div class="search-box">
+        <!-- TRIP TYPE -->
+        <div class="trip-types">
+          <label class="trip-radio">
+            <input
+              type="radio"
+              name="tripType"
+              value="oneWay"
+              [(ngModel)]="tripType"
+              (ngModelChange)="onTripTypeChange($event)"
+            />
+            <span>One Way</span>
+          </label>
+
+          <label class="trip-radio">
+            <input
+              type="radio"
+              name="tripType"
+              value="roundWay"
+              [(ngModel)]="tripType"
+              (ngModelChange)="onTripTypeChange($event)"
+            />
+            <span>Round Trip</span>
+          </label>
+        </div>
+
+        <!-- FORM -->
+        <form>
+          <div class="flight-grid">
+            <!-- FROM -->
+            <div class="flight-field">
+              <label class="field-label"> From </label>
+
+              <input
+                type="text"
+                class="custom-input"
+                placeholder="Dhaka DAC"
+                [(ngModel)]="searchFrom"
+                name="from"
+              />
+            </div>
+
+            <!-- TO -->
+            <div class="flight-field">
+              <label class="field-label"> To </label>
+
+              <input
+                type="text"
+                class="custom-input"
+                placeholder="Cox's Bazar CXB"
+                [(ngModel)]="searchTo"
+                name="to"
+              />
+            </div>
+
+            <!-- JOURNEY -->
+            <div class="flight-field">
+              <label class="field-label"> Journey Date </label>
+
+              <input
+                type="date"
+                class="custom-input"
+                [(ngModel)]="journeyDate"
+                name="journeyDate"
+              />
+            </div>
+
+            <!-- RETURN -->
+            <div class="flight-field">
+              <label class="field-label"> Return Date </label>
+
+              <input
+                type="date"
+                class="custom-input"
+                [(ngModel)]="returnDate"
+                name="returnDate"
+                [disabled]="tripType === 'oneWay'"
+              />
+            </div>
+
+            <!-- TRAVELER -->
+            <div class="flight-field traveler-field">
+              <label class="field-label"> Travelers & Class </label>
+
+              <!-- BUTTON -->
+              <button
+                type="button"
+                class="traveler-trigger"
+                (click)="toggleTravelerDropdown()"
+              >
+                <div class="traveler-trigger-content">
+                  <div>
+                    <div class="traveler-count">
+                      {{ adult + child + infant }} Traveler(s)
+                    </div>
+
+                    <div class="traveler-class">
+                      {{ selectedClass }}
+                    </div>
+                  </div>
+
+                  <div class="dropdown-arrow">▼</div>
+                </div>
+              </button>
+
+              <!-- DROPDOWN -->
+              <div class="traveler-dropdown" *ngIf="showDropdown">
+                <!-- TOP -->
+                <div class="dropdown-top">
+                  <div class="dropdown-title">
+                    {{ selectedClass }}
+                  </div>
+
+                  <div class="dropdown-subtitle">
+                    {{ adult + child + infant }} Travelers
+                  </div>
+                </div>
+
+                <!-- CLASS -->
+                <div class="dropdown-section">
+                  <p class="section-title">Preferred Class</p>
+
+                  <div class="class-grid">
+                    <button
+                      type="button"
+                      class="class-btn"
+                      [ngClass]="
+                        selectedClass === 'Economy' ? 'active-class' : ''
+                      "
+                      (click)="selectedClass = 'Economy'"
+                    >
+                      Economy
+                    </button>
+
+                    <button
+                      type="button"
+                      class="class-btn"
+                      [ngClass]="
+                        selectedClass === 'Business' ? 'active-class' : ''
+                      "
+                      (click)="selectedClass = 'Business'"
+                    >
+                      Business
+                    </button>
+
+                    <button
+                      type="button"
+                      class="class-btn"
+                      [ngClass]="
+                        selectedClass === 'First Class' ? 'active-class' : ''
+                      "
+                      (click)="selectedClass = 'First Class'"
+                    >
+                      First Class
+                    </button>
+                  </div>
+                </div>
+
+                <!-- PASSENGERS -->
+                <div class="dropdown-section">
+                  <p class="section-title">Travelers</p>
+
+                  <!-- ADULT -->
+                  <div class="traveler-row">
+                    <div>
+                      <div class="traveler-name">Adult</div>
+
+                      <div class="traveler-age">12+ years</div>
+                    </div>
+
+                    <div class="counter-box">
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="decreaseAdult()"
+                      >
+                        -
+                      </button>
+
+                      <span class="count-value">
+                        {{ adult }}
+                      </span>
+
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="increaseAdult()"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- CHILD -->
+                  <div class="traveler-row">
+                    <div>
+                      <div class="traveler-name">Child</div>
+
+                      <div class="traveler-age">2 - 12 years</div>
+                    </div>
+
+                    <div class="counter-box">
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="decreaseChild()"
+                      >
+                        -
+                      </button>
+
+                      <span class="count-value">
+                        {{ child }}
+                      </span>
+
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="increaseChild()"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- INFANT -->
+                  <div class="traveler-row">
+                    <div>
+                      <div class="traveler-name">Infant</div>
+
+                      <div class="traveler-age">Below 2 years</div>
+                    </div>
+
+                    <div class="counter-box">
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="decreaseInfant()"
+                      >
+                        -
+                      </button>
+
+                      <span class="count-value">
+                        {{ infant }}
+                      </span>
+
+                      <button
+                        type="button"
+                        class="count-btn"
+                        (click)="increaseInfant()"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- DONE -->
+                <div class="done-area">
+                  <button
+                    type="button"
+                    class="done-btn"
+                    (click)="showDropdown = false"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEARCH -->
+            <div class="flight-field">
+              <button
+                type="button"
+                class="search-btn"
+                (click)="searchAirTickets()"
+              >
+                SEARCH FLIGHT
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 </div>

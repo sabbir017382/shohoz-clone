@@ -26,7 +26,18 @@
               [(ngModel)]="currentAirTicket.bimanName"
               #bimanName="ngModel"
               required
+              placeholder="US-Bangla Airlines, Emirates, Qatar Airways"
+              [ngClass]="{
+                'is-invalid':
+                  bimanName.invalid && (bimanName.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="bimanName.invalid && (bimanName.touched || f.submitted)"
+              class="invalid-feedback"
+            >
+              Airline name is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -37,7 +48,21 @@
               [(ngModel)]="currentAirTicket.bimanserialNo"
               #bimanserialNo="ngModel"
               required
+              placeholder="e.g. BN12345, EK98765, QR54321"
+              [ngClass]="{
+                'is-invalid':
+                  bimanserialNo.invalid &&
+                  (bimanserialNo.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                bimanserialNo.invalid && (bimanserialNo.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Serial number is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -48,7 +73,20 @@
               [(ngModel)]="currentAirTicket.airlineCode"
               #airlineCode="ngModel"
               required
+              placeholder="e.g. BG, EK, QR"
+              [ngClass]="{
+                'is-invalid':
+                  airlineCode.invalid && (airlineCode.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                airlineCode.invalid && (airlineCode.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Airline code is required.
+            </div>
           </div>
         </div>
 
@@ -60,8 +98,20 @@
               class="form-control"
               name="from"
               [(ngModel)]="currentAirTicket.from"
+              #fromField="ngModel"
               required
+              placeholder="e.g. Dhaka, Singapore, Istanbul"
+              [ngClass]="{
+                'is-invalid':
+                  fromField.invalid && (fromField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="fromField.invalid && (fromField.touched || f.submitted)"
+              class="invalid-feedback"
+            >
+              Departure city is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -70,8 +120,20 @@
               class="form-control"
               name="to"
               [(ngModel)]="currentAirTicket.to"
+              #toField="ngModel"
               required
+              placeholder="e.g. London, New York, Kuala Lumpur"
+              [ngClass]="{
+                'is-invalid':
+                  toField.invalid && (toField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="toField.invalid && (toField.touched || f.submitted)"
+              class="invalid-feedback"
+            >
+              Arrival city is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -80,8 +142,22 @@
               class="form-control"
               name="baggageAllowance"
               [(ngModel)]="currentAirTicket.baggageAllowance"
+              #baggageField="ngModel"
               required
+              placeholder="e.g. 20kg, 1 carry-on"
+              [ngClass]="{
+                'is-invalid':
+                  baggageField.invalid && (baggageField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                baggageField.invalid && (baggageField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Baggage allowance is required.
+            </div>
           </div>
         </div>
 
@@ -93,8 +169,23 @@
               class="form-control"
               name="boardingAirport"
               [(ngModel)]="currentAirTicket.boardingAirport"
+              #boardingField="ngModel"
               required
+              placeholder="e.g. DAC, DXB, LHR"
+              [ngClass]="{
+                'is-invalid':
+                  boardingField.invalid &&
+                  (boardingField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                boardingField.invalid && (boardingField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Boarding airport is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -103,8 +194,23 @@
               class="form-control"
               name="droppingAirport"
               [(ngModel)]="currentAirTicket.droppingAirport"
+              #droppingField="ngModel"
               required
+              placeholder="e.g. JFK, CDG, SIN"
+              [ngClass]="{
+                'is-invalid':
+                  droppingField.invalid &&
+                  (droppingField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                droppingField.invalid && (droppingField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Dropping airport is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -114,8 +220,24 @@
               class="form-control"
               name="travelDate"
               [(ngModel)]="currentAirTicket.travelDate"
+              #travelDateField="ngModel"
               required
+              placeholder="e.g. 2026-07-20"
+              [ngClass]="{
+                'is-invalid':
+                  travelDateField.invalid &&
+                  (travelDateField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                travelDateField.invalid &&
+                (travelDateField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Travel date is required.
+            </div>
           </div>
         </div>
 
@@ -128,8 +250,24 @@
               class="form-control"
               name="departureTime"
               [(ngModel)]="currentAirTicket.departureTime"
+              #departureTimeField="ngModel"
               required
+              placeholder="e.g. 09:30"
+              [ngClass]="{
+                'is-invalid':
+                  departureTimeField.invalid &&
+                  (departureTimeField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                departureTimeField.invalid &&
+                (departureTimeField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Departure time is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -139,8 +277,24 @@
               class="form-control"
               name="arrivalDate"
               [(ngModel)]="currentAirTicket.arrivalDate"
+              #arrivalDateField="ngModel"
               required
+              placeholder="e.g. 2026-07-21"
+              [ngClass]="{
+                'is-invalid':
+                  arrivalDateField.invalid &&
+                  (arrivalDateField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                arrivalDateField.invalid &&
+                (arrivalDateField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Arrival date is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -150,8 +304,24 @@
               class="form-control"
               name="arrivalTime"
               [(ngModel)]="currentAirTicket.arrivalTime"
+              #arrivalTimeField="ngModel"
               required
+              placeholder="e.g. 14:45"
+              [ngClass]="{
+                'is-invalid':
+                  arrivalTimeField.invalid &&
+                  (arrivalTimeField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                arrivalTimeField.invalid &&
+                (arrivalTimeField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Arrival time is required.
+            </div>
           </div>
         </div>
 
@@ -164,9 +334,25 @@
               class="form-control"
               name="priceForAdult"
               [(ngModel)]="currentAirTicket.priceForAdult"
+              #priceAdultField="ngModel"
               min="0"
               required
+              placeholder="e.g. 12000"
+              [ngClass]="{
+                'is-invalid':
+                  priceAdultField.invalid &&
+                  (priceAdultField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                priceAdultField.invalid &&
+                (priceAdultField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Adult price is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -176,9 +362,25 @@
               class="form-control"
               name="priceForChild"
               [(ngModel)]="currentAirTicket.priceForChild"
+              #priceChildField="ngModel"
               min="0"
               required
+              placeholder="e.g. 8000"
+              [ngClass]="{
+                'is-invalid':
+                  priceChildField.invalid &&
+                  (priceChildField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                priceChildField.invalid &&
+                (priceChildField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Child price is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -188,9 +390,25 @@
               class="form-control"
               name="priceForInfant"
               [(ngModel)]="currentAirTicket.priceForInfant"
+              #priceInfantField="ngModel"
               min="0"
               required
+              placeholder="e.g. 3000"
+              [ngClass]="{
+                'is-invalid':
+                  priceInfantField.invalid &&
+                  (priceInfantField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                priceInfantField.invalid &&
+                (priceInfantField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Infant price is required.
+            </div>
           </div>
         </div>
 
@@ -203,9 +421,21 @@
               class="form-control"
               name="Tax"
               [(ngModel)]="currentAirTicket.Tax"
+              #taxField="ngModel"
               min="0"
               required
+              placeholder="e.g. 500"
+              [ngClass]="{
+                'is-invalid':
+                  taxField.invalid && (taxField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="taxField.invalid && (taxField.touched || f.submitted)"
+              class="invalid-feedback"
+            >
+              Tax is required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -215,9 +445,25 @@
               class="form-control"
               name="OtherCharges"
               [(ngModel)]="currentAirTicket.OtherCharges"
+              #otherChargesField="ngModel"
               min="0"
               required
+              placeholder="e.g. 300"
+              [ngClass]="{
+                'is-invalid':
+                  otherChargesField.invalid &&
+                  (otherChargesField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                otherChargesField.invalid &&
+                (otherChargesField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Other charges are required.
+            </div>
           </div>
 
           <div class="col-md-4 form-group">
@@ -227,9 +473,25 @@
               class="form-control"
               name="processingFee"
               [(ngModel)]="currentAirTicket.processingFee"
+              #processingFeeField="ngModel"
               min="0"
               required
+              placeholder="e.g. 150"
+              [ngClass]="{
+                'is-invalid':
+                  processingFeeField.invalid &&
+                  (processingFeeField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                processingFeeField.invalid &&
+                (processingFeeField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Processing fee is required.
+            </div>
           </div>
         </div>
 
@@ -242,10 +504,56 @@
               class="form-control"
               name="cuponCode"
               [(ngModel)]="currentAirTicket.cuponCode"
+              #couponCodeField="ngModel"
               required
+              placeholder="e.g. SAVE10, SUMMER2026"
+              [ngClass]="{
+                'is-invalid':
+                  couponCodeField.invalid &&
+                  (couponCodeField.touched || f.submitted),
+              }"
             />
+            <div
+              *ngIf="
+                couponCodeField.invalid &&
+                (couponCodeField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Coupon code is required.
+            </div>
           </div>
-
+          <div>
+            <label>Seat Type</label>
+            <select
+              class="form-control"
+              name="seatType"
+              [(ngModel)]="currentAirTicket.seatType"
+              #seatTypeField="ngModel"
+              required
+              [ngClass]="{
+                'is-invalid':
+                  seatTypeField.invalid &&
+                  (seatTypeField.touched || f.submitted),
+              }"
+            >
+              <option value="" disabled>Select seat type</option>
+              <option value="EconomyClass">Economy Class</option>
+              <option value="BusinessClass">Business Class</option>
+              <option value="FirstClass">First Class</option>
+              <option value="EconomyClass' | 'BusinessClass' | 'FirstClass">
+                All Classes
+              </option>
+            </select>
+            <div
+              *ngIf="
+                seatTypeField.invalid && (seatTypeField.touched || f.submitted)
+              "
+              class="invalid-feedback"
+            >
+              Seat type is required.
+            </div>
+          </div>
           <div class="col-md-4 form-group d-flex align-items-center">
             <div class="form-check">
               <input
@@ -389,7 +697,11 @@
 
         <!-- SUBMIT -->
         <div class="text-center mt-4">
-          <button type="submit" class="btn btn-success px-5">
+          <button
+            type="submit"
+            class="btn btn-success px-5"
+            [disabled]="f.invalid || isSubmitting"
+          >
             {{ editMode ? "Update" : "Create" }}
           </button>
         </div>

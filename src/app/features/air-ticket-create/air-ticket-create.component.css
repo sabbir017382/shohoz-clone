@@ -15,6 +15,16 @@
   border-radius: 10px;
   height: 45px;
 }
+.form-control.is-invalid {
+  border-color: #dc3545;
+  box-shadow: none;
+}
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+}
 .plane-wrapper {
   background: #f4f6f9;
   padding: 20px;

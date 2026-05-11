@@ -1,1 +1,645 @@
-<p>air-ticket-list works!</p>
+<!-- flight-search.component.html -->
+<!-- SEARCH BOX -->
+<div class="search-box mb-4">
+  <!-- TRIP TYPE -->
+  <div class="trip-types">
+    <label class="trip-radio">
+      <input
+        type="radio"
+        name="tripType"
+        value="oneWay"
+        [(ngModel)]="tripType"
+        (ngModelChange)="onTripTypeChange($event)"
+      />
+      <span>One Way</span>
+    </label>
+
+    <label class="trip-radio">
+      <input
+        type="radio"
+        name="tripType"
+        value="roundWay"
+        [(ngModel)]="tripType"
+        (ngModelChange)="onTripTypeChange($event)"
+      />
+      <span>Round Trip</span>
+    </label>
+  </div>
+
+  <!-- FORM -->
+  <form>
+    <div class="flight-grid">
+      <!-- FROM -->
+      <div class="flight-field">
+        <label class="field-label"> From </label>
+
+        <input
+          type="text"
+          class="custom-input"
+          placeholder="Dhaka DAC"
+          [(ngModel)]="searchFrom"
+          name="from"
+        />
+      </div>
+
+      <!-- TO -->
+      <div class="flight-field">
+        <label class="field-label"> To </label>
+
+        <input
+          type="text"
+          class="custom-input"
+          placeholder="Cox's Bazar CXB"
+          [(ngModel)]="searchTo"
+          name="to"
+        />
+      </div>
+
+      <!-- JOURNEY -->
+      <div class="flight-field">
+        <label class="field-label"> Journey Date </label>
+
+        <input
+          type="date"
+          class="custom-input"
+          [(ngModel)]="journeyDate"
+          name="journeyDate"
+        />
+      </div>
+
+      <!-- RETURN -->
+      <div class="flight-field">
+        <label class="field-label"> Return Date </label>
+
+        <input
+          type="date"
+          class="custom-input"
+          [(ngModel)]="returnDate"
+          name="returnDate"
+          [disabled]="tripType === 'oneWay'"
+        />
+      </div>
+
+      <!-- TRAVELER -->
+      <div class="flight-field traveler-field">
+        <label class="field-label"> Travelers & Class </label>
+
+        <!-- BUTTON -->
+        <button
+          type="button"
+          class="traveler-trigger"
+          (click)="toggleTravelerDropdown()"
+        >
+          <div class="traveler-trigger-content">
+            <div>
+              <div class="traveler-count">
+                {{ adult + child + infant }} Traveler(s)
+              </div>
+
+              <div class="traveler-class">
+                {{ selectedClass }}
+              </div>
+            </div>
+
+            <div class="dropdown-arrow">▼</div>
+          </div>
+        </button>
+
+        <!-- DROPDOWN -->
+        <div class="traveler-dropdown" *ngIf="showDropdown">
+          <!-- TOP -->
+          <div class="dropdown-top">
+            <div class="dropdown-title">
+              {{ selectedClass }}
+            </div>
+
+            <div class="dropdown-subtitle">
+              {{ adult + child + infant }} Travelers
+            </div>
+          </div>
+
+          <!-- CLASS -->
+          <div class="dropdown-section">
+            <p class="section-title">Preferred Class</p>
+
+            <div class="class-grid">
+              <button
+                type="button"
+                class="class-btn"
+                [ngClass]="selectedClass === 'Economy' ? 'active-class' : ''"
+                (click)="selectedClass = 'Economy'"
+              >
+                Economy
+              </button>
+
+              <button
+                type="button"
+                class="class-btn"
+                [ngClass]="selectedClass === 'Business' ? 'active-class' : ''"
+                (click)="selectedClass = 'Business'"
+              >
+                Business
+              </button>
+
+              <button
+                type="button"
+                class="class-btn"
+                [ngClass]="
+                  selectedClass === 'First Class' ? 'active-class' : ''
+                "
+                (click)="selectedClass = 'First Class'"
+              >
+                First Class
+              </button>
+            </div>
+          </div>
+
+          <!-- PASSENGERS -->
+          <div class="dropdown-section">
+            <p class="section-title">Travelers</p>
+
+            <!-- ADULT -->
+            <div class="traveler-row">
+              <div>
+                <div class="traveler-name">Adult</div>
+
+                <div class="traveler-age">12+ years</div>
+              </div>
+
+              <div class="counter-box">
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="decreaseAdult()"
+                >
+                  -
+                </button>
+
+                <span class="count-value">
+                  {{ adult }}
+                </span>
+
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="increaseAdult()"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <!-- CHILD -->
+            <div class="traveler-row">
+              <div>
+                <div class="traveler-name">Child</div>
+
+                <div class="traveler-age">2 - 12 years</div>
+              </div>
+
+              <div class="counter-box">
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="decreaseChild()"
+                >
+                  -
+                </button>
+
+                <span class="count-value">
+                  {{ child }}
+                </span>
+
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="increaseChild()"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <!-- INFANT -->
+            <div class="traveler-row">
+              <div>
+                <div class="traveler-name">Infant</div>
+
+                <div class="traveler-age">Below 2 years</div>
+              </div>
+
+              <div class="counter-box">
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="decreaseInfant()"
+                >
+                  -
+                </button>
+
+                <span class="count-value">
+                  {{ infant }}
+                </span>
+
+                <button
+                  type="button"
+                  class="count-btn"
+                  (click)="increaseInfant()"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DONE -->
+          <div class="done-area">
+            <button
+              type="button"
+              class="done-btn"
+              (click)="showDropdown = false"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="flight-field">
+        <button type="button" class="search-btn" (click)="searchAirTickets()">
+          Modify SEARCH
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<section class="flight-step-section">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+      <div class="flight-steps">
+        <span class="active-step">Choose Departing Flight > </span>
+
+        <span>Choose Returning Flight > </span>
+
+        <span>Review Your Trip > </span>
+      </div>
+
+      <div></div>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <div class="row mb-4">
+    <!-- LEFT FILTER SECTION -->
+    <div class="col-sm-3 mt-3">
+      <div class="flight-filter-wrapper">
+        <!-- FILTER HEADER -->
+        <div
+          class="d-flex justify-content-between align-items-center search-item"
+        >
+          <div class="filter-title">Filters</div>
+
+          <span class="btn btn-reset" (click)="resetFilters()">RESET</span>
+        </div>
+
+        <!-- STOPS -->
+        <div class="filter-heading">Stops</div>
+
+        <div
+          class="card-body d-flex card-footer bg-transparent border-success ms-1 stops-container"
+        >
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="stop0"
+              name="stop"
+              (change)="onStopChange(0)"
+              [checked]="selectedStops === 0"
+            />
+            <label class="form-check-label ms-1 mt-1 custom-font" for="stop0">
+              0
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="stop1"
+              name="stop"
+              (change)="onStopChange(1)"
+              [checked]="selectedStops === 1"
+            />
+            <label class="form-check-label ms-1 mt-1 custom-font" for="stop1">
+              1
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="stop2"
+              name="stop"
+              (change)="onStopChange(2)"
+              [checked]="selectedStops === 2"
+            />
+            <label class="form-check-label ms-1 mt-1 custom-font" for="stop2">
+              2+
+            </label>
+          </div>
+        </div>
+
+        <!-- AIRLINES -->
+        <div class="filter-heading">Airlines</div>
+
+        <div class="card-body">
+          <div *ngFor="let airline of airlines" class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'airline_' + airline.name"
+              [checked]="selectedAirlines.includes(airline.name)"
+              #airlineCheckbox
+              (change)="onAirlineChange(airline.name, airlineCheckbox.checked)"
+            />
+            <label
+              class="form-check-label pt-1 custom-font"
+              [for]="'airline_' + airline.name"
+            >
+              {{ airline.name }} ({{ airline.count }})
+            </label>
+          </div>
+        </div>
+
+        <!-- PRICE RANGE -->
+        <div class="price-range-row">
+          <span class="price-range-label">
+            Price Range: ৳{{ priceRange.min }} - ৳{{ priceRange.max }}
+          </span>
+
+          <div class="price-range-wrapper">
+            <div class="dual-range-slider">
+              <div class="slider-track">
+                <div
+                  class="slider-range"
+                  [style.left.%]="getLeftPosition()"
+                  [style.width.%]="getRangeWidth()"
+                ></div>
+              </div>
+
+              <input
+                type="range"
+                class="range-input range-min"
+                [min]="originalPriceRange.min"
+                [max]="originalPriceRange.max"
+                [(ngModel)]="priceRange.min"
+                (input)="onMinPriceChange($event)"
+                (change)="applyFilters()"
+              />
+
+              <input
+                type="range"
+                class="range-input range-max"
+                [min]="originalPriceRange.min"
+                [max]="originalPriceRange.max"
+                [(ngModel)]="priceRange.max"
+                (input)="onMaxPriceChange($event)"
+                (change)="applyFilters()"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- DEPARTURE -->
+        <div class="filter-heading">Departure Time From Dhaka</div>
+
+        <div class="card-body">
+          <div *ngFor="let timeSlot of departureTimeSlots" class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="'time_' + timeSlot.key"
+              [checked]="selectedDepartureTimes.includes(timeSlot.key)"
+              #timeCheckbox
+              (change)="
+                onDepartureTimeChange(timeSlot.key, timeCheckbox.checked)
+              "
+            />
+            <label
+              class="form-check-label pt-1 custom-font"
+              [for]="'time_' + timeSlot.key"
+            >
+              {{ timeSlot.label }} <br />
+              {{ timeSlot.range }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT FLIGHT LIST -->
+    <div class="col-sm-9 mt-3">
+      <!-- TOP SORT -->
+      <div
+        class="card p-2 each-row1 d-flex flex-row justify-content-between align-items-center"
+      >
+        <div class="d-flex">
+          <button
+            class="filter-low-high"
+            [ngClass]="{ 'filter-low-high-active': sortOrder === 'low' }"
+            (click)="setSortOrder('low')"
+          >
+            Low to high
+          </button>
+
+          <button
+            class="filter-low-high"
+            [ngClass]="{ 'filter-low-high-active': sortOrder === 'high' }"
+            (click)="setSortOrder('high')"
+          >
+            High to low
+          </button>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <div class="section-title">
+            {{ filteredTickets.length }} Flight(s) Found
+          </div>
+        </div>
+      </div>
+
+      <!-- FLIGHT CARDS LIST -->
+      <div *ngIf="filteredTickets.length > 0; else noFlights">
+        <div *ngFor="let ticket of filteredTickets" class="card mt-2 each-row">
+          <div class="row">
+            <div class="col-md-12 p-2 justify-content-center d-flex">
+              <div class="row align-items-center w-100">
+                <!-- LEFT -->
+                <div class="col-md-8">
+                  <div class="row mb-1 align-items-center">
+                    <div class="col-md-3 d-flex justify-content-center">
+                      <img
+                        [src]="ticket.airImageUrl"
+                        [alt]="ticket.bimanName"
+                        width="70"
+                        height="70"
+                        class="airline-logo"
+                      />
+                    </div>
+
+                    <div class="col-md-9">
+                      <div class="row align-items-center">
+                        <!-- FROM -->
+                        <div class="col-3 d-flex align-items-center">
+                          <div class="flight-it2">
+                            <div class="flight-oktext2">
+                              <strong class="fnt-14">
+                                {{ ticket.from.substring(0, 3).toUpperCase() }}
+                              </strong>
+                              <br />
+
+                              <strong class="fnt-14">
+                                {{ ticket.departureTime | amPmTime }}
+                              </strong>
+                            </div>
+
+                            <div class="flight-oktext2 small-text">
+                              {{ ticket.travelDate }}
+                            </div>
+
+                            <div class="small-text">{{ ticket.from }}</div>
+                          </div>
+                        </div>
+
+                        <!-- CENTER -->
+                        <div class="col-6 for-transform ps-3 pe-0">
+                          <div>
+                            <span>1h 5m</span>
+                          </div>
+
+                          <div class="flight-stops-info">
+                            <div class="flight-stop-names">Non-Stop</div>
+                          </div>
+                        </div>
+
+                        <!-- TO -->
+                        <div class="col-3">
+                          <div class="text-right">
+                            <div class="flight-it1">
+                              <div class="flight-oktext2">
+                                <strong class="fnt-14">
+                                  {{ ticket.to.substring(0, 3).toUpperCase() }}
+                                </strong>
+                                <br />
+
+                                <strong class="fnt-14">
+                                  {{ ticket.arrivalTime | amPmTime }}
+                                </strong>
+                              </div>
+
+                              <div class="flight-oktext2 small-text">
+                                {{ ticket.arrivalDate }}
+                              </div>
+
+                              <div class="small-text">{{ ticket.to }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PRICE -->
+                <div
+                  class="col-md-2 align-items-center d-flex justify-content-center"
+                >
+                  <div class="flight-card-right">
+                    <div class="discount-info3">
+                      <span class="line-spacing">
+                        ৳{{ getTicketTotalPrice(ticket) | number }}
+                      </span>
+                    </div>
+
+                    <div class="p-note">{{ getPassengerLabel() }}</div>
+                  </div>
+                </div>
+
+                <!-- BUTTON -->
+                <div
+                  class="col-md-2 align-items-center d-flex justify-content-end"
+                >
+                  <button class="btn btn-book-oneway custom-btn">BOOK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="card myfooter">
+            <div
+              class="myfooter-child d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <span class="myfooter-child1"> {{ ticket.bimanName }} </span>
+
+                <span class="myfooter-child1">
+                  {{ ticket.bimanserialNo }}
+                </span>
+
+                <span class="myfooter-child1">
+                  {{ searchCriteria.seatType }}
+                </span>
+
+                <span class="myfooter-child1">
+                  Baggage: {{ getBaggageAllowance() }}
+                </span>
+              </div>
+
+              <div>
+                <span class="refund-or-not">
+                  {{ ticket.insurance ? "Refundable" : "Non-Refundable" }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NO FLIGHTS MESSAGE -->
+      <ng-template #noFlights>
+        <div class="card mt-2 p-4 text-center">
+          <!-- no-flight-found.component.html -->
+
+          <div class="no-flight-avail text-center">
+            <img
+              src="assets/images/flight_not_found.png"
+              alt="Flight Not Found"
+              class="img-fluid no-flight-img"
+            />
+
+            <div class="mt-4">
+              <h5 class="no-flight-title mb-3">
+                There are no available flights based on your query.
+              </h5>
+
+              <div class="no-flight-subtitle mb-3">
+                Please try searching again or clear some filters to refine your
+                results.
+              </div>
+            </div>
+
+            <a class="navbar-brand" routerLink="/air">
+              <button class="btn custom-btn try-search-btn">
+                Try Another Search?
+              </button>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
