@@ -5,11 +5,22 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "dist/shohoz-clone" }
-    },
-    { "src": "api/**/*.js", "use": "@vercel/node" }
+    }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
+    {
+      "src": "/api/(?<resource>[^/]+)$",
+      "dest": "/api/[resource].js?resource=$resource"
+    },
+    {
+      "src": "/api/(?<resource>[^/]+)/(?<id>[^/]+)$",
+      "dest": "/api/[resource]/[id].js?resource=$resource&id=$id"
+    },
     { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
