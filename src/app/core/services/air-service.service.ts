@@ -6,12 +6,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { AirTicket } from 'src/app/models/airTicket';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AirServiceService {
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = environment.apiUrl + '/';
 
   constructor(private http: HttpClient) {}
 

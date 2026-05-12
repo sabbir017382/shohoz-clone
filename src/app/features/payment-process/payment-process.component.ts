@@ -5,6 +5,7 @@ import { AirServiceService } from 'src/app/core/services/air-service.service';
 import { Ticket } from 'src/app/models/ticket';
 import { AirTicket } from 'src/app/models/airTicket';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 interface PassengerDetail {
   type: 'Adult' | 'Child' | 'Infant';
@@ -385,7 +386,7 @@ export class PaymentProcessComponent implements OnInit {
 
     // Create booking in database
     this.http
-      .post('http://localhost:3000/airTicketBookings', bookingData)
+      .post(`${environment.apiUrl}/airTicketBookings`, bookingData)
       .subscribe(
         (response: any) => {
           // Update available seats
@@ -424,7 +425,7 @@ export class PaymentProcessComponent implements OnInit {
     // Update ticket in database
     this.http
       .put(
-        `http://localhost:3000/airTickets/${this.selectedAirTicket.id}`,
+        `${environment.apiUrl}/airTickets/${this.selectedAirTicket.id}`,
         updatedTicket,
       )
       .subscribe(

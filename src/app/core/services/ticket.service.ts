@@ -3,12 +3,13 @@ import { Ticket } from 'src/app/models/ticket';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TicketService {
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = environment.apiUrl + '/';
   constructor(private http: HttpClient) {}
 
   getTickets(): Observable<Ticket[]> {

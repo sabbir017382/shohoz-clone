@@ -43,6 +43,17 @@
       "confirmPassword": "111111",
       "role": "user",
       "id": 4
+    },
+    {
+      "firstName": "kobir",
+      "lastName": "Hossain",
+      "mobile": "01322421576",
+      "email": "kobir123@gmail.com",
+      "gender": "Male",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "role": "user",
+      "id": 5
     }
   ],
   "tickets": [
@@ -51,19 +62,8 @@
       "coachNo": "Hino aj1",
       "from": "Noakhali",
       "to": "Dhaka",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "10:22",
       "arrivalDate": "2026-05-05",
@@ -106,9 +106,7 @@
       ],
       "id": 1,
       "ticketId": 1,
-      "selectedSeats": [
-        "A4"
-      ],
+      "selectedSeats": ["A4"],
       "totalAmount": 1500
     },
     {
@@ -116,19 +114,8 @@
       "coachNo": "hino bj1",
       "from": "Noakhali",
       "to": "Dhaka",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "10:22",
       "arrivalDate": "2026-05-05",
@@ -165,19 +152,8 @@
       "coachNo": "ja j1",
       "from": "joyag",
       "to": "mijdee",
-      "boardingPoint": [
-        "Chatkhi",
-        "Joyag",
-        "Sunaimury",
-        "cumilla",
-        "Dhaka"
-      ],
-      "droppingPoint": [
-        "Demra",
-        "jatrabari",
-        "Tejgaon",
-        "Gazipur"
-      ],
+      "boardingPoint": ["Chatkhi", "Joyag", "Sunaimury", "cumilla", "Dhaka"],
+      "droppingPoint": ["Demra", "jatrabari", "Tejgaon", "Gazipur"],
       "departureDate": "2026-05-04",
       "departureTime": "15:11",
       "arrivalDate": "2026-05-05",
@@ -229,19 +205,8 @@
       "coachNo": "japan j2",
       "from": "Dhaka",
       "to": "Noakhali",
-      "boardingPoint": [
-        "Dhaka",
-        "jhigatola",
-        "New market",
-        "shahbag",
-        "Badda"
-      ],
-      "droppingPoint": [
-        "Sunaimury",
-        "Chowmuhuny",
-        "Gabua",
-        "Mijdee"
-      ],
+      "boardingPoint": ["Dhaka", "jhigatola", "New market", "shahbag", "Badda"],
+      "droppingPoint": ["Sunaimury", "Chowmuhuny", "Gabua", "Mijdee"],
       "departureDate": "2026-05-07",
       "departureTime": "14:59",
       "arrivalDate": "2026-05-08",
@@ -277,10 +242,7 @@
       ],
       "id": 4,
       "ticketId": 4,
-      "selectedSeats": [
-        "C3",
-        "C4"
-      ],
+      "selectedSeats": ["C3", "C4"],
       "totalAmount": 2400
     }
   ],
@@ -324,15 +286,7 @@
         "D3",
         "D4"
       ],
-      "availableBcSeats": [
-        "E2",
-        "E3",
-        "E4",
-        "F1",
-        "F2",
-        "F3",
-        "F4"
-      ],
+      "availableBcSeats": ["E2", "E3", "E4", "F1", "F2", "F3", "F4"],
       "availableFcSeats": [
         "H1",
         "H2",
@@ -433,9 +387,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "A1"
-      ],
+      "bookedSeats": ["A1"],
       "passengers": [
         {
           "type": "Adult",
@@ -461,10 +413,7 @@
       "departureTime": "03:42",
       "arrivalTime": "05:42",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "A1",
-        "A2"
-      ],
+      "bookedSeats": ["A1", "A2"],
       "passengers": [
         {
           "type": "Adult",
@@ -498,9 +447,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "BusinessClass",
-      "bookedSeats": [
-        "E1"
-      ],
+      "bookedSeats": ["E1"],
       "passengers": [
         {
           "type": "Adult",
@@ -526,9 +473,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "A2"
-      ],
+      "bookedSeats": ["A2"],
       "passengers": [
         {
           "type": "Adult",
@@ -554,9 +499,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "A3"
-      ],
+      "bookedSeats": ["A3"],
       "passengers": [
         {
           "type": "Adult",
@@ -582,9 +525,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "A4"
-      ],
+      "bookedSeats": ["A4"],
       "passengers": [
         {
           "type": "Adult",
@@ -610,9 +551,7 @@
       "departureTime": "06:00",
       "arrivalTime": "08:00",
       "seatType": "EconomyClass",
-      "bookedSeats": [
-        "B1"
-      ],
+      "bookedSeats": ["B1"],
       "passengers": [
         {
           "type": "Adult",
@@ -628,5 +567,6 @@
       "bookingDate": "2026-05-12T05:13:46.715Z",
       "id": 7
     }
-  ]
+  ],
+  "bookings": []
 }
