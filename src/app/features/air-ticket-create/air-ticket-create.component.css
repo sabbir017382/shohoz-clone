@@ -110,6 +110,22 @@
   letter-spacing: 0.01em;
 }
 
+.insurance-box {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  min-height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.insurance-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
 .toast-notification.success {
   background: #1d7d3d;
 }

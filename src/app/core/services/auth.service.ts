@@ -13,7 +13,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(data: User) {
-    return this.http.post<User>(this.baseUrl + 'users', data);
+    const payload = { ...data, role: data.role || 'user' };
+    return this.http.post<User>(this.baseUrl + 'users', payload);
   }
 
   login(mobile: string, password: string) {
@@ -29,7 +30,14 @@ export class AuthService {
   }
   getUser(): User | null {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    if (!user) {
+      return null;
+    }
+    const parsedUser = JSON.parse(user) as User;
+    if (!parsedUser.role) {
+      parsedUser.role = 'user';
+    }
+    return parsedUser;
   }
 
   getUserByMobile(mobile: string) {

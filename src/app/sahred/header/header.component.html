@@ -21,7 +21,18 @@
         [class.active]="activeNav === item.key"
         (click)="setActive(item.key); $event.stopPropagation()"
       >
-        <span class="icon">{{ item.icon }}</span>
+        <ng-container
+          *ngIf="
+            item.icon.startsWith('/') || item.icon.startsWith('http');
+            else textIcon
+          "
+        >
+          <img [src]="item.icon" alt="{{ item.label }} icon" class="nav-icon" />
+        </ng-container>
+
+        <ng-template #textIcon>
+          <span class="icon">{{ item.icon }}</span>
+        </ng-template>
 
         {{ item.label }}
 
@@ -49,7 +60,7 @@
         </div>
 
         <span class="status d-none d-md-block">
-          {{ user?.firstName }} {{ user?.lastName }}
+          {{ user?.firstName }}
         </span>
 
         <span class="icon chevron" [class.rotate]="isDropdownOpen"> ▼ </span>
@@ -59,7 +70,7 @@
       <div class="profile-dropdown" [class.open]="isDropdownOpen">
         <div class="dropdown-user-info">
           <div class="dropdown-username">
-            {{ user?.firstName }} {{ user?.lastName }}
+            {{ user?.firstName }}
           </div>
 
           <div class="dropdown-email">
@@ -76,6 +87,18 @@
           <span class="icon">🔒</span>
           Change Password
         </button>
+
+        <ng-container *ngIf="user?.role === 'admin'">
+          <button class="dropdown-item-btn" (click)="onCreateBusTicket()">
+            <span class="icon">🚌</span>
+            Create Bus Ticket
+          </button>
+
+          <button class="dropdown-item-btn" (click)="onCreateAirTicket()">
+            <span class="icon">✈️</span>
+            Create Air Ticket
+          </button>
+        </ng-container>
 
         <hr />
 

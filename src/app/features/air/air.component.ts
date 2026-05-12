@@ -19,6 +19,8 @@ export class AirComponent {
 
   selectedClass: string = 'Economy';
 
+  faqOpen: boolean[] = [false, false, false, false, false];
+
   adult: number = 1;
   child: number = 0;
   infant: number = 0;
@@ -65,6 +67,10 @@ export class AirComponent {
     if (this.infant > 0) {
       this.infant--;
     }
+  }
+
+  toggleFaq(index: number): void {
+    this.faqOpen[index] = !this.faqOpen[index];
   }
 
   getSeatTypeValue(): string {

@@ -495,9 +495,9 @@
           </div>
         </div>
 
-        <!-- COUPON + INSURANCE + IMAGE -->
+        <!-- COUPON +INSURANCE + IMAGE+seattype -->
         <div class="row row-section align-items-end">
-          <div class="col-md-4 form-group">
+          <div class="col-md-3 form-group">
             <label>Coupon Code</label>
             <input
               type="text"
@@ -523,7 +523,7 @@
               Coupon code is required.
             </div>
           </div>
-          <div>
+          <div class="col-md-3 form-group">
             <label>Seat Type</label>
             <select
               class="form-control"
@@ -554,19 +554,24 @@
               Seat type is required.
             </div>
           </div>
-          <div class="col-md-4 form-group d-flex align-items-center">
-            <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="insurance"
-                [(ngModel)]="currentAirTicket.insurance"
-              />
-              <label class="form-check-label">Insurance</label>
+          <div class="col-md-3 form-group">
+            <div class="insurance-box p-3 rounded">
+              <div class="form-check d-flex align-items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  name="insurance"
+                  [(ngModel)]="currentAirTicket.insurance"
+                  id="insuranceCheckbox"
+                />
+                <label class="form-check-label mb-0" for="insuranceCheckbox">
+                  Provide Insurance
+                </label>
+              </div>
             </div>
           </div>
 
-          <div class="col-md-4 form-group">
+          <div class="col-md-3 form-group">
             <label>Air Image</label>
             <input
               type="file"

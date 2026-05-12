@@ -102,7 +102,6 @@ export class TicketService {
     this.saveTicketsToLocalStorage(tickets);
   }
 
-  // Create a booking record
   createBooking(booking: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}bookings`, booking).pipe(
       tap((response) => {
@@ -151,7 +150,6 @@ export class TicketService {
     );
   }
 
-  // Cancel a booking and restore seats
   cancelBooking(
     bookingId: number,
     ticketId: number,
@@ -170,6 +168,7 @@ export class TicketService {
 
   setSelectedTicket(ticket: Ticket): void {
     localStorage.setItem('selectedTicket', JSON.stringify(ticket));
+    localStorage.removeItem('selectedAirTicket');
   }
 
   getSelectedTicket(): Ticket | null {

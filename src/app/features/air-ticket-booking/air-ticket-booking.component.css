@@ -1,0 +1,142 @@
+.Flight_card_details__itoGM {
+  background: #fff;
+  border-radius: 8px;
+}
+
+/* image */
+.Flight_details_img__Z_P5G {
+  width: 40px;
+  height: 40px;
+}
+
+/* title */
+.Flight_details_title__zHbfS {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #1d1d1d;
+}
+
+/* subtitle */
+.Flight_details_para__Vy3oD {
+  font-size: 13px;
+  margin: 0;
+  color: #6c757d;
+}
+
+/* label */
+.Flight_form_lebel_details__bDjLQ {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* input style */
+.Flight_form_control_details__7gj34 {
+  height: 42px;
+  font-size: 14px;
+  border-radius: 4px !important;
+}
+
+/* background custom */
+.custom_bg {
+  background-color: #f8f9fa;
+}
+
+/* error */
+.error_message {
+  color: red;
+  font-size: 12px;
+}
+.flight-center-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.flight-duration-graph {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 5px;
+}
+
+.flight-line {
+  background-color: #f88922;
+  height: 2px;
+  width: 80px;
+  position: relative;
+
+  display: inline-block;
+}
+
+.flight-duration-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 22px;
+}
+
+.flight-show-time {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2d3d;
+  line-height: 1.2;
+}
+
+.flight-show-location {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.flight-stops-info {
+  text-align: center;
+}
+
+.flight-stop-names {
+  font-size: 12px;
+  color: #535d7e;
+  margin-top: -9px;
+}
+
+.passenger-card {
+  margin-bottom: 16px;
+}
+
+.passenger-type {
+  font-size: 12px;
+  color: #6c757d;
+  margin-left: 6px;
+}
+
+.btn-title {
+  width: auto;
+  min-width: 50px;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  background: #ffffff;
+  padding: 6px 12px;
+}
+
+.btn-title.active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.btn-title:hover {
+  background: #f8fafc;
+}
+
+.custom-input {
+  border-radius: 8px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

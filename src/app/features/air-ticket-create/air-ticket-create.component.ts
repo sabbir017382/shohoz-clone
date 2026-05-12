@@ -27,10 +27,6 @@ export class AirTicketCreateComponent implements OnInit {
 
   selectedClass: 'Economy' | 'Business' | 'First' = 'Economy';
 
-  // =====================
-  // SEAT OPTIONS
-  // =====================
-
   ecseatOptions: EconomySeat[] = [
     'A1',
     'A2',
@@ -80,17 +76,9 @@ export class AirTicketCreateComponent implements OnInit {
     'J4',
   ];
 
-  // =====================
-  // AVAILABLE SEATS
-  // =====================
-
   availableEcSeats = new Set<EconomySeat>();
   availableBcSeats = new Set<BusinessSeat>();
   availableFcSeats = new Set<FirstClassSeat>();
-
-  // =====================
-  // MAIN OBJECT
-  // =====================
 
   currentAirTicket: AirTicket = this.getDefaultTicket();
 
@@ -100,10 +88,6 @@ export class AirTicketCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
-  // =====================
-  // IMAGE UPLOAD
-  // =====================
 
   onImageSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -118,10 +102,6 @@ export class AirTicketCreateComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  // =====================
-  // PLANE SEAT GENERATOR
-  // =====================
-
   getRows(): string[] {
     if (this.selectedClass === 'Economy') return ['A', 'B', 'C', 'D'];
     if (this.selectedClass === 'Business') return ['E', 'F', 'G'];
@@ -131,10 +111,6 @@ export class AirTicketCreateComponent implements OnInit {
   getSeats(row: string, side: 'left' | 'right'): string[] {
     return side === 'left' ? [`${row}1`, `${row}2`] : [`${row}3`, `${row}4`];
   }
-
-  // =====================
-  // TOGGLE SEAT
-  // =====================
 
   toggleSeat(seat: string): void {
     if (this.selectedClass === 'Economy') {
@@ -156,10 +132,6 @@ export class AirTicketCreateComponent implements OnInit {
     }
   }
 
-  // =====================
-  // CHECK AVAILABLE
-  // =====================
-
   isAvailable(seat: string): boolean {
     if (this.selectedClass === 'Economy') {
       return this.availableEcSeats.has(seat as EconomySeat);
@@ -171,10 +143,6 @@ export class AirTicketCreateComponent implements OnInit {
 
     return this.availableFcSeats.has(seat as FirstClassSeat);
   }
-
-  // =====================
-  // MARK ALL AVAILABLE
-  // =====================
 
   getCurrentSeats(): string[] {
     if (this.selectedClass === 'Economy') return this.ecseatOptions;
@@ -200,10 +168,6 @@ export class AirTicketCreateComponent implements OnInit {
     });
   }
 
-  // =====================
-  // MARK ALL UNAVAILABLE
-  // =====================
-
   markAllUnavailable(): void {
     if (this.selectedClass === 'Economy') {
       this.availableEcSeats.clear();
@@ -217,10 +181,6 @@ export class AirTicketCreateComponent implements OnInit {
       this.availableFcSeats.clear();
     }
   }
-
-  // =====================
-  // ALL SEATS
-  // =====================
 
   getAllSeats(): string[] {
     const seats: string[] = [];

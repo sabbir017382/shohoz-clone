@@ -89,7 +89,7 @@
   text-align: left;
 }
 
-.each-row1 {
+.each-1 {
   border-radius: 12px;
   border: 1px solid #eee;
 }
@@ -161,6 +161,39 @@
 
 .flight-stop-names {
   font-size: 12px;
+}
+
+.flight-duration-graph {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.flight-line {
+  flex: 1;
+  height: 2px;
+  background: #f58217;
+  border-radius: 2px;
+}
+
+.plane-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #f58217;
+  color: #fff;
+  font-size: 14px;
+  margin-right: -1px;
+}
+
+.flight-duration-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
 }
 
 .flight-card-right {
@@ -564,6 +597,188 @@
   transform: translateY(-2px);
 }
 
+/* drawer pannel */
+
+/* fare-review-offcanvas.component.css */
+
+.offcanvas {
+  width: 430px;
+  background: #fff;
+}
+
+.flight-header-can {
+  font-size: 22px;
+  font-weight: 700;
+  color: #27273f;
+}
+
+.flight-custom-show {
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.flight-header-show {
+  background: #f8f9fb;
+}
+
+.airline-logo {
+  object-fit: contain;
+}
+
+.airline-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #27273f;
+}
+
+.flight-show-time {
+  font-size: 14px;
+  font-weight: 700;
+  color: #27273f;
+}
+
+.flight-show-location {
+  font-size: 14px;
+  color: #535d7e;
+  margin-top: 2px;
+}
+
+.for-transform {
+  align-self: center;
+  text-align: center;
+  font-size: 12px;
+  transform: translateX(-13px);
+  color: #535d7e;
+}
+
+.flight-stops-show {
+  margin-top: 5px;
+}
+
+.flight-card-can {
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.flight-d-t {
+  list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.total-price-top {
+  font-size: 24px;
+  font-weight: 700;
+  color: #27273f;
+}
+
+.fare-details-toggle {
+  color: #999;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.fold {
+  transition: 0.3s;
+}
+
+.flight-fare-details {
+  transition: 0.3s;
+}
+
+.discount-text {
+  color: #f88922;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.discount-code {
+  font-size: 16px;
+  font-weight: 700;
+  color: #27273f;
+}
+
+.total-p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.total-a {
+  font-size: 18px;
+  font-weight: 700;
+  color: #27273f;
+}
+
+.fare-footer {
+  margin-bottom: -13px;
+}
+
+.service-result-blue {
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 600;
+  width: 71px;
+}
+
+.green-text {
+  color: #079d49;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.baggage-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #27273f;
+}
+
+.baggage-bg {
+  background: #f8f9fb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bagage-td td {
+  font-weight: 700;
+  font-size: 14px;
+  color: #27273f;
+  border-top: none;
+}
+
+.bagage-td-nd td {
+  font-size: 14px;
+  color: #535d7e;
+}
+
+.warning-label {
+  color: red;
+  font-size: 12px;
+}
+
+.flight-btn-can {
+  height: 50px;
+  border-radius: 10px;
+  background: #079d49;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+}
+
+.flight-btn-can:hover {
+  background: #06853e;
+  color: #fff;
+}
+
+.custom-btn:focus {
+  box-shadow: none;
+}
 /* =========================
    RESPONSIVE
 ========================= */
@@ -585,4 +800,41 @@
     padding: 20px;
     margin-top: 0;
   }
+}
+
+.offcanvas-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1040;
+}
+
+.offcanvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 430px;
+  background: #fff;
+  z-index: 1050;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.offcanvas.show {
+  transform: translateX(0);
+}
+
+.offcanvas-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #ececec;
+}
+
+.offcanvas-body {
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  flex: 1;
 }

@@ -171,6 +171,7 @@ export class AirServiceService {
 
   setSelectedTicket(ticket: AirTicket): void {
     localStorage.setItem('selectedAirTicket', JSON.stringify(ticket));
+    localStorage.removeItem('selectedTicket');
   }
 
   getSelectedTicket(): AirTicket | null {

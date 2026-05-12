@@ -1,4 +1,5 @@
 export interface AirTicket {
+  id?: number;
   ticketId?: number;
   bimanName: string;
   bimanserialNo: string;

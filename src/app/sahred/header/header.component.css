@@ -3,7 +3,7 @@
 ========================= */
 .shohoz-header {
   width: 100%;
-  height: 70px;
+  height: 68px;
   background: #fff;
   border-bottom: 1px solid #eeeeee;
   display: flex;
@@ -11,6 +11,7 @@
   justify-content: flex-start;
   gap: 40px;
   padding: 0 144px;
+  /* margin-left: 79px; */
   position: sticky;
   top: 0;
   z-index: 999;
@@ -22,12 +23,14 @@
 .header-left {
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
 .logo {
-  width: 85px;
+  width: 86px;
   height: auto;
   cursor: pointer;
+  margin-left: -34px;
 }
 
 /* =========================
@@ -41,8 +44,8 @@
 }
 
 .nav-btn {
-  width: 100px;
-  height: 40px;
+  width: 101px;
+  height: 39px;
   border: 2px solid transparent;
   border-radius: 10px;
   background: transparent;
@@ -67,9 +70,17 @@
   color: #079d49;
 }
 
-.nav-btn .icon {
+.nav-btn .icon,
+.nav-icon {
   margin-right: 6px;
   font-size: 16px;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  object-fit: contain;
 }
 
 .beta-badge {
@@ -121,13 +132,13 @@
 }
 
 .profile-btn {
-  border: none;
+  border: 1px solid #ddd;
   background: transparent;
   display: flex;
   align-items: center;
-  padding: 5px 10px;
-  border-radius: 30px;
-  transition: 0.3s;
+  padding: 2px 10px;
+  cursor: pointer;
+  border-radius: 12px;
 }
 
 .profile-btn:hover {

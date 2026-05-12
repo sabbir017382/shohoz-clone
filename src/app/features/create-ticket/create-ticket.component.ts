@@ -19,7 +19,6 @@ export class CreateTicketComponent implements OnInit {
   seatPlanOpen = false;
   isSubmitting = false;
 
-  // Seat map rows and columns
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   cols = [1, 2, 3, 4];
 
@@ -68,13 +67,11 @@ export class CreateTicketComponent implements OnInit {
     }
   }
 
-  // Initialize all seats as available by default
   initializeAvailableSeats(): void {
     const allSeats = this.generateAllSeats();
     this.availableSeats = new Set(allSeats);
   }
 
-  // Generate all possible seats
   generateAllSeats(): SeatNo[] {
     const seats: SeatNo[] = [];
     for (const row of this.rows) {
@@ -86,7 +83,6 @@ export class CreateTicketComponent implements OnInit {
     return seats;
   }
 
-  // Get seats for a specific row
   getSeatsForRow(row: string): SeatNo[] {
     const numCols = 4;
     const seats: SeatNo[] = [];
@@ -96,7 +92,6 @@ export class CreateTicketComponent implements OnInit {
     return seats;
   }
 
-  // Toggle seat availability
   toggleSeat(seat: SeatNo): void {
     if (this.availableSeats.has(seat)) {
       this.availableSeats.delete(seat);
@@ -105,18 +100,15 @@ export class CreateTicketComponent implements OnInit {
     }
   }
 
-  // Check if seat is available
   isSeatAvailable(seat: SeatNo): boolean {
     return this.availableSeats.has(seat);
   }
 
-  // Mark all seats as available
   markAllAvailable(): void {
     const allSeats = this.generateAllSeats();
     this.availableSeats = new Set(allSeats);
   }
 
-  // Mark all seats as unavailable
   markAllUnavailable(): void {
     this.availableSeats.clear();
   }
@@ -128,7 +120,6 @@ export class CreateTicketComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Check if form is valid
     if (!this.isFormValid()) {
       alert('Please fill in all required fields correctly before submitting.');
       return;
@@ -145,7 +136,6 @@ export class CreateTicketComponent implements OnInit {
       .map((point: string) => point.trim())
       .filter(Boolean);
 
-    // Save available seats
     this.currentTicket.availableSeats = Array.from(this.availableSeats);
 
     const action = this.editMode
@@ -177,7 +167,6 @@ export class CreateTicketComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    // Basic required field validation
     if (
       !this.currentTicket.busName?.trim() ||
       this.currentTicket.busName.length < 2
@@ -212,7 +201,6 @@ export class CreateTicketComponent implements OnInit {
       return false;
     }
 
-    // Validate that 'from' and 'to' are different
     if (
       this.currentTicket.from.toLowerCase() ===
       this.currentTicket.to.toLowerCase()
@@ -221,7 +209,6 @@ export class CreateTicketComponent implements OnInit {
       return false;
     }
 
-    // Validate date logic
     const departureDateTime = new Date(
       `${this.currentTicket.departureDate}T${this.currentTicket.departureTime}`,
     );

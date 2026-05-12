@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -26,12 +27,12 @@ export class HeaderComponent implements OnInit {
 
   // NAV ITEMS
   navItems: NavItem[] = [
-    { label: 'Bus', key: 'bus', icon: '🚌' },
-    { label: 'Air', key: 'plane', icon: '✈️' },
-    { label: 'Train', key: 'train', icon: '🚆' },
-    { label: 'Launch', key: 'launch', icon: '🚢' },
-    { label: 'Event', key: 'event', icon: '🎫' },
-    { label: 'Park', key: 'park', icon: '🌳', beta: true },
+    { label: 'Bus', key: 'bus', icon: '/assets/images/hbus.png' },
+    { label: 'Air', key: 'plane', icon: '/assets/images/air.png' },
+    { label: 'Train', key: 'train', icon: '/assets/images/train.png' },
+    { label: 'Launch', key: 'launch', icon: '/assets/images/ship.png' },
+    { label: 'Event', key: 'event', icon: '/assets/images/event.png' },
+    { label: 'Park', key: 'park', icon: '/assets/images/park.png', beta: true },
   ];
 
   activeNav: string = 'bus';
@@ -44,10 +45,46 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUser();
+    this.updateActiveNav(this.router.url);
+
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd,
+        ),
+      )
+      .subscribe((event) => {
+        this.updateActiveNav(event.urlAfterRedirects);
+      });
   }
 
   fetchUser(): void {
     this.user = this.service.getUser();
+  }
+
+  updateActiveNav(url: string): void {
+    if (url.startsWith('/air') || url.startsWith('/contact')) {
+      this.activeNav = 'plane';
+    } else if (
+      url === '/home' ||
+      url.startsWith('/create-ticket') ||
+      url.startsWith('/ticket-list') ||
+      url.startsWith('/ticket-booking') ||
+      url.startsWith('/trip-info') ||
+      url.startsWith('/payment')
+    ) {
+      this.activeNav = 'bus';
+    } else if (url.startsWith('/train')) {
+      this.activeNav = 'train';
+    } else if (url.startsWith('/launch')) {
+      this.activeNav = 'launch';
+    } else if (url.startsWith('/event')) {
+      this.activeNav = 'event';
+    } else if (url.startsWith('/park')) {
+      this.activeNav = 'park';
+    } else {
+      this.activeNav = 'bus';
+    }
   }
 
   // NAVIGATION
@@ -67,19 +104,19 @@ export class HeaderComponent implements OnInit {
         break;
 
       case 'train':
-        this.router.navigate(['/train']);
+        this.router.navigate(['/unknown']);
         break;
 
       case 'launch':
-        this.router.navigate(['/launch']);
+        this.router.navigate(['/unknown']);
         break;
 
       case 'event':
-        this.router.navigate(['/event']);
+        this.router.navigate(['/unknown']);
         break;
 
       case 'park':
-        this.router.navigate(['/park']);
+        this.router.navigate(['/unknown']);
         break;
     }
   }
@@ -117,6 +154,18 @@ export class HeaderComponent implements OnInit {
     this.isDropdownOpen = false;
 
     this.router.navigate(['/change-password']);
+  }
+
+  onCreateBusTicket(): void {
+    this.isDropdownOpen = false;
+
+    this.router.navigate(['/create-ticket']);
+  }
+
+  onCreateAirTicket(): void {
+    this.isDropdownOpen = false;
+
+    this.router.navigate(['/air-ticket-create']);
   }
 
   onLogout(): void {

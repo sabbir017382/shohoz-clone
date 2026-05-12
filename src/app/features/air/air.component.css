@@ -3,11 +3,13 @@
 ========================= */
 
 .hero-section {
-  min-height: 10vh;
-  background: url("/assets/images/air-web-top-new.png") no-repeat center;
+  min-height: 58vh;
+  background: url("/assets/images/air-web-top-new.png") no-repeat center top;
   background-size: cover;
   position: relative;
-  padding: 80px 0;
+  padding: 20px 0;
+  z-index: 999;
+  overflow: visible !important;
 }
 
 .hero-section::before {
@@ -29,9 +31,16 @@
 .search-box {
   background: #ffffff;
   border-radius: 24px;
-  padding: 30px;
+  padding: 7px;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-  margin-top: 180px;
+  margin-top: 160px;
+  max-width: 1210px;
+  width: 110%;
+  margin-left: -58px;
+  margin-right: auto;
+  position: relative;
+  z-index: 9999;
+  overflow: visible !important;
 }
 
 /* =========================
@@ -41,7 +50,7 @@
 .trip-types {
   display: flex;
   gap: 25px;
-  margin-bottom: 25px;
+  margin-bottom: 8px;
 }
 
 .trip-radio {
@@ -68,6 +77,7 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 14px;
   align-items: flex-end;
+  overflow: visible !important;
 }
 
 /* =========================
@@ -76,6 +86,7 @@
 
 .flight-field {
   position: relative;
+  overflow: visible;
 }
 
 .field-label {
@@ -161,12 +172,11 @@
   border-radius: 20px;
   margin-top: 10px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
-  z-index: 999;
-  overflow: hidden;
+  z-index: 999999;
 }
 
 .dropdown-top {
-  padding: 20px;
+  padding: 12px 20px;
   border-bottom: 1px solid #f1f1f1;
 }
 
@@ -183,14 +193,14 @@
 }
 
 .dropdown-section {
-  padding: 20px;
+  padding: 12px 20px;
 }
 
 .section-title {
   font-size: 13px;
   font-weight: 700;
   color: #444;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 /* =========================
@@ -200,7 +210,7 @@
 .class-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 
 .class-btn {
@@ -231,7 +241,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 8px 0;
   border-bottom: 1px solid #f2f2f2;
 }
 
@@ -285,7 +295,7 @@
 ========================= */
 
 .done-area {
-  padding: 20px;
+  padding: 12px 20px;
   display: flex;
   justify-content: flex-end;
 }
@@ -327,6 +337,282 @@
   transform: translateY(-2px);
 }
 
+.popular-destination {
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-size: 35px;
+  font-weight: 700;
+  color: #008f18;
+  margin-bottom: 24px;
+  /* margin-left: 382px; */
+}
+
+.destination-card {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: 0.3s;
+}
+
+.image-wrapper p {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
+}
+
+/* =========================
+   APP SECTION
+========================= */
+
+.app-section {
+  background: #f7f8fa;
+}
+
+.app-img-box {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-img-box img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+}
+
+.app-title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 25px;
+}
+
+.app-title span {
+  color: #333;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+  margin-bottom: 25px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.feature-item img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.feature-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.store-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.store-box img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* =========================
+   TRAVEL SECTION
+========================= */
+
+.travel-wrapper {
+  padding: 70px 0;
+  font-family: Inter, sans-serif;
+  background-color: rgb(247, 247, 247);
+}
+
+.travel-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.green-text {
+  color: #079d49;
+}
+
+.travel-subtext {
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.travel-stats {
+  margin-top: 10px;
+}
+
+.stat-box {
+  text-align: left;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.image-box {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq-wrapper {
+  padding: 70px 0;
+  font-family: Inter, sans-serif;
+  background-color: #36ae89;
+}
+
+.faq-heading {
+  font-size: 34px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.faq-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 30px;
+  width: 400px;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.faq-btn {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 18px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 14px 0;
+}
+
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.plus {
+  font-size: 22px;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.faq-a {
+  font-size: 15px;
+  color: #f3f4f6;
+  padding-top: 12px;
+  line-height: 1.8;
+}
+
+/* =========================
+   IATA
+========================= */
+
+.iata-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 0;
+}
+
+.iata-logo {
+  width: 127px;
+  height: 125px;
+  object-fit: contain;
+  display: block;
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -347,6 +633,8 @@
   .search-box {
     padding: 20px;
     margin-top: 100px;
+    width: 100%;
+    margin-left: 0;
   }
 
   .flight-grid {
@@ -354,6 +642,16 @@
   }
 
   .traveler-dropdown {
+    width: 100%;
+    left: 0;
+  }
+
+  .section-title {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .faq-text {
     width: 100%;
   }
 }

@@ -16,7 +16,9 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { AirComponent } from './air/air.component';
 import { AirTicketCreateComponent } from './air-ticket-create/air-ticket-create.component';
 import { AirTicketListComponent } from './air-ticket-list/air-ticket-list.component';
-import { FareReviewOffcanvasComponent } from './fare-review-offcanvas/fare-review-offcanvas.component';
+import { AirTicketBookingComponent } from './air-ticket-booking/air-ticket-booking.component';
+import { UnknownFeatureComponent } from './unknown-feature/unknown-feature.component';
+import { ContactformComponent } from './contactform/contactform.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { FareReviewOffcanvasComponent } from './fare-review-offcanvas/fare-revie
     AirComponent,
     AirTicketCreateComponent,
     AirTicketListComponent,
-    FareReviewOffcanvasComponent,
+    AirTicketBookingComponent,
+    UnknownFeatureComponent,
+    ContactformComponent,
   ],
   imports: [
     CommonModule,

@@ -131,15 +131,91 @@
 
     <!-- RIGHT -->
     <div class="col-md-5 mt-4">
+      <!-- Route Card -->
+      <div
+        class="bg-white rounded border p-3 mb-3"
+        *ngIf="selectedAirTicket || selectedTicket"
+      >
+        <p class="small text-muted font-weight-bold text-uppercase mb-2">
+          Trip Details
+        </p>
+
+        <ng-container *ngIf="selectedAirTicket">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="mb-0 font-weight-bold text-primary">
+                {{ selectedAirTicket.from }}
+              </h6>
+              <small class="text-muted">{{
+                selectedAirTicket.departureTime
+              }}</small>
+            </div>
+            <div class="text-center">
+              <i class="fa fa-arrow-right text-success"></i>
+            </div>
+            <div class="text-right">
+              <h6 class="mb-0 font-weight-bold text-primary">
+                {{ selectedAirTicket.to }}
+              </h6>
+              <small class="text-muted">{{
+                selectedAirTicket.arrivalTime
+              }}</small>
+            </div>
+          </div>
+          <div class="mt-2 text-center border-top pt-2">
+            <small class="text-muted">{{ selectedAirTicket.bimanName }}</small
+            ><br />
+            <small class="text-muted">{{ selectedAirTicket.travelDate }}</small>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="selectedTicket && !selectedAirTicket">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="mb-0 font-weight-bold text-primary">
+                {{ selectedTicket.from }}
+              </h6>
+            </div>
+            <div class="text-center">
+              <i class="fa fa-arrow-right text-success"></i>
+            </div>
+            <div class="text-right">
+              <h6 class="mb-0 font-weight-bold text-primary">
+                {{ selectedTicket.to }}
+              </h6>
+            </div>
+          </div>
+          <div class="mt-2 text-center border-top pt-2">
+            <small class="text-muted">{{ selectedTicket.busName }}</small
+            ><br />
+            <small class="text-muted"
+              >Seats: {{ selectedSeats.join(", ") }}</small
+            >
+          </div>
+        </ng-container>
+      </div>
+
       <!-- Coupon -->
       <div class="bg-white p-2 rounded mb-3">
         <div class="d-flex">
           <input
             class="form-control form-control-sm mr-2"
+            [(ngModel)]="couponCode"
             placeholder="Enter Coupon Code"
+            name="couponCode"
+            [disabled]="appliedCouponDiscount > 0"
           />
-          <button class="btn btn-sm btn-primary">Apply</button>
+          <button
+            class="btn btn-sm"
+            [ngClass]="appliedCouponDiscount > 0 ? 'btn-danger' : 'btn-primary'"
+            (click)="appliedCouponDiscount > 0 ? removeCoupon() : applyCoupon()"
+          >
+            {{ appliedCouponDiscount > 0 ? "Remove" : "Apply" }}
+          </button>
         </div>
+        <small class="text-muted mt-2" *ngIf="couponMessage">{{
+          couponMessage
+        }}</small>
       </div>
 
       <!-- Payment Summary -->
@@ -148,32 +224,134 @@
           Payment Details
         </p>
 
-        <div class="d-flex justify-content-between small mb-2">
-          <span>total amount</span>
-          <span>৳{{ totalPrice }}</span>
-        </div>
+        <ng-container *ngIf="selectedAirTicket; else busSummary">
+          <div
+            class="d-flex justify-content-between small mb-2"
+            *ngIf="airPassengerCount.adult > 0"
+          >
+            <span>{{ airPassengerCount.adult }} x Base Fare (Adults)</span>
+            <span
+              >৳{{
+                selectedAirTicket.priceForAdult * airPassengerCount.adult
+              }}</span
+            >
+          </div>
 
-        <div class="d-flex justify-content-between small mb-2">
-          <span>Processing Fee</span>
-          <span>৳{{ processingFee }}</span>
-        </div>
+          <div
+            class="d-flex justify-content-between small mb-2"
+            *ngIf="airPassengerCount.child > 0"
+          >
+            <span>{{ airPassengerCount.child }} x Base Fare (Child)</span>
+            <span
+              >৳{{
+                selectedAirTicket.priceForChild * airPassengerCount.child
+              }}</span
+            >
+          </div>
 
-        <div class="d-flex justify-content-between small mb-2">
-          <span>Discount</span>
-          <span>৳{{ discount }}</span>
-        </div>
+          <div
+            class="d-flex justify-content-between small mb-2"
+            *ngIf="airPassengerCount.infant > 0"
+          >
+            <span>{{ airPassengerCount.infant }} x Base Fare (Infant)</span>
+            <span
+              >৳{{
+                selectedAirTicket.priceForInfant * airPassengerCount.infant
+              }}</span
+            >
+          </div>
 
-        <div class="d-flex justify-content-between small mb-2">
-          <span>Insurance</span>
-          <span>{{ insuranceAccepted ? "৳" + insurance : "" }}</span>
-        </div>
+          <div class="d-flex justify-content-between small mb-2">
+            <span
+              >{{
+                airPassengerCount.adult +
+                  airPassengerCount.child +
+                  airPassengerCount.infant
+              }}
+              x Tax</span
+            >
+            <span>৳{{ getAirTaxAmount() }}</span>
+          </div>
 
-        <hr />
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Sub Total</span>
+            <span>৳{{ getAirSubTotal() }}</span>
+          </div>
 
-        <div class="d-flex justify-content-between">
-          <strong class="text-success">Total Payable</strong>
-          <strong class="text-orange">৳{{ totalPayable }}</strong>
-        </div>
+          <div class="d-flex justify-content-between small mb-2">
+            <span>AIT & VAT</span>
+            <span>৳{{ getAirAitVat() }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Other Charges</span>
+            <span>৳{{ selectedAirTicket.OtherCharges }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Total Amount</span>
+            <span>৳{{ getAirTotalAmount() }}</span>
+          </div>
+
+          <div
+            class="d-flex justify-content-between small mb-2"
+            *ngIf="appliedCouponDiscount > 0"
+          >
+            <span>Coupon Discount</span>
+            <span class="text-danger">-৳{{ appliedCouponDiscount }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Insurance Amount</span>
+            <span>৳{{ getAirInsuranceAmount() }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Processing Fee</span>
+            <span>৳{{ getAirProcessingFee() }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Baggage Protection</span>
+            <span>৳{{ getAirBaggageProtection() }}</span>
+          </div>
+
+          <hr />
+
+          <div class="d-flex justify-content-between">
+            <strong class="text-success">TOTAL PAYABLE</strong>
+            <strong class="text-orange">৳{{ totalPayable }}</strong>
+          </div>
+        </ng-container>
+
+        <ng-template #busSummary>
+          <div class="d-flex justify-content-between small mb-2">
+            <span>total amount</span>
+            <span>৳{{ totalPrice }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Processing Fee</span>
+            <span>৳{{ processingFee }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Discount</span>
+            <span>৳{{ discount }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between small mb-2">
+            <span>Insurance</span>
+            <span>{{ insuranceAccepted ? "৳" + insurance : "" }}</span>
+          </div>
+
+          <hr />
+
+          <div class="d-flex justify-content-between">
+            <strong class="text-success">Total Payable</strong>
+            <strong class="text-orange">৳{{ totalPayable }}</strong>
+          </div>
+        </ng-template>
       </div>
 
       <!-- Note -->

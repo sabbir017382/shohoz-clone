@@ -178,14 +178,6 @@ export class TicketListComponent implements OnInit {
         (ticket.arrivalTime &&
           ticket.arrivalTime.startsWith(this.filters.arrivalTime));
 
-      // // Bus type filter (AC / Non AC) if present on ticket
-      // let matchesBusType = true;
-      // if (this.filters.ac && !this.filters.nonAc) {
-      //   matchesBusType = ticket.busType?.toLowerCase() === 'ac';
-      // } else if (!this.filters.ac && this.filters.nonAc) {
-      //   matchesBusType = ticket.busType?.toLowerCase() === 'non ac' || ticket.busType?.toLowerCase() === 'non-ac';
-      // }
-
       return (
         matchesOperator &&
         matchesBoarding &&

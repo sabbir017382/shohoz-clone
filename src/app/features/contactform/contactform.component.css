@@ -1,0 +1,129 @@
+/* ===== PAGE ===== */
+
+.contact-page {
+  padding: 60px 0 80px;
+  font-family: Inter, sans-serif;
+  background: #fff;
+}
+
+/* ===== HEADER ===== */
+
+.contact-header {
+  margin-bottom: 40px;
+}
+
+.contact-header h2 {
+  font-size: 52px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+.contact-header p {
+  font-size: 18px;
+  color: #4b5563;
+  margin-bottom: 0;
+}
+
+/* ===== FORM ===== */
+
+.contact-form {
+  border: 1px solid #e5e7eb;
+  padding: 32px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 50px;
+}
+
+/* ===== LABEL ===== */
+
+.contact-form label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+.contact-form label span {
+  color: #16a34a;
+}
+
+/* ===== INPUT ===== */
+
+.custom-input {
+  height: 56px !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  padding: 0 16px !important;
+  box-shadow: none !important;
+  font-size: 15px;
+  color: #111827;
+}
+
+.custom-input:focus {
+  border-color: #16a34a !important;
+}
+
+/* ===== TEXTAREA ===== */
+
+.custom-textarea {
+  height: 220px !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  padding: 16px !important;
+  resize: none;
+  box-shadow: none !important;
+}
+
+.custom-textarea:focus {
+  border-color: #16a34a !important;
+}
+
+/* ===== BUTTON ===== */
+
+.send-btn {
+  width: 130px;
+  height: 56px;
+  border: none;
+  border-radius: 4px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.send-btn:hover {
+  background: #22c55e;
+}
+
+/* ===== ERROR MESSAGE ===== */
+
+.error-message {
+  display: block;
+  font-size: 13px;
+  color: #dc2626;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 767px) {
+  .contact-page {
+    padding: 40px 0 60px;
+  }
+
+  .contact-header h2 {
+    font-size: 34px;
+  }
+
+  .contact-header p {
+    font-size: 15px;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+}

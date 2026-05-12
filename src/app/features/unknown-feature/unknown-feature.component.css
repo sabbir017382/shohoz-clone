@@ -1,0 +1,11 @@
+.no-tickets {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
+}
+.no-trip-text {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+}

@@ -1,0 +1,177 @@
+<!-- CONTACT PAGE -->
+<section class="contact-page">
+  <div class="container">
+    <!-- Heading -->
+    <div class="contact-header text-center">
+      <h2>Contact Us</h2>
+      <p>Thank you for reaching us! We are always happy to hear from you</p>
+    </div>
+
+    <!-- Form -->
+    <form
+      class="contact-form"
+      #contactForm="ngForm"
+      (ngSubmit)="onSubmit(contactForm)"
+    >
+      <!-- Purpose -->
+      <div class="form-group">
+        <label>Purpose</label>
+
+        <select class="form-control custom-input" name="purpose" ngModel>
+          <option value="">Select Purpose</option>
+          <option value="Bus">Bus</option>
+          <option value="Launch">Launch</option>
+          <option value="Air">Air</option>
+          <option value="Train">Train</option>
+          <option value="Event">Event</option>
+          <option value="Park">Park</option>
+        </select>
+      </div>
+
+      <!-- Name + City -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label> Your Name <span>*</span> </label>
+
+            <input
+              type="text"
+              class="form-control custom-input"
+              name="name"
+              ngModel
+              required
+              #nameControl="ngModel"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                (nameControl.touched || isSubmitted) &&
+                nameControl.errors?.['required']
+              "
+            >
+              Name is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label> Your City <span>*</span> </label>
+
+            <select
+              class="form-control custom-input"
+              name="city"
+              ngModel
+              required
+              #cityControl="ngModel"
+            >
+              <option value="">Select City</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Chittagong">Chittagong</option>
+              <option value="Sylhet">Sylhet</option>
+              <option value="Khulna">Khulna</option>
+            </select>
+            <div
+              class="error-message"
+              *ngIf="
+                (cityControl.touched || isSubmitted) &&
+                cityControl.errors?.['required']
+              "
+            >
+              City is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone + Email -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label> Phone Number <span>*</span> </label>
+
+            <input
+              type="text"
+              class="form-control custom-input"
+              name="phone"
+              ngModel
+              required
+              #phoneControl="ngModel"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                (phoneControl.touched || isSubmitted) &&
+                phoneControl.errors?.['required']
+              "
+            >
+              Phone number is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label> Email <span>*</span> </label>
+
+            <input
+              type="email"
+              class="form-control custom-input"
+              name="email"
+              ngModel
+              required
+              email
+              #emailControl="ngModel"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                (emailControl.touched || isSubmitted) &&
+                emailControl.errors?.['required']
+              "
+            >
+              Email is required
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                (emailControl.touched || isSubmitted) &&
+                emailControl.errors?.['email']
+              "
+            >
+              Please enter a valid email
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label> Message <span>*</span> </label>
+
+        <textarea
+          class="form-control custom-textarea"
+          name="message"
+          ngModel
+          required
+          #messageControl="ngModel"
+        ></textarea>
+        <div
+          class="error-message"
+          *ngIf="
+            (messageControl.touched || isSubmitted) &&
+            messageControl.errors?.['required']
+          "
+        >
+          Message is required
+        </div>
+      </div>
+
+      <!-- Button -->
+      <button type="submit" class="send-btn">
+        Send
+        <i class="fa fa-arrow-right ml-1"></i>
+      </button>
+    </form>
+  </div>
+</section>

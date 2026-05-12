@@ -53,9 +53,10 @@ export class RegisterComponent implements OnInit {
       alert('Password does not match');
       return;
     }
+    this.user.role = 'user';
     this.authService.register(this.user).subscribe({
       next: (response) => {
-        localStorage.setItem('user', JSON.stringify(this.user));
+        localStorage.setItem('user', JSON.stringify(response));
         alert('Registration Successful');
         form.reset();
       },

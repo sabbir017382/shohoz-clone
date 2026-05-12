@@ -12,14 +12,12 @@ export class AirTicketListComponent implements OnInit {
   allTickets: AirTicket[] = [];
   filteredTickets: AirTicket[] = [];
 
-  // Filter properties
   selectedStops: number | null = null;
   selectedAirlines: string[] = [];
   priceRange = { min: 0, max: 10000 };
-  originalPriceRange = { min: 0, max: 10000 }; // Store original full range
+  originalPriceRange = { min: 0, max: 10000 };
   selectedDepartureTimes: string[] = [];
 
-  // Airlines list with count
   airlines: { name: string; count: number }[] = [];
   departureTimeSlots = [
     { label: 'Early Morning', range: '00:00 - 04:59', key: 'earlyMorning' },
@@ -52,6 +50,8 @@ export class AirTicketListComponent implements OnInit {
   adult: number = 1;
   child: number = 0;
   infant: number = 0;
+  selectedTicket: AirTicket | null = null;
+  showFareReview: boolean = false;
 
   constructor(
     private airService: AirServiceService,
@@ -98,7 +98,6 @@ export class AirTicketListComponent implements OnInit {
   }
 
   initializeFilters(): void {
-    // Get unique airlines with count
     const airlinesMap = new Map<string, number>();
     this.allTickets.forEach((ticket) => {
       const airline = ticket.bimanName;
@@ -110,7 +109,6 @@ export class AirTicketListComponent implements OnInit {
       count,
     }));
 
-    // Set initial price range
     if (this.allTickets.length > 0) {
       const prices = this.allTickets.map((t) => t.priceForAdult);
       this.originalPriceRange.min = Math.min(...prices);
@@ -123,31 +121,26 @@ export class AirTicketListComponent implements OnInit {
   applyFilters(): void {
     let filtered = [...this.allTickets];
 
-    // Apply search criteria from air search box first
     filtered = filtered.filter((ticket) => this.matchesSearchCriteria(ticket));
 
-    // Filter by stops - all tickets are non-stop (0 stops)
     if (this.selectedStops !== null) {
       if (this.selectedStops !== 0) {
         filtered = [];
       }
     }
 
-    // Filter by airlines
     if (this.selectedAirlines.length > 0) {
       filtered = filtered.filter((ticket) =>
         this.selectedAirlines.includes(ticket.bimanName),
       );
     }
 
-    // Filter by price range (adult fare baseline)
     filtered = filtered.filter(
       (ticket) =>
         ticket.priceForAdult >= this.priceRange.min &&
         ticket.priceForAdult <= this.priceRange.max,
     );
 
-    // Filter by departure time
     if (this.selectedDepartureTimes.length > 0) {
       filtered = filtered.filter((ticket) => {
         const deptHour = parseInt(ticket.departureTime.split(':')[0]);
@@ -223,6 +216,82 @@ export class AirTicketListComponent implements OnInit {
     );
   }
 
+  getBaseFare(ticket: AirTicket): number {
+    const adultCount = this.searchCriteria.adult || 0;
+    const childCount = this.searchCriteria.child || 0;
+    const infantCount = this.searchCriteria.infant || 0;
+    return (
+      adultCount * ticket.priceForAdult +
+      childCount * ticket.priceForChild +
+      infantCount * ticket.priceForInfant
+    );
+  }
+
+  getTaxAmount(ticket: AirTicket): number {
+    const adultCount = this.searchCriteria.adult || 0;
+    const childCount = this.searchCriteria.child || 0;
+    const infantCount = this.searchCriteria.infant || 0;
+    return (
+      adultCount * ticket.Tax +
+      childCount * ticket.Tax +
+      infantCount * ticket.Tax
+    );
+  }
+
+  getDiscountAmount(ticket: AirTicket): number {
+    if (!ticket.cuponCode) {
+      return 0;
+    }
+    const normalizedCode = ticket.cuponCode.trim().toUpperCase();
+    switch (normalizedCode) {
+      case 'DCCX':
+      case 'DHCX':
+        return 999;
+      default:
+        return 0;
+    }
+  }
+
+  getTotalFare(ticket: AirTicket): number {
+    const baseFare = this.getBaseFare(ticket);
+    const tax = this.getTaxAmount(ticket);
+    const otherCharges = ticket.OtherCharges || 0;
+    const processingFee = ticket.processingFee || 0;
+    const discount = this.getDiscountAmount(ticket);
+    return baseFare + tax + otherCharges + processingFee - discount;
+  }
+
+  getAdultCountArray(): number[] {
+    return new Array(this.searchCriteria.adult);
+  }
+
+  openFareReview(ticket: AirTicket): void {
+    this.selectedTicket = ticket;
+    this.showFareReview = true;
+  }
+
+  closeFareReview(): void {
+    this.showFareReview = false;
+    this.selectedTicket = null;
+  }
+
+  proceedToBooking(): void {
+    if (!this.selectedTicket) {
+      return;
+    }
+
+    this.airService.setSelectedTicket(this.selectedTicket);
+    localStorage.setItem(
+      'selectedAirTicketSearch',
+      JSON.stringify(this.searchCriteria),
+    );
+
+    const seatType = this.searchCriteria.seatType || 'EconomyClass';
+    localStorage.setItem('selectedAirSeatType', seatType);
+
+    this.router.navigate(['/air-ticket-booking']);
+  }
+
   getPassengerLabel(): string {
     const parts: string[] = [];
     if (this.searchCriteria.adult) {
@@ -243,8 +312,9 @@ export class AirTicketListComponent implements OnInit {
     return parts.length ? parts.join(', ') : '1 Traveler';
   }
 
-  getBaggageAllowance(): string {
-    switch (this.searchCriteria.seatType) {
+  getBaggageAllowance(seatType?: string): string {
+    const type = seatType || this.searchCriteria.seatType;
+    switch (type) {
       case 'EconomyClass':
         return '23 kg';
       case 'BusinessClass':
@@ -415,6 +485,45 @@ export class AirTicketListComponent implements OnInit {
         return 'First Class';
       default:
         return 'Economy';
+    }
+  }
+
+  getSeatTypeDisplay(seatType: string): string {
+    switch (seatType) {
+      case 'BusinessClass':
+        return 'Business';
+      case 'FirstClass':
+        return 'First Class';
+      default:
+        return 'Economy';
+    }
+  }
+
+  getFlightDuration(ticket: AirTicket): string {
+    try {
+      const deptTime = ticket.departureTime.split(':');
+      const arrTime = ticket.arrivalTime.split(':');
+
+      let deptHours = parseInt(deptTime[0], 10);
+      let deptMinutes = parseInt(deptTime[1], 10);
+      let arrHours = parseInt(arrTime[0], 10);
+      let arrMinutes = parseInt(arrTime[1], 10);
+
+      // Convert to minutes
+      let deptTotalMinutes = deptHours * 60 + deptMinutes;
+      let arrTotalMinutes = arrHours * 60 + arrMinutes;
+
+      if (arrTotalMinutes <= deptTotalMinutes) {
+        arrTotalMinutes += 24 * 60;
+      }
+
+      let durationMinutes = arrTotalMinutes - deptTotalMinutes;
+      let hours = Math.floor(durationMinutes / 60);
+      let minutes = durationMinutes % 60;
+
+      return `${hours}h ${minutes}m`;
+    } catch (error) {
+      return 'failed to calculate';
     }
   }
 

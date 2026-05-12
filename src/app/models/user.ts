@@ -7,4 +7,5 @@ export interface User {
   gender: string;
   password: string;
   confirmPassword: string;
+  role?: string;
 }
