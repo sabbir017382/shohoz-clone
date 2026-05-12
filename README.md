@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
+## admin details it's fixed for admin ,,,and other use can register and loign
+
+admin number 01700000000
+admin password: admin123
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

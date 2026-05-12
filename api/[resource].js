@@ -1,15 +1,21 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const DB_PATH = path.join(process.cwd(), 'db.json');
+const DB_PATH = path.join(process.cwd(), "db.json");
 
 function readDb() {
   try {
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
     return JSON.parse(raw);
   } catch (error) {
-    console.error('Error reading db.json:', error);
-    return { users: [], tickets: [], airTickets: [], airTicketBookings: [], bookings: [] };
+    console.error("Error reading db.json:", error);
+    return {
+      users: [],
+      tickets: [],
+      airTickets: [],
+      airTicketBookings: [],
+      bookings: [],
+    };
   }
 }
 
@@ -17,24 +23,24 @@ function writeDb(db) {
   try {
     fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
   } catch (error) {
-    console.error('Error writing db.json:', error);
+    console.error("Error writing db.json:", error);
   }
 }
 
 function getResourceKey(resource) {
   const allowed = [
-    'users',
-    'tickets',
-    'airTickets',
-    'airTicketBookings',
-    'bookings',
+    "users",
+    "tickets",
+    "airTickets",
+    "airTicketBookings",
+    "bookings",
   ];
   return allowed.includes(resource) ? resource : null;
 }
 
 function filterItems(items, query) {
   return Object.entries(query).reduce((result, [key, value]) => {
-    if (value === undefined || value === '') return result;
+    if (value === undefined || value === "") return result;
     return result.filter((item) => {
       const field = item[key];
       if (Array.isArray(field)) {
@@ -54,11 +60,14 @@ function nextId(items) {
 
 module.exports = async (req, res) => {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS",
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
@@ -66,18 +75,18 @@ module.exports = async (req, res) => {
   const key = getResourceKey(resource);
 
   if (!key) {
-    return res.status(404).json({ error: 'Resource not found' });
+    return res.status(404).json({ error: "Resource not found" });
   }
 
   const db = readDb();
   const items = db[key] || [];
 
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     const filtered = filterItems(items, req.query);
     return res.status(200).json(filtered);
   }
 
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const payload = req.body || {};
     const created = { ...payload, id: nextId(items) };
     db[key] = [...items, created];
@@ -85,5 +94,5 @@ module.exports = async (req, res) => {
     return res.status(201).json(created);
   }
 
-  return res.status(405).json({ error: 'Method not allowed' });
+  return res.status(405).json({ error: "Method not allowed" });
 };

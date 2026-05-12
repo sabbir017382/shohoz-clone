@@ -1,15 +1,21 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const DB_PATH = path.join(process.cwd(), 'db.json');
+const DB_PATH = path.join(process.cwd(), "db.json");
 
 function readDb() {
   try {
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
     return JSON.parse(raw);
   } catch (error) {
-    console.error('Error reading db.json:', error);
-    return { users: [], tickets: [], airTickets: [], airTicketBookings: [], bookings: [] };
+    console.error("Error reading db.json:", error);
+    return {
+      users: [],
+      tickets: [],
+      airTickets: [],
+      airTicketBookings: [],
+      bookings: [],
+    };
   }
 }
 
@@ -17,28 +23,31 @@ function writeDb(db) {
   try {
     fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
   } catch (error) {
-    console.error('Error writing db.json:', error);
+    console.error("Error writing db.json:", error);
   }
 }
 
 function getResourceKey(resource) {
   const allowed = [
-    'users',
-    'tickets',
-    'airTickets',
-    'airTicketBookings',
-    'bookings',
+    "users",
+    "tickets",
+    "airTickets",
+    "airTicketBookings",
+    "bookings",
   ];
   return allowed.includes(resource) ? resource : null;
 }
 
 module.exports = async (req, res) => {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS",
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
@@ -47,7 +56,7 @@ module.exports = async (req, res) => {
   const key = getResourceKey(resource);
 
   if (!key) {
-    return res.status(404).json({ error: 'Resource not found' });
+    return res.status(404).json({ error: "Resource not found" });
   }
 
   const db = readDb();
@@ -55,14 +64,14 @@ module.exports = async (req, res) => {
   const index = items.findIndex((item) => Number(item.id) === id);
 
   if (index === -1) {
-    return res.status(404).json({ error: 'Item not found' });
+    return res.status(404).json({ error: "Item not found" });
   }
 
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     return res.status(200).json(items[index]);
   }
 
-  if (req.method === 'PUT' || req.method === 'PATCH') {
+  if (req.method === "PUT" || req.method === "PATCH") {
     const payload = req.body || {};
     const updated = { ...items[index], ...payload, id };
     items[index] = updated;
@@ -71,11 +80,11 @@ module.exports = async (req, res) => {
     return res.status(200).json(updated);
   }
 
-  if (req.method === 'DELETE') {
+  if (req.method === "DELETE") {
     db[key] = items.filter((item) => Number(item.id) !== id);
     writeDb(db);
-    return res.status(204).send('');
+    return res.status(204).send("");
   }
 
-  return res.status(405).json({ error: 'Method not allowed' });
+  return res.status(405).json({ error: "Method not allowed" });
 };
