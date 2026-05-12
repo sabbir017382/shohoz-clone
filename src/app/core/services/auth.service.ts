@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { tap, switchMap, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = environment.apiUrl + '/';
+  baseUrl = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) {}
 
