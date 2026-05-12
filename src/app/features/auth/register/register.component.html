@@ -89,30 +89,42 @@
             <!-- MOBILE -->
             <div class="form-group col-6">
               <label>Mobile Number <span class="req">*</span></label>
+
               <input
-                type="text"
+                type="tel"
                 class="form-control"
                 name="mobile"
                 [(ngModel)]="user.mobile"
                 #mobile="ngModel"
                 required
-                pattern="^[0-9]{10,11}$"
+                pattern="^[0-9]{11}$"
               />
-              <small class="text-danger" *ngIf="mobile.touched">
+
+              <small class="text-danger">
                 <div
                   *ngIf="
-                    mobile.errors?.['required'] || registrationForm.submitted
+                    (mobile.touched || registrationForm.submitted) &&
+                    mobile.errors?.['required']
                   "
                 >
                   Number is required
                 </div>
-                <div *ngIf="mobile.errors?.['pattern']">11 digits only</div>
+
+                <div
+                  *ngIf="
+                    (mobile.touched || registrationForm.submitted) &&
+                    mobile.errors?.['pattern']
+                  "
+                >
+                  11 digits only
+                </div>
               </small>
             </div>
 
             <!-- EMAIL -->
             <div class="form-group col-6">
               <label>Email <span class="req">*</span></label>
+
               <input
                 type="email"
                 class="form-control"
@@ -122,9 +134,25 @@
                 required
                 email
               />
-              <small class="text-danger" *ngIf="email.touched">
-                <div *ngIf="email.errors?.['required']">Email is required</div>
-                <div *ngIf="email.errors?.['email']">Invalid email</div>
+
+              <small class="text-danger">
+                <div
+                  *ngIf="
+                    (email.touched || registrationForm.submitted) &&
+                    email.errors?.['required']
+                  "
+                >
+                  Email is required
+                </div>
+
+                <div
+                  *ngIf="
+                    (email.touched || registrationForm.submitted) &&
+                    email.errors?.['email']
+                  "
+                >
+                  Invalid email
+                </div>
               </small>
             </div>
           </div>

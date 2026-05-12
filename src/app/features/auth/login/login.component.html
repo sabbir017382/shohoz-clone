@@ -44,24 +44,35 @@
             <!-- MOBILE -->
             <div class="form-group">
               <label>Mobile Number <span class="req">*</span></label>
+
               <input
-                type="text"
+                type="tel"
                 class="form-control"
                 name="mobile"
                 [(ngModel)]="user.mobile"
                 #mobile="ngModel"
                 required
-                pattern="^[0-9]{10,11}$"
+                pattern="^[0-9]{11}$"
               />
-              <small class="text-danger" *ngIf="mobile.touched">
+
+              <small class="text-danger">
                 <div
                   *ngIf="
-                    mobile.errors?.['required'] || registrationForm.submitted
+                    (mobile.touched || registrationForm.submitted) &&
+                    mobile.errors?.['required']
                   "
                 >
                   Number is required
                 </div>
-                <div *ngIf="mobile.errors?.['pattern']">11 digits only</div>
+
+                <div
+                  *ngIf="
+                    (mobile.touched || registrationForm.submitted) &&
+                    mobile.errors?.['pattern']
+                  "
+                >
+                  11 digits only
+                </div>
               </small>
             </div>
           </div>
