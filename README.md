@@ -4,6 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## admin details it's fixed for admin ,,,and other use can register and loign
 Live Demo url: https://shohoz-clone-l7cn-git-main-md-sabbir-hossain-s-projects.vercel.app/home
+
 admin number 01700000000
 admin password: admin123
 
